@@ -1,0 +1,17 @@
+/* template rightcol */
+#rightcol-left {
+	position: relative;
+	width: 680px;
+	text-align: left;
+	height: 100%;
+	float: left;
+	border-right: 1px solid #ccc;
+}
+#rightcol-right {
+	width: 220px;
+	padding-left: 20px;
+	text-align: left;
+	height: 100%;
+	float: left;
+}
+

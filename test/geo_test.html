@@ -1,0 +1,167 @@
+<!doctype HTML>
+<html>
+<head>
+<script type="text/javascript" src="../js/geo.js"></script>
+<script type="text/javascript" src="../js/utm.js"></script>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/keydragzoom/src/keydragzoom.js?"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+Geo.Habitater.init('../json/habitater_27062013.json');
+var map1, map2, polygonMap, utmMap;
+</script>
+
+<style type="text/css">
+.test {
+	width: 400px;
+	height: 500px;
+	float: left;
+	clear: none;
+	display: block;
+	background-color: #ebebeb;
+	margin: 5px;
+}
+.content {
+	width: 400px;
+	height: 400px;
+}
+h3 {
+	font-family: 'courier', 'courier new';
+	margin: 0px;
+	font-weight: normal;
+	font-size: 14px;
+	padding: 3px;
+	border-bottom: 1px solid #dadada;
+}
+.desc {
+}
+</style>
+</head>
+<body>
+
+<div class="test">
+<h3>Geo.googleMap('map1')</h3>
+<div class="content" id="map1"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var map1=Geo.googleMap('map1');
+});
+</script>
+</div>
+
+<div class="test">
+<h3>Geo.googleMap('map2', 50, 20)</h3>
+<div class="content" id="map2"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+	Geo.googleMap('map2', 50, 20);
+});
+</script>
+</div>
+
+<div class="test">
+<h3>Geo.googleMap('map3', 50, 20, 3)</h3>
+<div class="content" id="map3"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+	Geo.googleMap('map3', 50, 20, 3);
+});
+</script>
+</div>
+
+<div class="test">
+<h3>utmMap=Geo.googleMap('utmMap')</h3>
+<h3>Geo.showUTM10Grid(utmMap)</h3>
+<div class="content" id="utmMap"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var utmMap=Geo.googleMap('utmMap');
+	Geo.showUTM10Grid(utmMap);
+});
+</script>
+</div>
+
+<div class="test">
+<h3>Geo.googleMap('mapKommune')</h3>
+<h3>Geo.getKommuneGraense('0101', 'mapKommune')</h3>
+<div class="content" id="mapKommune"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var mapKommune=Geo.googleMap('mapKommune');
+	Geo.getKommuneGraense('0101', mapKommune);
+});
+</script>
+</div>
+
+<div class="test">
+<h3>polygonMap=Geo.googleMap('polygonMap')</h3>
+<h3>Geo.showPolygon(polygon, polygonMap)</h3>
+<div class="content" id="polygonMap"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+	polygonMap=Geo.googleMap('polygonMap');
+	var polygon=[];
+	polygon.push('50,10');
+	polygon.push('50,12');
+	polygon.push('49,12');
+	polygon.push('50,10');
+	Geo.showPolygon(polygon, polygonMap);
+});
+</script>
+</div>
+
+<div class="test">
+<h3>Geo.Habitater.init('../json/habitater_27062013.json')</h3>
+<h3>Geo.Habitater.populate('#select2')</h3>
+<pre>
+$("#select2").click(function() {
+	var name=$(this).val();
+	Geo.Habitater.showHabitat(name, map1)</h3>
+});
+</pre>
+<div class="content">
+  <select size="20" id="select2" style="width:400px;">
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	//init() invoked in <head> above
+	//Geo.Habitater.init('../json/habitater_27062013.json')
+	setTimeout(function() {
+		Geo.Habitater.populate('#select2');
+	}, 500);
+	$("#select2").click(function() {
+		var name=$(this).val();
+		//alert(name);
+		console.log(polygonMap);
+		Geo.Habitater.showHabitat(name, polygonMap);
+	});
+});
+</script>
+</div>
+
+
+<div class="test">
+<h3>Geo.populateKommuner('#select1')</h3>
+<div class="content">
+  <select size="20" id="select1">
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	Geo.populateKommuner('#select1');
+});
+</script>
+</div>
+
+
+<!--
+-->
+
+</body>
+</html>
+	

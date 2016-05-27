@@ -1,0 +1,17 @@
+{
+    "sProcessing":   "Henter...",
+    "sLengthMenu":   "Vis _MENU_ fund",
+    "sZeroRecords":  "Ingen fund matcher s&oslash;gningen",
+    "sInfo":         "Viser _START_ til _END_ af _TOTAL_ fund",
+    "sInfoEmpty":    "Viser 0 til 0 af 0 fund",
+    "sInfoFiltered": "(filtreret fra _MAX_ fund)",
+    "sInfoPostFix":  "",
+    "sSearch":       "S&oslash;g:",
+    "sUrl":          "",
+    "oPaginate": {
+        "sFirst":    "F&oslash;rste",
+        "sPrevious": "Forrige",
+        "sNext":     "N&aelig;ste",
+        "sLast":     "Sidste"
+    }
+}

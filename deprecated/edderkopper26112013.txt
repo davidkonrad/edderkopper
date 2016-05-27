@@ -1,0 +1,17 @@
+
+Betragt http://daim.snm.ku.dk/soeg-i-danmarks-edderkopper
+
+- polygonsøgning
+- kommunesøgning
+- region søgning
+- opslag/autocomplete på familie / slægt /art 
+- checkliste ok, også download som PDF (selvom den tager tid, skal se om det ikke kan optimeres)
+- fund detaljer via tabel (klik på det lille {i}ikon til venstre)
+- fund detaljer viser stort kort ved klik, lille kort ved dobbeltklik
+- artsbeskrivelser via tabel (klik på edderkoppe-ikonet til venstre)
+- fund detaljer på artsbeskrivelse
+
+
+- 
+
+

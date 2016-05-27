@@ -1,0 +1,72 @@
+#fund-popup {
+	border:1px solid #ebebeb;
+	padding-top:12px;
+	padding-left: 20px;
+	margin-left: 4px;
+	margin-top: 4px;
+	background-color:white;
+	display:none;
+}
+
+#fieldset-fund-details {
+	width: 300px;
+	height: 300px;
+	float: left;
+	padding: 8px;
+	top: 0px;
+	clear: none;
+	position: relative;
+}
+#fund-details {
+	height:280px;
+	max-height:280px;
+	overflow-y:auto;
+	font-size: 12px;
+}
+
+#fieldset-fund-map {
+	width: 290px;
+	height: 300px;
+	margin-left: 7px;
+	padding: 8px;
+	top: 0px;
+	position: relative;
+	/*left: 15px;*/
+	float: left;
+	clear: none;
+}
+#utm-map {
+	width:280px;
+	height:280px;
+	padding:3px;
+	margin-left: 2px;
+}
+
+.popup-close {
+	color: gray;
+	cursor: pointer;
+	float:right;
+	clear:none;
+	font-size:24px;
+	position:relative;
+	top:-8px;
+	margin-right: 6px;
+}
+
+#map-popup {
+	border: 1px solid silver;
+	height: 700px;
+	width: 800px;
+	padding-top: 12px;
+	margin-top: 4px;
+	padding: 0px;
+	background-color:white;
+	display:none;
+}
+	
+.one-edge-shadow {
+	-webkit-box-shadow: 6px 8px 6px -6px black;
+	-moz-box-shadow: 6px 8px 6px -6px black;
+	box-shadow: 6px 8px 6px -6px black;
+}
+

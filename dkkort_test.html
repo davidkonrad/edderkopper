@@ -1,0 +1,49 @@
+<!doctype html>
+<head>
+<script type="text/javascript" src="raphael/raphael.js"></script>
+<script type="text/javascript" src="raphael/g.raphael.js"></script>
+<script type="text/javascript" src="raphael/g.bar.js"></script>
+<script type="text/javascript" src="raphael/g.dot-min.js"></script>
+<script type="text/javascript" src="raphael/g.line-min.js"></script>
+<script type="text/javascript" src="raphael/g.pie-min.js"></script>
+<script type="text/javascript" src="js/dkkort.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+</head>
+<body>
+
+<br><br><br><br><br>
+<button>qwwqqweqweqweqwe</button>
+<table style="position:relative;left:400px;">
+<tr>
+<td id="test" style="XXXoverflow:hidden;"></td><td>qwerty</td>
+</tr>
+</table>
+
+<script>
+function getObject(region, color) {
+	var o=new Object();
+	o.region=region;
+	o.color=color;
+	return o;
+}
+
+var map = [];
+map.push(getObject('SJ', '#212121'));
+map.push(getObject('EJ', '#ff0000'));
+map.push(getObject('WJ', '#212121'));
+map.push(getObject('NWJ', '#332121'));
+map.push(getObject('NEJ', '#212121'));
+map.push(getObject('F', '#212121'));
+map.push(getObject('LFM', '#212121'));
+map.push(getObject('SZ', '#212121'));
+map.push(getObject('NWZ', '#662121'));
+map.push(getObject('NEZ', '#212121'));
+map.push(getObject('B', '#212121'));
+
+drawMap('test', 1.0, map);
+</script>
+
+</body>
+</html>
+

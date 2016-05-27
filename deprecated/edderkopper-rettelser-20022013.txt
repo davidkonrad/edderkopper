@@ -1,0 +1,20 @@
+
+* valg af region viser nu det zootopografiske område (markeres på samme måde som en kommune)
+
+* på søgeresultater->kort zoomes der nu automatisk ind på området, kommunen / polygonen, 
+hvis man har lavet en sådan søgning (så man slipper for at skulle zoome ind manuelt alligevel)
+
+* på artssiden vises billederne nu samme sted, uafhængig af om man har scrollet i vinduet
+
+* på artssiden er fundene nu klikbare, genbruger fund-popup'en
+
+* tjekker nu forsøgsvis tekst for duplikater, engelsk, navn
+
+* tjekker om billedreferencen findes
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+
+#result-table td {
+	vertical-align: top;
+}
+.visuallyhidden { 
+	position: absolute; 
+	overflow: hidden; 
+	clip: rect(0 0 0 0); 
+	height: 1px; width: 1px; 
+	margin: -1px; padding: 0; border: 0; 
+}
+#result-table td a {
+	text-decoration: none;
+	color: black;
+}
+#result-table td a:hover {
+	text-decoration: underline;
+}
+
+table.details td.caption {
+	vertical-align: top;
+	font-weight: bold;
+	white-space: nowrap;
+	min-width:120px;
+}
+table.details td.info {
+	vertical-align: top;
+	width: 200px;
+	word-break: normal; /*break-all;*/
+}
+
+table.farvekoder td {
+	vertical-align: top;
+	font-size: 12px;
+	margin-bottom: 4px;
+}
+
+fieldset.mapview {
+	float: left;
+	padding: 2px;
+	width: 190px;
+	margin-left: 10px;
+	clear: none;
+}
+
+.utm-label {
+	text-align: right;
+	float: right;
+}
+
+span.date-space {
+	float:left;
+	clear:none;
+	margin-left:10px;
+	margin-right:10px;
+	padding-top:5px;
+}
+
+/* primaraly for #lang */
+a img {
+	outline: none;
+	border: none;
+	vertical-align: bottom;
+}
+
+

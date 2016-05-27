@@ -1,0 +1,6 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^(bioblitz|allearter|demo|pictureupload)($|/) - [L]
+
+RewriteRule ^([a-zA-Z0-9\-\_]+)?$ index.php?url=$1/ [PT]

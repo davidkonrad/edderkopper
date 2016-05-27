@@ -1,0 +1,2427 @@
+/*============================================================================*/
+/* PUBLIC STYLES */
+/*============================================================================*/
+/*
+Revised October 2011 by Frank Thomsen @ Magenta ApS
+----------
+This file contains styles for displaying the KU website in standards-compliant
+browsers on desktop-sized screens.
+
+ANY style changes changes, you make to the KU website, shoule be added/edited here.
+
+If you want to add styles that are specific to the Internet Explorer browser,
+please refer to the IE-specific stylesheets in /ie/ieX.css
+(where "X" is the version of IE, you'll want to make a fix for).
+
+The file has been compiled from a lot of single stylesheets so coding syntax and style may vary.
+Currently, the standard CSS files that are in actual use are:
+
+/css/style.css - The very base of all styling on www.ku.dk. These styles used to be in different files that are now included like "chapters" in this file.
+/css/farver/*.css and /css/units/*.css - Individual colour and layout styles for different branches of KU.
+/css/print.css - The css for print versions of pages.
+/css/ie/*.css - Layout hacks for all major versions of Internet Explorer (including print styles for IE).
+/css/admin.css - Layout for the OBVIUS admin interface elements.
+
+*/
+
+
+/*******************************************************************************
+  ALL-TEXT STYLES
+*******************************************************************************/
+
+/* -------------------------------------------------------------- General --- */
+body, th, td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+html { overflow: -moz-scrollbars-vertical; overflow-x: auto; } /*sikrer vertikal scrollbar pÃ¥ alle sider som kompensation for body { margin: 0 auto }*/
+
+/* ---------------------------------------------------- General: Headings --- */
+h1 { font-size: 1em; }
+/* ------------ .pubList-h1pre { font-size: 0.7em; font-weight: normal; } --- */
+
+/* ------------------------------------------------------- General: Links --- */
+a:link, a:visited { text-decoration: none; }
+a:hover, a:active { text-decoration: underline; }
+
+
+/* ----------------------------------------------------------- Navigation --- */
+div#nav-global { font-size: 10px; }
+div#nav-global a { text-decoration: none; }
+
+/* ----------------------------------------------------------- Search box --- */
+div#search #submit-button {
+	font-size: 11px;
+	font-weight: bold;
+}
+
+div#search input#entry1 {
+	font-size: 10px;
+}
+
+/* ---------------------------------------------------------- Crumb trail --- */
+div#wrapper-crumb-trail p {
+	margin: 0;
+	font-size: .8em !important;
+}
+
+/* -------------------------------------------------------------- Content --- */
+#content h1 {
+	margin: 0 0 22px 0;
+	font-size: 1.4em;
+}
+#content h1.pubTitle {
+	font-size: 1.2em;
+	margin: 0 0 3px 0;
+	padding-bottom: 9px;
+	border-bottom: 1px solid #c0c0c0;
+}
+div#col-left h1, div#col-mid h1 { font-size: .9em; }
+#content h2 { font-size: 1em; }
+#content h2 .date { font-weight: normal; }
+#content p { font-size: 1em; }
+#content li {line-height: 1.5em}
+/**********RETTELSE 31/3 APSC TIL FORSKERPROFILER**********/
+th[scope=row] {
+padding-bottom: 5px;
+vertical-align: top;
+width: 89px;
+}
+/* ----------------------------------------------------- Content: Subpage --- */
+#content p.intro {
+	font-weight: bold;
+	margin-bottom: 15px;
+	line-height: 1.4;
+}
+#content.subpage p, 
+#content.frontpage p {
+	margin: 0 0 20px 0;
+	line-height: 1.5;
+}
+
+#content h2 {
+	font-size: 1.1em;
+	margin: 25px 0 4px 0;
+}
+
+#content h3 {
+	font-size: 1em;
+	margin: 25px 0 5px 0;
+}
+
+/* ------------------------------------------------------- Content: Dates --- */
+#content p.date,
+#content p.last-updated,
+#content p.nyhedsdato {
+	margin: 0 0 6px 0;
+	font-size: .9em;
+}
+#content p.last-updated { margin-top: 25px !important; }
+
+/* ------------------------------------------ Content: Image with caption --- */
+#content .img-with-caption p { font-size: 0.8em; }
+#content .img-with-caption-left p { font-size: 0.8em; }
+/* ------------------------------------------------------ Content: Quotes --- */
+#content blockquote {
+	font-weight: bold;
+	line-height: 1.5;
+}
+
+#content blockquote p {
+	margin: 0 !important;
+}
+
+#content blockquote .quote-begin {
+	font-size: 2.2em;
+	font-style: italic;
+	line-height: .5;
+	display: block;
+	margin: 10px 0 0 0;
+	padding: 0;
+}
+
+#content blockquote .quote-end {
+	display: none;
+}
+
+#content blockquote cite {
+	font-size: 0.9em;
+	font-weight: normal;
+	font-style: normal;
+	text-align: right;
+	display: block;
+	margin: 0;
+}
+
+/* ---------------------------------------------- Content: Subpage jumper --- */
+div#page-jumper p { margin: 0; }
+div#page-jumper p .current, div#page-jumper p .nop { font-weight: bold; }
+
+/* --------------------------------------------------------- Tables: Form --- */
+table#formTable input.btn {
+	font-weight: normal;
+	font-size: .9em;
+}
+
+/* ------------------------------------------------------ Site navigation --- */
+div#nav-sub ul li { font-size: 1em;
+background-repeat: no-repeat;/*--------positioning for new nav level 1 bullet------------*/
+margin:0 0 3px;/*--------positioning for new nav level 1 bullet------------*/
+padding:0 0 3px 13px;/*--------positioning for new nav level 1 bullet------------*/
+background-position: 0 0.2em;
+}
+div#nav-sub ul ul li { font-size: .9em; }
+div#nav-sub ul ul ul li { font-size: 1em; }
+
+
+/* -------------------------------------------------------------- Sidebar --- */
+div#sidebar h1 { font-size: .9em; }
+div#sidebar h2 { font-size: 1em; }
+div#sidebar h3 { font-size: .9em; }
+
+/* ------------------------------------------------------- Subsite jumper --- */
+div#sidebar #subsite-jumper h1, div#sidebar h1.navHeading {
+	font-size: 9px;
+	font-weight: normal;
+}
+/*-------------------------- col-left, col-mid li lineheight----------------- */
+div#col-left li { line-height: 1em; }
+div#col-mid li { line-height: 1em; }
+
+/* -------------------------------------------------------- Boxes: Events --- */
+div#events li.event-date { font-style: italic; }
+
+div#col-left li.event-teaser p, div#col-mid li.event-teaser p, div#sidebar li.event-teaser p {
+    display: inline;
+    line-height: 1.3em;
+}
+
+/* --------------------------------------------------------------- Footer --- */
+div#footer, .copyright {
+	font-size: 10px;
+	line-height: 1.45em;
+}
+
+div#footer-col-right {
+	text-align: right;
+}
+
+div#footer address { font-style: normal; }
+
+/* --------------------------------------------------------------- Tables: First row --- */
+.first-row {}
+
+/* --------------------------------------------------------------- Tables: Last row --- */
+.last-row {}
+
+
+/*******************************************************************************
+common.css
+*******************************************************************************/
+
+/* -------------------------------------------------------------- General --- */
+img { border: none; }
+
+.clear { clear: both; }
+
+/* ------------------------------------------------------- General: Lists --- */
+/* Standard unordered lists */
+ul {}
+ul li {}
+ul ul li {} /* If you need more levels */
+
+/* For lists with no bullets and no indentation. */
+ul.stripped {
+	list-style-type: none;
+	list-style-position: outside;
+	margin: 0 0 20px 0;
+	padding: 0;
+}
+
+ul.stripped li { 
+   margin-bottom: 3px;
+   margin-left: 0 !important;
+   list-style-type: none !important;
+/*	 line-height: 1em!important; */ removed 2008-01-08
+}
+#overview.lists a {
+color: #4a4949;
+}
+.lists a:hover {
+text-decoration: none;
+}
+/* ------------------------------------------------------- General: Boxes --- */
+div#subsite-jumper,
+div#news,
+div#events,
+div#banners,
+div#short-cuts,
+div#sidebar div { 
+  margin-bottom: 20px;
+	clear: both; 
+}
+
+div#sidebar div.one {
+  margin-bottom: 0;
+}
+.rightBox {overflow: hidden;}
+#content #col-left p, #content #col-mid p, #sidebar p {
+    line-height: 1.2em;
+    margin: 0 0 20px;
+}
+/* ----------------------------------------------------------- Navigation --- */
+div#nav-global li {
+	float: left;
+	line-height: 1em;
+	margin: 7px .5em 5px -.5em;
+	padding: 0 .5em 1px .5em;
+}
+
+/* ----------------------------------------------------------- Search box --- */
+div#search form {
+	margin: 0 16px 0 0;
+	padding: 0;
+	border: none;
+}
+
+/* Bl.a. Opera 6 og IE6 og derunder lÃƒÂ¦ser ikke denne regel. */
+head:first-child+body div#search form { margin: 0 13px 0 0; }
+
+div#search form p {
+	margin: 0;
+	padding: 0;
+}
+
+div#search input#entry1 {
+	margin: 1px 0 2px 0;
+	padding: 0;
+	height: 16px;
+	width: 90px;
+}
+
+/* Bl.a. Opera 6 og IE6 og derunder lÃƒÂ¦ser ikke denne regel. */
+head:first-child+body div#search #entry1 { margin: 2px 0 3px 0; }
+
+div#search #submit-button {
+	border: none;
+	height: 16px;
+	padding: 0;
+	margin: 0 0 3px 0;
+	text-align: right;
+}
+
+/* ---------------------------------------------------------- Crumb trail --- */
+div#wrapper-crumb-trail {
+	margin: 33px 0 30px 0;
+	padding: 0;
+}
+
+/* ---------------------------------------------------------------- Icons --- */
+div#wrapper-icons {
+	margin: 0 0 12px 12px;
+	float: right;
+}
+div#wrapper-icons img { margin-left: 12px; }
+
+img.icon { vertical-align: text-bottom; }
+
+/* -------------------------------------------------------------- Content --- */
+#content { padding-bottom: 32px; }
+
+div#col-left h1, div#col-mid h1 {
+	margin: 20px 0 10px 0;
+	padding: 3px 9px 2px;
+	height: 13px;
+}
+#content p { margin-bottom: 0; }
+
+/* ------------------------------------------ Content: Image with caption --- */
+#content .img-with-caption {
+	float: right;
+	margin: 0 0 0 20px;
+}
+#content .img-with-caption-left {	
+	float: left;
+	margin: 0 20px 0 0;
+	
+}
+
+/* ------------------------------------------------------ Content: Quotes --- */
+#content .wrapper-quotation { margin: 35px 0 20px 0; }
+
+#content blockquote {
+	padding: 0;
+	width: 224px;
+}
+
+#content blockquote.left {
+	margin: 0 20px 10px 0;
+	float: left;
+}
+
+#content blockquote.right {
+	margin: 0 0 10px 20px;
+	float: right;
+}
+
+/* ----------------------------------------- Content: Banners (3 columns) --- */
+div#banners-3col { clear: both; }
+div#banners-3col img { margin: 0 12px 0 0; }
+
+/* ---------------------------------------------- Content: Subpage jumper --- */
+div#page-jumper { margin-top: 20px; }
+
+/* ---------------------------------------------------- Content: Overview --- */
+#content ul#overview { margin-top: 15px; }
+#content ul#overview li {
+	margin-bottom: 8px;
+	overflow: hidden;
+}
+#content ul#overview.images li { padding: 5px 240px 0 0; }
+#content ul#overview.no-images li { padding: 5px 0 0 0; }
+#content ul#overview li h2 { margin: 0; }
+#content ul#overview li p { margin: 0; }
+
+/* --------------------------------------------------------- Tables: List --- */
+table.list {
+	clear: right;
+	width: 100%;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+table.list th,
+table.list td {
+	margin: 0;
+	padding: 4px 4px 4px 0;
+}
+
+table.list tr th {
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+table.list tr td.first-row { padding-top: 20px; }
+
+table.list tr td.last-row { 
+	border-bottom: 2px solid #d7d7d7;
+	padding-bottom: 2px; 
+}
+.aktiviteter a {
+	margin-right: 18px;
+}
+.aktiviteter strong {
+	margin-right: 18px;
+}
+.aktiviteter a, .publikationer a {
+       margin-right: 18px;
+}
+.aktiviteter strong, .publikationer strong {
+       margin-right: 18px;
+}
+
+/* ------------------------------------------------ Tables: Column widths --- */
+.pct_10 { width: 10%; }
+.pct_15 { width: 15%; }
+.pct_20 { width: 20%; }
+.pct_25 { width: 25%; }
+.pct_30 { width: 30%; }
+.pct_35 { width: 35%; }
+.pct_40 { width: 40%; }
+.pct_45 { width: 45%; }
+
+/* ------------------------------------------------- Tables: Styling til .standard_table --- */
+#content .standard_table {
+width: 505px;
+border-collapse: collapse;
+border-color: #D7D7D7;
+border-style: solid;
+border-width: 0 0 1px 1px;
+line-height: 1.5;
+margin: 0;
+padding: 0;
+}
+
+#content .standard_table td {
+border-color: #D7D7D7;
+border-style: solid;
+border-width: 1px 1px 0 0;
+margin: 0;
+padding: 10px 8px 10px 12px;
+vertical-align:top;
+}
+/* -------------------------------------------------- Tables: Styling til .variable_table --- */
+#content .variable_table {
+line-height: 1.5em;
+padding: 0;
+margin: 0;
+}
+
+#content .variable_table td {
+padding: 0 10px 8px 0;
+vertical-align: top;
+}
+/* -------------------------------------------------- Tables: ul og p --- */
+#content .standard_table ul, #content .variable_table ul {
+margin: 0;
+padding: 0 0 0 15px;
+}
+
+#content .standard_table ul li, #content .variable_table ul li {
+padding: 0 0 5px 0;
+line-height: 1.3em;
+}
+
+#content .standard_table p, #content .variable_table p {
+margin: 0;
+}
+/* -------------------------------------------------------------------------- */
+
+
+
+/* --------------------------------------------------------- Tables: Form --- */
+table#formTable {
+	margin: 73px 0 0 0;
+	width: 380px;
+}
+
+table#formTable .firstCol {
+	width: 192px;
+	text-align: left;
+}
+table#formTable .secondCol {
+	width: 188px;
+	text-align: left;
+}
+
+table#formTable .secondCol.right {
+	text-align: right;
+}
+
+table#formTable .secondCol.lastRow {
+	padding: 27px 30px 0 0;
+}
+
+table#formTable td {
+	padding: 0 0 5px 0;
+	height: 21px;
+}
+
+table#formTable input.text {
+	width: 141px;
+}
+
+table#formTable input.radioBtn,
+table#formTable input.checkbox {
+	margin: 0 0 0 0px;
+	padding: 0;
+}
+
+select.selectbox {
+	width: 145px;
+}
+
+head:first-child+body select.selectbox {
+	width: 143px;
+}
+
+table#formTable input.btn {
+	height: 17px;
+	padding: 1px 8px 1px 7px;
+	border: 0;
+	cursor: pointer;
+}
+
+table#formTable input.btn.btnSearch {
+	width: 38px;
+}
+
+table#formTable input.btn.btnAbonner {
+	width: 58px;
+}
+
+/* ------------------------------------------------------ Site navigation --- */
+div#nav-sub ul {
+	margin: 0 0 2em 0;
+	padding: 2em 0 0 0;
+	list-style: none;
+}
+
+div#nav-sub ul ul {
+	margin: 3px 0 0 10px;
+	padding: 0;
+}
+
+div#nav-sub ul ul li {
+	margin: 0 0 3px 0; /* Same as inherit so remove? */
+	padding: 0 0 0 8px;
+}
+
+/* -------------------------------------------------------------- Sidebar --- */
+/*nedenstaaende div#sidebar h1 udkommenteret 31 maj 2010 af apsc for at sammenlaegge med div#sidebar h1 laengere nede omkring linie 913*/
+div#sidebar h1 {
+	margin: 0 0 10px 0;
+	/*padding: 3px 9px 2px;*/
+	/*height: 13px;*/
+}
+
+div#sidebar h2 { /* Evt. --> News, events etc. */
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+
+div#sidebar h3 { /* Evt. --> News, events etc. */
+	margin: 0;
+	padding: 0px 0px 0px;
+	
+}
+/**
+.rightbox-normal p {
+	line-height: 14px;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	padding-top: 3px;
+}*/
+
+/*.rightbox-normal img {
+margin-top: -9px;
+}
+.rightbox-normal p img {
+	margin-top: -12px;
+	padding-top: 0;
+}*/
+/* ------------------------------------------------------- Subsite jumper --- */
+div#subsite-jumper h1, div#sidebar h1.navHeading {
+	margin: 0 0 5px 0;
+	padding: 0;
+}
+
+/* ---------------------------------------------------------- Boxes: News --- */
+div#news h1 { margin-bottom: 100px; }/* (img height) + margin-bottom */
+div#news ul { display: inline; }
+div#news ul li { display: inline; }
+div#news li.news-date { margin: 0 0 0 .3em; }
+
+div#news li.news-teaser {
+	display: block;
+	margin: 0 0 1em 0;
+}
+/*Rettelser til linjeafstand 6/3-2012*/
+/*.frontpage div#col-left p.news-teaser, .frontpage div#col-mid p.news-teaser {
+	line-height: 1.2em;
+	margin: 1em 0;
+}*/
+
+
+/* -------------------------------------------------------- Boxes: Events --- */
+div#events li.event-teaser { margin: 0 0 1em 0; }
+
+/* -------------------------------------------------------- Boxes: Banner --- */
+div.banner { margin-bottom: 10px !important; }
+
+/* --------------------------------------------------------------- Footer --- */
+div#footer-col-left {
+	float: left;
+	width: 270px;
+	padding-bottom: 6px;
+}
+
+div#footer-col-right {
+	padding-bottom: 6px;
+	padding-right: 272px;
+	clear: right;
+}
+
+/* ----------------------------------------------------------- Hide these --- */
+#branding,
+#skip-to,
+#nav-wrapper h1,
+#nav-sub h1,
+#sidebar h1.hide,
+#footer h1 {display: none;}
+
+
+div#front {
+width: 500px;
+}
+div#banners-3col{
+	width: 510px;
+	padding: 20px 0 20px 0;
+	margin: 0;
+	position:relative;
+}
+
+img.banner {
+	margin: 0px;
+}
+
+
+/* ------------------------------------------- Col-feft, col-mid: Headers --- */
+
+div#col-right div.forsideBox h1, div#col-mid div.forsideBox h1, div#col-left div.forsideBox h1 {
+ font-size: 1.1em;
+ margin-top: 25px;
+ margin-right: 0pt;
+ margin-bottom: 4px;
+ margin-left: 0pt;
+ color: #4a4949;
+ background-color: transparent;
+}
+
+div#col-mid h2, div#col-left h2, div#col-mid h2 a, div#col-left h2 a {
+ 	font-size: 1em;
+ 	margin: 0;
+	display: inline;
+}
+
+
+/*div.banner {display:inline; }*/
+div.banner-1 {
+position:absolute; 
+left: 0px;
+}
+div.banner-2 {
+position:absolute; 
+left: 172px;
+}
+div.banner-3 {
+position:absolute; 
+left: 344px;
+}
+div#front {float:left; margin-bottom:50px;}
+
+
+div.banner a { 
+display:block;
+float:left;
+width:160px;
+/*border:blue solid 1px;*/
+}
+
+#content {
+position: static;
+}
+
+
+/*******************************************************************************
+all-units.css
+*******************************************************************************/
+
+/* ------------------------------------------------------- General: Links --- */
+a:link, a:visited, a:hover, a:active {
+	color: #005A88;
+	background-color: transparent;
+}
+
+/* ------------------------------------------------------ Main containers --- */
+div#wrapper {
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-top: none;
+}
+
+/* ------------------------------------------------------------- Branding --- */
+#branding-global img,
+#branding-unit img,
+#branding-logo img { border: none; }
+
+#branding-decoration {
+	background-position: right;
+	background-repeat: no-repeat;
+	background-color: #fff;
+	color: #000;
+}
+
+/* ----------------------------------------------------------- Navigation --- */
+#nav-wrapper {
+	color: #000;
+	background-color: #666;
+}
+
+#nav-global {
+	color: #fff;
+	background-color: #666;
+}
+
+#nav-global a {
+	color: #fff;
+	background-color: #666;
+}
+
+#nav-global ul {
+	color: #fff;
+	background-color: #666;
+}
+
+#nav-global li {
+	border-left: 1px solid #fff;
+}
+
+/* ----------------------------------------------------------- Search box --- */
+#search #entry1 {
+	color: #000;
+	background-color: #f2f2f2;
+	border: 1px solid #bdbcbc;
+}
+
+/* Bl.a. Opera 6 og IE6 og derunder lÃƒÂ¦ser ikke denne regel. */
+head:first-child+body #search #entry1 {
+	color: #000;
+	background-color: #f2f2f2;
+}
+
+#search #submit-button {
+	color: #fff;
+	background-color: #666;
+}
+
+/* ---------------------------------------------------------- Crumb trail --- */
+div#wrapper-crumb-trail p {
+	color: #a9adb2;
+	background-color: #fff;
+}
+
+/* -------------------------------------------------------------- Content --- */
+div#content-wrapper {
+	color: #000;
+	background-color: #fff;
+}
+
+#content {
+	color: #4A4949;
+	background-color: #fff;
+}
+
+/* ---------------------------------------------------- Content: Headings --- */
+#content h1 {
+	color: #4A4949;
+	background-color: #fff;
+}
+
+div#col-left h1, div#col-mid h1 {
+	/*color: #fff;*//*FJERNET 14/3 NYE BOKSTOPPE*/
+	color: #5e5e5e;/*AKTIVERET 14/3 NYE BOKSTOPPE*/
+	/*background-color: #bbb;*//*FJERNET 14/3 NYE BOKSTOPPE*/
+	background-color: #f2f2f2;/*AKTIVERET 14/3 NYE BOKSTOPPE*/
+	/*background-image: url(/grafik/images/sidebar/h_bg.gif);*//*FJERNET 14/3 NYE BOKSTOPPE*/
+	background-image: url(/grafik/images/sidebar/h_bg_ny.jpg);/*AKTIVER NAAR BOKSTOPPE ER KLAR*/
+	/*AKTIVERET 14/3 NYE BOKSTOPPE START*/
+	background-repeat: repeat-x;
+	border-bottom: 1px solid #d5d5d5;
+	font-size: 11px;
+	line-height: 135%;
+	padding: 6px 2px 6px 6px;
+	/*AKTIVERET 14/3 NYE BOKSTOPPE SLUT*/
+}
+
+#content h2,
+#content h2 a {
+	color: #4A4949;
+	background-color: transparent;
+	line-height: 1.3em;
+}
+
+div#col-left h2, div#col-mid h2, div#col-left h2 a, div#col-mid h2 a {
+	color: #6E6E6E;
+}
+
+
+/* ------------------------------------------------------- Content: Dates --- */
+#content p.date,
+#content p.last-updated {
+	color: #a9adb2;
+	background-color: #fff;
+}
+
+/* ---------------------------------------------------- Content: Overview --- */
+#content ul#overview li {
+	color: #4A4949;
+	background-color: #eee;
+}
+
+#content ul#overview li:hover, #content ul#overview li.hover {
+	background-color: #DEDEDE;
+}
+
+#content ul#overview.images li {
+	background-position: top right;
+	background-repeat: no-repeat;
+}
+
+#content ul#overview.no-images li { background-image: none !important; 
+	padding-bottom: 30px;
+}
+
+#content ul#overview li h2 { background-color: transparent; }
+
+#content ul#overview li h2 a:link,
+#content ul#overview li h2 a:visited,
+#content ul#overview li h2 a:hover,
+#content ul#overview li h2 a:active {
+	text-decoration: none;
+}
+
+.overview-fixheight {
+	height: 82px;
+}
+
+/* --------------------------------------------- Content: KU-dokumenttyper --- */
+
+#content ul#overview li h2 { background-color: transparent; }
+
+#content ul#overview li h2 a:link,
+#content ul#overview li h2 a:visited,
+#content ul#overview li h2 a:hover,
+#content ul#overview li h2 a:active {
+	text-decoration: none;
+}
+
+.publist-h1pre {
+	font-size: 0.7em;
+	font-weight: normal;
+}
+
+#content ul#overview.no-background li {
+  background-color: #fff;
+  margin-bottom: 2px;
+  padding: 0;
+  margin-top: 0px;
+}
+
+#content ul#overview.pubList-text li h2,
+#content ul#overview.pubList-text li p,
+#content ul#overview.courseList-text li h2,
+#content ul#overview.courseList-text li p {
+  padding-right: 55px;
+} 
+
+#content ul#overview.activityList-text li {
+clear: both;
+
+}
+
+#content ul#overview.activityList-text li h2,
+#content ul#overview.activityList-text li p {
+  padding-right: 100px;
+}
+
+.pubDetail tbody tr td, #pubDetail tbody tr th {
+	padding-bottom: 5px;
+}
+
+.pubDetail tbody tr th {
+	/*padding-right: 5px;*/ /***UDKOMMENTERET IFB OPDATERING AF FORSKERPROFIL 7/12 APSC**/
+}
+
+.pubDetail tbody th {
+font-weight: bold;
+}
+
+.pubDetail tbody tr th {
+  width: 20%;
+  vertical-align: top;
+}
+
+.cv-h1pre {
+font-size: 0.7em;
+font-weight: normal;
+line-height: 1em;
+margin-bottom: 0;
+}
+
+div#cvfelt h1 {
+margin-bottom: 0;
+}
+
+#content ul#overview li.activityList-text:hover {
+cursor: default;
+}
+
+#content ul#overview.activityList-text li h2,
+#content ul#overview.activityList-text li p {
+padding-right: 80px;
+}
+/*FORSKERPROFIL AKTIVITETER START*/
+
+ul.accordion {
+margin: 0;
+padding: 0;
+}
+ul.accordion ul {
+margin: 0;
+padding: 0 0 0 20px;
+}
+ul.accordion ul li {
+margin: 3px 0 5px 0;
+}
+#content ul.accordion ul li p {
+margin: 0;
+padding: 0 0 3px 0;
+border-bottom: 1px solid #d7d7d7;
+}
+#content ul.accordion h3 {
+margin: 0 0 5px 0;
+padding: 0 0 0 20px;
+background-image: url("/grafik/images/icons/plus.gif");
+background-position: 1px 50%;
+background-repeat: no-repeat;
+}
+#content ul.accordion h3:hover {
+text-decoration: underline;
+}
+#content ul.accordion h3.open {
+background-image: url("/grafik/images/icons/minus.gif");
+}
+.accordion li {
+list-style-type: none;
+}
+table#forsker_aktivitet tr {
+}
+table#forsker_aktivitet th {
+width: 100px;
+}
+table#forsker_aktivitet td, table#forsker_aktivitet th {
+vertical-align: top;
+padding: 5px 0 5px 0;
+}
+table#forsker_aktivitet td.aktivitetstype {
+font-weight: bold;
+width: 100px;
+}
+table#forsker_aktivitet td.aktivitetsindhold {}
+/*FORSKERPROFIL AKTIVITETER SLUT*/
+/* --------------------------------------------------------- Tables: List --- */
+table.list th,
+table.list td,
+h2.listheader {
+	color: #4a4949;
+	background-color:#fff;
+	border-bottom: 1px solid #d7d7d7;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+table.list tr th {
+	border-top: 1px solid #d7d7d7;
+	border-bottom: 2px solid #d7d7d7;
+	padding-bottom: 4px;
+	padding-top: 4px;
+}
+
+/* --------------------------------------------------------- Tables: Form --- */
+table#formTable input.text {
+	background-color: #f3f3f3;
+	border: 1px solid #8c8c8c;
+}
+
+table#formTable input.btn {
+	color: #4a4949;
+}
+
+table#formTable input.btn.btnSearch {
+	background-image: url(/grafik/images/buttons/btnSearch.gif);
+}
+
+table#formTable input.btn.btnAbonner {
+	background-image: url(/grafik/images/buttons/btnAbonner.gif);
+}
+
+/* ------------------------------------------------------ Site navigation --- */
+#nav-sub {
+	color: #000;
+	background-color: #fff;
+}
+
+div#nav-sub ul { border-top: 1px solid #ccc; }
+div#nav-sub ul.first { border: none;
+padding: 4em 0 0;/*apsc added padding to add space between head_nav and nav december 2009*/
+}
+div#nav-sub ul ul { border: none; }
+div#nav-sub ul li {
+/*	background-repeat: no-repeat;*/
+/*	background-position: 0 .5em;*/
+	padding-bottom: 3px;
+}
+
+div#nav-sub ul ul li {
+	background-repeat: no-repeat;
+	background-position: 0 .5em;
+}
+
+/* -------------------------------------------------------------- Sidebar --- */
+div#sidebar {
+	color: #000;
+	background-color: #fff;
+	overflow-y: visible;
+}
+
+div#sidebar .freetext ul li {
+    list-style-type:disc;
+    margin-bottom:5px;
+    margin-left:-13px;
+}
+
+div#sidebar h1 {
+	color: #5e5e5e;
+	background-color: #f2f2f2;/*TILFOJET 14/3 NYE BOKSTOPPE*/
+	/*background-image: url(/grafik/images/sidebar/h_bg.gif);*//*FJERNET 14/3 NYE BOKSTOPPE*/
+	background-image: url(/grafik/images/sidebar/h_bg_ny.jpg);/*AKTIVERET 14/3 NYE BOKSTOPPE*/
+	background-repeat: repeat-x;
+	font-size: 11px;
+	height: 13px;
+	padding: 6px 2px 6px 6px;
+	line-height: 135%;
+	border-bottom: 1px solid #d5d5d5;/*AKTIVERET 14/3 NYE BOKSTOPPE*/
+}
+
+div#sidebar h2, div#sidebar h2 a {
+	color: #6e6e6e;
+	background-color: #fff;
+}
+
+/* ------------------------------------------------------- Subsite jumper --- */
+#sidebar #subsite-jumper h1, div#sidebar h1.navHeading {
+	color: #999;
+	background-color: #fff;
+	background-image: none;
+	border: none;
+}
+
+/* ---------------------------------------------------------- Boxes: News --- */
+div#news {
+	background-image: url(/grafik/images/sidebar/test01.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px 19px;
+}
+
+div#news li.news-date {
+	color: #6e6e6e;
+	background-color: #fff;
+}
+
+div#news li.news-teaser {
+	color: #4a4949;
+	background-color: #fff;
+}
+
+/* --------------------------------------------------------------- Footer --- */
+#footer {
+	color: #777777;
+	background-color: #F3F3F3;
+}
+
+.copyright {
+	color: #777777;
+  width: 984px;
+	margin: -17px auto;
+	text-align: right;
+}
+
+
+/*******************************************************************************
+grid.css
+*******************************************************************************/
+
+/* ------------------------------------------------------ Main containers --- */
+html, body {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+#wrapper {
+	text-align: left;
+	position: relative;
+	margin: 0 auto 2em auto;
+	width: 984px;
+}
+
+/* ------------------------------------------------------------- Branding --- */
+#branding-global {
+	position: absolute;
+	width: 241px;
+	top: 0px;
+	left: 1px;
+}
+
+#branding-unit {
+	position: absolute;
+	overflow: hidden;
+	height: 86px;
+	width: 387px;
+	top: 23px;
+	left: 108px; /* Change ??? */
+}
+
+#branding-logo {
+	position: absolute;
+	height: 87px;
+	width: 65px;
+	top: 29px;
+	left: 27px;
+}
+
+#branding-decoration {
+	margin: 0;
+	padding: 0;
+	height: 86px;
+}
+
+/* ----------------------------------------------------------- Navigation --- */
+#nav-wrapper { height: 23px; }
+#nav-global {
+	overflow: hidden;
+	float: right;
+}
+
+/* ----------------------------------------------------------- Search box --- */
+#search { float: right; }
+
+/* -------------------------------------------------------------- Content --- */
+#content-wrapper {
+	float: left;
+	/*width: 100%;*/
+	width: 984px;
+}
+
+* html div#content-wrapper {
+overflow: hidden;
+}
+
+#content {
+	margin: 0 272px 0 207px;
+	padding-left: 10px;
+}
+
+
+#content.subpage {
+	width: 505px;
+}
+
+#content.wide {
+	margin: 0 16px 0 207px;
+	width: 756px;
+  padding-right: 11px;
+}
+
+div.frontpage {
+	width: 505px;
+	overflow: hidden;
+}
+
+/* ----------------------------------------------------- Content: Columns --- */
+#content div#col-left {
+	width: 235px;
+	float: left;
+	overflow: hidden;
+}
+
+#content div#col-right {
+	width: 235px;
+	float: right;
+}
+
+#content div#col-mid
+{
+width: 235px;
+float: right;
+overflow: hidden;
+}
+
+/* ------------------------------------------------------- Sub navigation --- */
+#nav-sub {
+	float: left;
+	width: 175px;
+	margin-left: -984px;
+	padding: 33px 21px 0 11px;
+	overflow: hidden;
+	/*
+		HÃ¸jre-padding sÃ¸rger for at border-top (se colors_images)
+		rammer border-top i #content.
+	*/
+}
+
+/* -------------------------------------------------------------- Sidebar --- */
+#sidebar {
+	float: left;
+	width: 235px;
+	margin-left: -246px; /* minus (bredde) */
+	
+}
+
+/* --------------------------------------------------------------- Footer --- */
+#footer {
+	clear: both;
+	width: 767px; /* Fuld bredde [minus] venstre padding */
+	margin: 0;
+	padding: 12px 0 0 217px;
+}
+/*============================================================================*/
+/*
+Pie.css 
+This is a modification of
+ http://www.positioniseverything.net/css-dropdowns.html
+
+ All customized CSS can be found at the end of this style chapter
+*/
+/*============================================================================*/
+
+
+/*XXXXXXXXXXXX Primary top nav rules XXXXXXXXXXX*/
+
+.nav {
+ position: relative; /* Used to be relative, but we changed it to make dropdowns appear in rightboxes on firefox and IE8 JAN APSC - CHANGED BACK TO RELATIVE. ABSOLUTE CAUSED LAYOUT PROBLEMS */
+ background: #def;
+ border: 1px solid #888; /* borders the bottom of the top nav */
+ border-width: 1px 0;
+ width: 100%;
+ }
+
+.button {
+ width: 190px;
+ float: left;
+ }
+
+.parent {position: relative;}
+/* this parent div does not provide "sticky hovering", but instead fixes a
+strange bug in Op7. When an element serves as a hovered popup "parent" element,
+that element must not also be floated or all heck breaks loose in Opera 7.
+To prevent this, we have floated the top level list items, while nesting
+hoverable parent divs inside that are then hovered to generate the dropdowns.
+Thus the ugly (but interesting) Op7 bug is defeated. */
+
+.floatfix {margin-right: -3px;}
+/* this fixes the IE 3px bug that is common in this type of float arrangement */
+
+/*XXXXXXXXXXXX Primary dropdown/flyout rules XXXXXXXXXXX*/
+
+.dropdown { /* rules for dropdown div */
+ width: 250px;
+ position: absolute;
+ left: -3000px;
+ top: auto; /* puts dropdowns directly under top nav */
+ text-align: left; /* needed because IE misapplies text centering to boxes */
+ background: url(/grafik/images/dropdown/bgfix.gif);
+ }
+
+.dropdown div {
+ width: 220px;
+ position: absolute;
+ left: -3000px;
+ top: 0;
+ background: url(/grafik/images/dropdown/bgfix.gif);
+ text-align: left; /* needed because IE misapplies text centering to boxes */
+ }
+
+/* The margins on the UL's replace the div paddings to create "sticky hovering"
+zones, and the margins should "fill" the divs, making the IE BG fix unnecessary.
+Unfortunately the BG fix is still needed, altho this method does eliminate
+possible box model problems */
+
+.dropdown ul {
+ width: 189px; /* tweaked so that dropdowns appear to "line up" with top links */
+ margin: 0 30px 30px 30px; /* creates "sticky hovering" zones for dropdowns */
+ border: 1px solid #888;
+ border-width: 1px 1px 0;
+ } /* borders sides and top of the dropdowns and flyouts; links provide the bottom border */
+
+.dropdown div ul {margin: 30px 30px 30px 0;} /* creates "sticky hovering" zones for flyouts */
+
+.four .dropdown ul {width: 190px;} /* modifies width for rightmost "visible" dropdown (tweak) */
+
+.four .dropdown div ul {margin: 30px 0 30px 30px; position: relative;} /* rule reversal for "visible" right drop flyouts */
+
+.nav li {text-align: center;}
+
+.nav a {
+display: block;
+ color: #800;
+ font-weight: bold;
+ font-size: .9em;
+ text-decoration: none;
+ padding: 6px 0 5px;
+ border-right: 1px solid #888; /* makes the dividers between the top nav links */
+ }
+
+.four a {border-right: 0;} /* kills right border on last top link */
+
+.nav ul ul a {
+ color: #fff;
+ border-right: 0; /* negates right border for dropdowns and flyouts */
+ border-bottom: 1px solid #888; /* borders the bottoms of the dropdown and flyout links */
+ }
+
+.dropdown li {
+ position: relative;
+ vertical-align: bottom; /* IE5/win bugfix */
+ }
+
+div.parent:hover {background-image: url(/grafik/images/dropdown/bgfix.gif);}
+/* this hover calls a transparent GIF only to defeat the IE failed hover bug. Any
+background change on hovering div.parent will make IE obey and display the dropdown.
+While the call itself will fix the bug, make sure you actually call a real image
+file so that your site error logs will not fill with failed image calls. */
+
+div.parent:hover div.dropdown {left: -31px;} /* hover rule for dropdowns */
+/* extra pixel makes dropdowns "line up" with top links */
+
+div.dropdown li:hover div { /* hover rule for flyouts */
+ left: 180px; /* this value controls the amount of flyout "overlap" */
+top: -26px; /* this value controls the amount of flyout vertical offset */
+ }
+
+div.four li:hover div { /* reversed flyout rules for rightmost drop flyouts */
+ left: -210px;
+ top: -26px;
+ }
+
+.nav div.mini-zone { /* special hover zone that covers the "danger corner" */
+ padding: 0;
+ width: 15px;
+ height: 15px;
+ font-size: 1px;
+ left: -3000px;
+ bottom: -15px;
+ top: auto;
+ background: url(/grafik/images/dropdown/bgfix.gif);
+ }
+
+div.nav div.dropdown li:hover div.mini-zone { /* hover rule for mini-zones */
+ left: auto;
+ right: 8px;
+ top: auto;
+ }
+
+div.nav div.four li:hover div.mini-zone { /* reversed hover rule for rightmost drop mini-zones */
+ left: 8px;
+ }
+
+div.dropdown li:hover {background: #235;} /* hover color effect on dropdown links */
+
+div.dropdown div li:hover {background: #ff7;} /* hover color effect on flyout links */
+
+
+/*XXXXXXXXXXX Primary dropdown backgrounds XXXXXXXXXX*/
+
+.one ul {background: #d79b00;}
+.two ul {background: #459;}
+.three ul {background: #4a3;}
+.four ul {background: #790000;}
+.dropdown div ul {background: #eda;} /* colors BG of flyouts */
+.dropdown div ul a {color: #400;} /* colors text of flyouts */
+
+
+/*XXXXXXXXXX z-index rules for top nav XXXXXXXXXXX*/
+
+.one {z-index: 10;}
+.two {z-index: 20;}
+.three {z-index: 30;}
+.four {z-index: 40;}
+.four:hover {z-index: 20;}
+/* this last is a special trick that reverses the stacking order of the rightmost
+top link when it or its children are hovered. This, and the previous rules work
+together so that when a user is on the top link of any flyout, they can move
+vertically to the top link directly above and not have the sticky hoivering zone
+on the flyout get in the way of hovering that top link. */
+
+
+/*XXXXXXXXXXX Special fixes XXXXXXXXXXX*/
+
+/* This is to hide the following from IE/Mac. \*/
+* html .button .dropdown li {
+height: 1%;
+margin-left: -16px;
+mar\gin-left: 0;
+}
+/* */
+
+* html .nav a
+{height: 1%;}
+
+/* The first 2 rules above fix "bullet region" problems in IE5.x/win,
+and the 2nd is to make all links fully clickable. */
+
+.brclear { /* Use a break with this class to clear float containers */
+clear:both;
+height:0;
+margin:0;
+font-size: 1px;
+line-height: 0;
+}
+
+/*\*/ /*/
+.nav .dropdown, .nav .dropdown div {width: 189px;}
+.nav .button .dropdown ul {margin: 0px;}
+.nav .dropdown, .nav .dropdown div {position: static;}
+.nav .dropdown ul {border: 0;}
+.mini-zone {display: none;}
+/* this rule block "dumbs down" the nav for IEmac */
+
+
+
+
+
+/*============================================================================*/
+/* Customization for KU */
+/*============================================================================*/
+.nav ul {
+ padding: 0;
+ margin: 0;
+ list-style: none;
+}
+
+.nav,
+.dropdown,
+.dropdown ul {
+\width: 235px;
+wid\th: 233px;
+}
+
+.nav {
+border: 1px solid #999;
+background-color: #fff;
+background-image: url(/grafik/images/dropdown/dropdown_arrow.gif);
+background-position: 218px 0px;
+background-repeat: no-repeat;
+margin-bottom: 10px;
+padding-bottom: 0px;
+font-size: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+height: 18px;
+}
+
+.nav * {height: auto;}
+
+head:first-child+body .nav {
+background-position: right top;
+}
+
+/* ---------------------------------------------------------------------------- */
+#nav-wrapper .nav {
+margin-top: 2px;
+margin-right: 5px;
+margin-bottom: 0;
+height: 16px;
+background-color: #f2f2f2;
+z-index: 5000;
+background-image: url(/grafik/images/dropdown/dropdown_arrow.gif);
+background-position: 90px -1px;
+float: right;
+}
+
+head:first-child+body #nav-wrapper .nav {
+background-position: right -1px;
+}
+
+
+#nav-wrapper .nav,
+#nav-wrapper .dropdown,
+#nav-wrapper .dropdown ul {
+\width: 108px;
+wid\th: 106px;
+}
+
+#nav-wrapper .parent a {
+padding-bottom: 1px;
+}
+
+#nav-wrapper .button {
+width: 91px;
+}
+
+#nav-wrapper .dropdown div {
+width: 96px;
+}
+
+#nav-wrapper .nav li {
+z-index: 5000;
+}
+
+#nav-wrapper .nav,
+#nav-wrapper .dropdown ul {
+border: 1px solid #bdbcbc;
+}
+
+#nav-wrapper .dropdown ul {
+border-bottom: none;
+}
+
+#nav-wrapper .nav ul ul a {
+border-bottom: 1px solid #bdbcbc;
+}
+
+#nav-wrapper .nav ul ul li.first {
+border-top: 2px solid #bdbcbc;
+}
+
+#nav-wrapper .nav ul ul li.divide{
+border-bottom: 2px solid #bdbcbc;
+}
+
+/* ---------------------------------------------------------------------------- */
+.nav.narrow {
+margin-bottom: 0px;
+\background-position: 124px 0px;
+bac\kground-position: 128px 0px;
+}
+
+head:first-child+body .nav.narrow {
+/* Reset background position for modern browsers */
+background-position: right top;
+}
+
+.nav.narrow,
+.nav.narrow .dropdown,
+.nav.narrow .dropdown ul {
+\width: 141px;
+wid\th: 143px;
+}
+
+head:first-child+body .nav.narrow,
+head:first-child+body .nav.narrow .dropdown,
+head:first-child+body .nav.narrow .dropdown ul {
+width: 141px;
+}
+
+.nav.narrow .button {
+width: 134px;
+}
+
+head:first-child+body .nav.narrow .button {
+width: 132px;
+}
+
+.nav.narrow .parent img {
+margin: 0px 0 -1px 0;
+}
+
+/* ---------------------------------------------------------------------------- */
+.button {
+text-align: left;
+width: 224px; /* Containing box (.nav) width + padding (left+right) */
+padding: 2px 0px 2px 9px;
+}
+
+head:first-child+body .nav .button {
+float: none;
+}
+
+*:first-child+html .nav .button { /* IE7 only */
+float: left !important;
+}
+
+/* ---------------------------------------------------------------------------- */
+.dropdown {
+ background: none;
+}
+
+.dropdown ul {
+margin: 0px 30px 30px 21px;
+}
+
+.nav.narrow .dropdown img {
+ margin: 0;
+padding: 0;
+}
+
+/* ---------------------------------------------------------------------------- */
+.nav li {
+ text-align: left;
+padding-bottom: 0px;
+margin-bottom: 0px !important;
+margin-left: 0 !important;
+list-style-type: none !important;
+}
+
+.nav a {
+display: block;
+color: #666;
+font-weight: normal;
+ font-size: 1em;
+ text-decoration: none;
+ padding: 0 0 2px 0;
+border-right: none;
+}
+
+div.nav a:link,
+div.nav a:visited,
+div.nav a:hover,
+div.nav a:active {
+ text-decoration: none;
+ color: #666;
+}
+
+.nav ul ul a {
+ color: #000;
+ border-right: 0;
+ border-bottom: 1px solid #999;
+ padding: 2px 15px 2px 9px;
+}
+
+/* ------------------------------- Mouseover baggrundsfarve <- Underpunkt --- */
+div.dropdown li:hover {
+ background-color: #eee;
+}
+
+div.dropdown div li:hover {
+ background: #ff7;
+}
+
+/* ----------------------------------------- Baggrundsfarve <- Underpunkt --- */
+.one ul {
+ background-color: #fff;
+}
+
+/* --------------------------------------------- Tabel 1px border fix ---- */
+table.border1 td { 
+border: 1px solid #4A4949;
+}
+
+table.border1 {
+border-collapse: collapse; 
+margin-left: 2px;
+
+}
+
+
+
+/*============================================================================*/
+/*======PRE STYLE=============================================================*/
+pre {
+line-height:0.6em;
+height:1%
+}
+
+
+Div#sidebar {
+Color: #4A4949;
+Line-height: 1.3 em;
+
+}
+
+p#emfirst  {
+line-height: 1.1em;
+}
+
+p#emsecond  {
+line-height: 1.2em;
+}
+
+p#emthird {
+line-height: 1.3em;
+}
+/*============================================================================*/
+/*======KALENDER STYLE========================================================*/
+
+td.arrangementsoverskrift {
+margin:0pt;
+padding:0pt;
+text-align:left;
+width:350px;
+}
+td.kalenderdato {
+margin:0pt;
+padding:0pt;
+text-align:right;
+width:155px;
+}
+#content td.arrangementsoverskrift h2 {
+margin:0pt;
+padding:0pt;
+}
+table.kalenderarrangement {
+border-bottom:1px solid #4A4949;
+}
+p.kalenderbeskrivelse {
+padding-bottom:20px;
+}
+
+/*===============================================Formular fejl================*/
+div.error, 
+div.error li, 
+p.error {
+font-weight: bold;
+color: #901a1e;
+}
+
+/* ----------------------------------------- Nyhedsliste med thumb - midterkolonne --- */
+
+#content ul#overview.images li.smal,
+#content ul#overview.images li.bred,
+#content ul#overview.images li.txt {
+padding-right: 2px; 
+padding-left: 2px; 
+padding-top: 5px; 
+position: relative;
+}
+
+#content ul#overview.images li.smal div { 
+float: right; 
+margin: -5px -2px -5px 10px; 
+width: 85px;
+}
+
+#content ul#overview.images li.smal p { 
+padding: 0px 90px 5px 0px; 
+}
+
+#content ul#overview.images li.bred div { 
+float: right; 
+margin: -5px -2px -5px 10px; 
+width: 235px;
+}
+
+#content ul#overview.images li.bred p { 
+padding: 0px 0px 5px 0px; 
+}
+
+#content ul#overview.images li.txt p { 
+padding: 0px 2px 5px 0px; 
+}
+
+/* -------------------------------------- Billede med tekst i rightboks ----- */
+
+div#sidebar div.img-with-caption p {
+font-size: 0.8em;
+margin-bottom: 0;
+margin-top: 0;
+}
+
+/*-------------------------------------- Valgt menupunkt vises med fed -------- */
+
+#nav-sub li {font-weight: normal}
+
+#nav-sub li.valgt{
+font-weight: bold;
+}
+
+#nav-sub li.valgt a{
+text-decoration: none; 
+}
+
+/* ------------------------------------ Linjeafstand-fix i forsidebokse ---- */
+/*Rettelser til linjeafstand 6/3-2012*/
+/*.frontpage div#col-left p,
+.frontpage div#col-mid p {
+line-height: 1.3;
+margin-top: 8px;
+margin-bottom: 6px;
+}*/
+.frontpage div#col-left img, .frontpage div#col-mid img {
+margin-top: -9px;
+}
+.frontpage div#col-left p img, .frontpage div#col-mid p img {
+margin-top: -9px;
+}
+/* ----------------------------------------- Fix af variabel kalenderbredde -- */
+table.variable_list {
+width: auto;
+}
+
+/*-----------------------------------------added navigation header-----------------------------------*/
+div#nav_head {
+display: block;
+position: absolute;
+width: 175px;
+top: 144px;
+padding: 0;
+margin: 0;
+overflow: visible;
+}
+
+div#nav_head h1 {
+display: block;
+font-size: 0.9em;
+font-weight: bold;
+margin: -3px 0 0 0;
+padding: 0 0 0 13px;
+line-height: 14px;
+overflow: visible;
+color: #4a4949;
+}
+
+/*************************************opdateringer til forskerprofil APSC dec 2010*************************/
+#content table.aktivitet p{
+margin: 0;
+padding: 0;
+}
+
+#content div.rendering_person_short {
+border-bottom: 1px solid #d7d7d7;
+padding-bottom: 25px;
+}
+
+#content div.rendering_person_short p {
+margin: 0;
+padding: 0;
+}
+#content div.rendering_person_short p.enhed {
+/*margin-bottom: 30px;*/
+}
+
+#content tr td table.list p {
+margin: 0;
+}
+
+/*#content table.list tr td p {
+line-height: 1.0;
+margin: 0;
+padding: 0;
+}*/
+#content .publist_nav_right {
+text-align: right;
+}
+#content table.pubDetail {
+/*margin: 10px 0 0 0;
+padding: 10px 0 10px 0;*/
+width: 505px;
+/*border-bottom: 1px solid #c0c0c0;*/
+}
+#content table.upper {
+display: block;
+/*border-bottom: 1px solid #c0c0c0;*/
+margin-bottom: 20px;
+}
+#content table.upper td {
+}
+#content table.lower {
+display: block;
+/*margin-top: 10px;*/
+}
+
+#content table.pubDetail th {
+width: 100px;
+text-align: left;
+}
+#content table.pubDetail td {
+width: 405px;
+word-wrap: break-word;
+-ms-word-wrap: sWrap;
+margin: 0;
+padding: 0;
+}
+
+
+
+
+/*#content p.jobtitles {
+margin: 0;
+padding: 0;
+}
+#content p.enhed {
+margin: -20px 0 20px 0;;
+padding: 0;
+}*/
+
+/*STYLING FOR NYE FORSKERPROFILER 17/12 2010*/
+#forskerprofil_main {}
+#forskerprofil_kontaktoplysninger {}
+#content #forskerprofil_kontaktoplysninger h1 {
+                 margin-bottom: 0;
+                 padding: 0;
+                 }
+#forskerprofil_kontaktoplysninger img {
+                 float: right;
+		width: 180px
+                 }
+.forskerprofil_titel {
+                 font-weight: bold;
+                 }
+ 
+ 
+input.avanceretknap {
+ color: #ffffff;
+ background-color: transparent;
+ padding: 0;
+ border: none;
+ width: 140px;
+}
+input.fanebladknap {
+ border: 0;
+ margin: 0px;
+ background-color: transparent;
+ border-bottom: 0;
+}
+#publikationstyper {
+ float:left;
+ margin-right: 20px;
+}
+div#soegning_faneblade div.faneblad:first-child {
+margin-left: 0;
+} 
+div#soegning_faneblade div.faneblad {
+ margin: 0px 1px;
+ padding: 2px 4px;
+ display: block;
+ float: left;
+ background-color: transparent;
+ border: solid #dedede 1px;
+ border-bottom: 0;
+}
+ 
+div#soegning_faneblade div.faneblad:hover {
+background-color: #dedede;
+}
+ 
+div#soegning_faneblade {
+ width: 505px;
+ overflow: hidden;
+ display: block;
+ margin: 0px /*1px*/;
+ background-color: transparent;
+ border-bottom: solid #dedede 1px;
+}
+ 
+div.faneblad_selected {
+ display: block;
+ float: left;
+ margin: 0px 1px;
+ padding: 2px 4px;
+ background-color: #eeeeee;
+ border: solid #dedede 1px;
+ border-bottom: 0;
+ font-weight: bold;
+}
+ 
+#soegning_resultat {
+margin-top: 20px;
+}
+ 
+div#soegning_parametre {
+background-image: url(http://cms.ku.dk/fa-sites/forskning/billeder/searchbg.gif/);
+background-repeat: no-repeat;
+background-color: #666666;
+color: #ffffff;
+padding: 6px 15px 5px 15px;             
+}
+ 
+div#CURISsearch h1 {
+background-color: transparent;
+color: #ffffff;
+}
+ 
+div#advanced_fakultet h3 {
+margin-top: 10px;
+}
+ 
+span.hilite {
+ background-color: #9df9f9;
+}
+ 
+span.type {
+display: block;
+margin-top: 5px;
+}
+#pubtype {margin-right: 5px;}
+p.artikeltype {
+padding-top: 14px;
+}
+ 
+div#avanceret_soegning h3 {
+  width:400px;
+}
+ 
+#content ul#overview.pubList-text li h2,
+#content ul#overview.pubList-text li p,
+#content ul#overview.courseList-text li h2,
+#content ul#overview.courseList-text li p {
+  padding-right: 5px;
+}
+
+img.fritekst_top_img {
+    margin-top: -9px;
+margin-bottom: 7px;
+}
+
+/***********NYHEDSLISTER APSC MAJ 2011************/
+#content ul#nyhedsliste li, #content ul#nyhedsliste li.smal {
+border-top: 1px solid #ccc;
+color: #4a4949;
+background-color: transparent;
+margin: 0;
+padding-top: 8px;
+padding-bottom: 8px;
+overflow: auto;
+width: 100%;
+/*height: 100%;*//*UDKOMMENTERET FOR AT FAA IE TIL SE UD SOM ANDRE BROWSERE*/
+}
+#content ul#nyhedsliste li.smal{
+min-height: 69px;
+}
+#content ul#nyhedsliste h2 {
+display: inline;
+padding-right: 4px;
+}
+#content ul#nyhedsliste li:hover, #content ul#nyhedsliste li.hover {
+background-color: transparent;
+}
+#content ul#nyhedsliste.images li.smal div.nyhedsliste_img {
+height: 65px;
+width: 65px;
+margin: 4px 10px 0px 0px;
+float: left;
+padding: 0;
+}
+#content ul#nyhedsliste div.nyhedsliste_indhold {
+margin-bottom: 0;
+padding: 0;
+}
+#content ul#nyhedsliste div.nyhedsliste_dato {
+color: #5e5e5e;
+font-weight: bold;
+float: right;
+width: 72px;
+margin-bottom: 0;
+padding: 0 0 1px 0;
+}
+#content ul#nyhedsliste.images li.smal div img {
+width: 55px;
+height: 55px;
+border: 1px solid #929292;
+padding: 2px;
+}
+#content ul#nyhedsliste li p {
+padding: 0 75px 0 0;
+margin-bottom: 0;
+}
+#content ul#nyhedsliste li h2 a:link, #content ul#nyhedsliste li h2 a:visited, #content ul#nyhedsliste li h2 a:hover, #content ul#nyhedsliste li h2 a:active {
+text-decoration: none;
+color: #4a4949;
+}
+/*#content ul#nyhedsliste li div.nyhedsliste_dato .news-date2 {
+font-size: 1.1 em;
+font-weight: bold;
+color: #4a4949;
+float: right;
+display: inline;
+}*/
+/*NYHEDSLISTER I HOEJREBOKSE*/
+/*div#sidebar div.right div.container-right*/
+div.nyhedsboks ul.stripped li {
+padding-top: 6px;
+padding-bottom: 12px;
+border-bottom: 1px solid #ccc;
+}
+div#sidebar div.nyhedsboks h1,
+div#col-left div.nyhedsboks h1,
+div#col-mid div.nyhedsboks h1 {
+margin-bottom: 6px;
+}
+div.nyhedsboks ul.stripped li.top_story {
+border-bottom: 1px solid #ccc;
+padding: 0 0 10px 0;
+}
+div.nyhedsboks ul.stripped li img {
+border: 1px solid #929292;
+padding: 2px;
+width: 55px;
+height: 55px;
+float: right;
+margin: 2px 0 2px 6px;
+}
+div.nyhedsboks ul.stripped li.top_story img {
+border: 0;
+margin: -6px 0 10px 0;
+padding: 0;
+width: 235px;
+height: 87px;
+}
+div#sidebar div.nyhedsboks h2, div#sidebar div.nyhedsboks h2 a {
+color: #5e5e5e;
+}
+/*Rettelser til linjeafstand 6/3-2012*/
+/*div.nyhedsboks p.news-teaser {
+margin: 11px 0 4px 0;
+}*/
+#content #col-left p.news-teaser, #content #col-mid p.news-teaser, #sidebar p.news-teaser {
+margin: 11px 0 4px;
+}
+div.nyhedsboks ul.stripped {
+margin: 0 0 14px;
+}
+/*FIXES TIL NYHEDSBOKSE I MIDTERKOLONNER*/
+.frontpage div#col-left div.nyhedsboks p.news-teaser, 
+.frontpage div#col-mid div.nyhedsboks p.news-teaser {
+margin: 11px 0 4px;
+}
+.frontpage div#col-left div.nyhedsboks li img,
+.frontpage div#col-mid div.nyhedsboks li img {
+margin: 2px 0 2px 6px;
+}
+div#col-left div.nyhedsboks h2 a,
+div#col-mid div.nyhedsboks h2 a {
+color: #5E5E5E;
+}
+/*STYLING TIL VISNING AF MANCHET PAA NYHEDER*/
+div.manchet {
+margin: 10px 0;
+vertical-align: text-top;
+}
+div.manchet h3,
+div.manchet p {
+font: bold 0.7em/1.3em Verdana, Arial, Helvetica, sans-serif;
+}
+div.manchet p {
+display: inline;
+}
+div.manchet h3 {
+color: #808080 !important;
+background-color: #ffffff;
+text-transform: uppercase;
+display: inline;
+padding-right: 5px;
+}
+
+
+
+/*============================================================================*/
+/* KU FALLBACK STYLES */
+/*============================================================================*/
+
+/* ------------------------------------------------------- Vertical lines --- */
+div#content,
+div#nav-sub,
+div#col-left h1,
+div#col-mid h1,
+div#sidebar h1,
+#content blockquote {
+	border-top: 1px solid #901a1e;
+}
+
+/* ----------------------------------------------------------- Blockquote --- */
+#content blockquote .quote-begin {
+	color: #901a1e;
+	background-color: #fff;
+}
+
+/* ------------------------------------------------------ Site navigation --- */
+div#nav-sub ul li.valgt a {
+	color: #901a1e;
+}
+
+/*div#nav-sub a:active,*/ 
+div#nav-sub a:visited, 
+div#nav-sub a:link { 
+	color: #4A4949; 	
+	background-color: transparent;
+	text-decoration: none; 
+}
+div#nav-sub a:hover { 
+	color: #901a1e; 
+	background-color: transparent; 
+}
+
+div#nav-sub ul li {
+	background-image: url(/grafik/images/bullets/pile/ku_nav_lev1.gif);
+}
+
+div#nav-sub ul li:hover {
+	background-image: url(/grafik/images/bullets/pile/ku_nav_lev1_select.gif);
+}
+div#nav-sub ul li li:hover {
+	background-image: url(/grafik/images/bullets/3x3/fa.gif);
+}
+div#nav-sub ul li.valgt li a {
+	color: #4a4949;
+}
+div#nav-sub ul li.valgt li a:hover {
+	color: #901a1e;
+}
+
+div#nav-sub ul ul li, div#nav-sub ul ul li.valgt, div#nav-sub ul ul li.ikke-valgt {
+background-image:url(/grafik/images/bullets/3x3/fa.gif);
+}
+
+div#nav-sub ul ul ul li, div#nav-sub ul ul ul li.valgt, div#nav-sub ul ul ul li.ikke-valgt {
+background-image:url(/grafik/images/bullets/2x2/fa.gif);
+}
+/*--------------------------navigation head----------------*/
+div#nav_head {
+background:transparent url(/grafik/images/nav_head/ku_nav_head.gif) left bottom no-repeat;
+}
+
+/*------------------level 1 nav selected-----------------------------*/
+#nav-sub li.valgt {
+background-image:url(/grafik/images/bullets/pile/ku_nav_lev1_select.gif);
+}
+
+#nav-sub li.ikke-valgt {
+background-image:url(/grafik/images/bullets/pile/ku_nav_lev1_select.gif);
+}
+
+
+/*============================================================================*/
+/* CFIM BOOKING STYLES */
+/*============================================================================*/
+
+#cbook_nav {list-style: none; padding: 0; margin: 0;}
+#cbook_nav li {float: left; width: auto; border: solid 1px #ccc; margin: 0 1em -1px 0;}
+#cbook_nav li.active {border-bottom: solid 1px #fff;}
+#cbook_nav li a, a.button {padding: 0.2em 0.5em; background-color: #f3f3f3; display: block;}
+#cbook_nav li.active a {background-color: #fff;}
+#cbook_nav li a:hover, .cbook_prev:hover, .cbook_next:hover, a.button:hover, .scope_radio:hover {background-color: #005A88; color: #fff; text-decoration: none;}
+#cbook_nav li.logout {float: right;}
+.cbook_prev {padding: 0.2em 0.5em; display: block; float: left;}
+.cbook_next {padding: 0.2em 0.5em; display: block; float: right;}
+#cbook_container {clear: both; width: auto; border: solid 1px #ccc; padding: 1em;}
+#cbook_container h1 {margin: 1em 0 0.5em !important;}
+
+/* Calendar view */
+#cbook_tablenav {background-color: #f3f3f3; margin: 0 0 1em; padding: 3px; clear: both;}
+#cbook_tablenav h2 {font-weight: bold; text-align: center; display: block; margin: 0 !important;}
+#cbook_table {width: auto; border: none; clear: both;}
+#cbook_table td {width: 97px; background-color: #f3f3f3; padding: 3px;}
+#cbook_table td.weekday {height: 1.5em; background-color: #fff; font-weight: bold; text-align: center;}
+#cbook_table td.empty {background-color: #fff; color: #ccc; text-align: center;}
+#cbook_table td.past {color: #ccc;}
+#cbook_table td .daynr {color: #005A88;}
+#cbook_table td .alsowithdata, #cbook_table td .withdata, #cbook_table td .withdata .daynr {height: 1.3em !important; float: none !important;}
+#cbook_table td .withdata .daynr {float: left !important;}
+#cbook_table td a.bookit {height: 60px; vertical-align: center; display: block;}
+#cbook_table td a.bookit .booktext {color: #ccc; padding-top: 20px; padding-left: 35px;}
+#cbook_table td .withdata .booktext {padding-top: 0 !important; text-align: left !important;}
+#cbook_table td a.bookit:hover {background-color: #005a88; color: #fff; text-decoration: none;}
+#cbook_table td a.bookit:hover .booktext {color: #fff;}
+#cbook_table td .past {display: block; height: 60px; color: #ccc !important;}
+
+#cbook_container .button {width: auto; float: left; border: 1px solid #CCC;}
+#cbook_container .booked {background-color: #666; color: #fff; padding: 3px 5px 4px; margin: 3px 0 0;}
+#cbook_container .scopename {font-weight: bold; display: block; margin-bottom: 1px;}
+#cbook_container .scopetime {display: block; text-align: right;}
+#cbook_container .can_edit {background-color: #005a88;}
+#cbook_container .can_edit a {color: #fff; text-decoration: none;}
+#cbook_container .can_edit:hover {background-color: #4A4949;}
+#cbook_container .scopetime_edit {text-align: right; display: block;}
+
+#scopepicker {margin-bottom: 2em; padding-top: 1em;}
+#scopepicker h3 {margin: 3px 6px 3px 0 !important; float: left; width: auto;}
+#scopepicker p {margin: 0 !important;}
+
+/* Login form / Register form */
+#loginForm fieldset, #registerForm fieldset {margin: 0 0 1em;}
+#loginForm, #registerForm {border-top: solid 1px #ccc; padding: 1em 0;}
+#loginForm label, #registerForm fieldset.nicify label {width: 8em; float: left; clear: left; display: block;}
+#loginForm input[type="text"], #loginForm input[type="password"], #registerForm fieldset.nicify input[type="text"] {width: 13em; display: block; margin-bottom: 0.5em;}
+#loginForm input[type="submit"] {margin-left: 8em; display: block;}
+textarea#experience {width: 90%;}
+#loginForm fieldset, #registerForm fieldset, #scopepicker {border: solid 1px #ccc; padding: 1em;}
+#loginForm legend, #registerForm legend {font-weight: bold;}
+#errors, #errors h2 {color: red !important;}
+#errors p {padding: 1px 3px; border: solid 1px red; margin: 3px 0;}
+#access_start {margin-right: 2em;}
+
+/* Create booking */
+#scope_booking {clear: both; width: 100%;}
+#scope_booking label {display: block;}
+#scope_chooser label {display: inline;}
+#scope_chooser h3 {margin-top: 0 !important; clear: left;}
+.scope_radio {width: auto; float: left; border: solid 1px #ccc; margin: 0 3px 3px 0; padding: 1px 6px 1px 3px; cursor: pointer;}
+.scope_radio label, .scope_radio input {cursor: pointer;}
+.time-picker {position: absolute; margin-left: 0; padding-left: 0; border: solid 1px #ccc; background-color: #f3f3f3;}
+.time-picker ul {list-style: none; margin: 0; padding-left: 0; height: 200px; overflow: auto; width: 100px; background-color: #f3f3f3;}
+.time-picker ul li {padding: 1px 3px; margin-left: 0;}
+.time-picker .selected {background-color: #005a88; color: #fff;}
+#no_support {float: left; width: 400px; padding: 0.3em 0 2em;}
+#support_time_picker {width: 232px; float: right;}
+#possible_support_time_div_btn {cursor: pointer; display: block; border: solid 1px #ccc; width: auto; line-height: 1.5; padding: 0.2em 0.5em; color: #005A88; background: url(http://obviustest.ku.dk/grafik/images/dropdown/dropdown_arrow.gif) no-repeat right -1px #f3f3f3;}
+#possible_support_time_div_btn:hover {background-color: #005a88; color: #fff; text-decoration: none;}
+#possible_support_time_div {height: 300px; position: absolute; overflow-x: hidden; overflow-y: scroll; width: 230px; background-color: #f3f3f3; border: solid 1px #ccc; border-width: 0 1px 1px;}
+#possible_support_time_div div.timeblock {clear: both; width: 100%;}
+#possible_support_time_div div.timeblock label {background-color: #fff; margin: 0 0 2px; padding: 3px; display: block; color: #ccc;}
+#possible_support_time_div div.timeblock input {float: left; width: 2em; clear: left; display: block;}
+#possible_support_time_div div.timeblock label span {color: #4A4949;}
+#possible_support_time_div div.timeblock label span.d {font-weight: bold;}
+#possible_support_time_div div.timeblock label span.et {color: #999;}
+.serviced {color: #fff; background: #B0B0B0; cursor: default;}
+.serviced:hover {background: #B0B0B0; color: #fff;}
+
+/* Booking history */
+#cbook_history tr td {padding: 3px 1em;}
+#cbook_history tr.odd td {background-color: #f3f3f3;}
+
+
+/*============================================================================*/
+/* STANDARD TEXT SIZE STYLES */
+/*============================================================================*/
+
+/*body { font-size: .7em; }*/
+
+#content table.aktivitet_udvalgt h3 {
+margin-top: 0;
+}
+#content.subpage table.aktivitet_udvalgt p {
+margin: 0; padding: 0;
+}
+#content table.aktivitet_udvalgt .td_right, #content table.aktivitet .td_right {
+ text-align: left;
+}
+
+/*============================================================================*/
+/* EDITOR STYLES */
+/*============================================================================*/
+
+body#content.mceContentBody { text-align: left; margin: 0.5em; padding: 0; }
+
+#content.mceContentBody div.img-with-caption-left,
+#content.mceContentBody div.img-with-caption {
+    border: 1px dashed #aaaaaa;
+}
+
+/*============================================================================*/
+/* LARGE TEXT SIZE STYLES, imported from /css/text/large.css */
+/*============================================================================*/
+body.large { font-size: .9em; }
+body.large .admincontentwrapper { font-size: .9em !important; }
+
+/*============================================================================*/
+/* TAGCLOUD STYLES */
+/*============================================================================*/
+div#tagcloud {
+margin: 0 2px 20px 2px;
+}
+div#tagcloud span {
+padding: 0 4px 0 0;
+}
+div#tagcloud a {
+color: #5e5e5e;
+}
+
+.pager:before {
+border: 1px solid #ffffff;
+bottom: 0;
+content: "";
+display: block;
+left: 0;
+position: absolute;
+right: 0;
+top: 0;
+z-index: -1;
+}
+
+.pager {
+background: none repeat scroll 0 0 #f2f2f2;
+border-bottom: 1px solid #cccccc;
+border-top: 1px solid #cccccc;
+margin-bottom: -1px;
+padding: 2px;
+position: relative;
+z-index: 10;
+}
+
+.pager .activePage, .pager a.prev, .pager a.next {
+    font-weight: bold;
+    color: #005A88;
+}
+#content table.aktivitet_udvalgt h3 {
+margin-top: 0;
+}
+#content.subpage table.aktivitet_udvalgt p {
+margin: 0; padding: 0;
+}
+#content table.aktivitet_udvalgt .td_right, #content table.aktivitet .td_right {
+ text-align: left;
+}
