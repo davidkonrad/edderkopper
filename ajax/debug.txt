@@ -236,3 +236,29 @@ poly  ((CAST(LatPrec as DECIMAL(6,4))>56.8527) and (CAST(LatPrec as DECIMAL(6,4)
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>56.8527) and (CAST(LatPrec as DECIMAL(6,4))<57.3776) and (CAST(LongPrec as DECIMAL(6,4))>9.0528) and (CAST(LongPrec as DECIMAL(6,4))<10.0965) )
 poly  ((CAST(LatPrec as DECIMAL(6,4))>55.996) and (CAST(LatPrec as DECIMAL(6,4))<56.8106) and (CAST(LongPrec as DECIMAL(6,4))>8.9319) and (CAST(LongPrec as DECIMAL(6,4))<9.8987) )
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>55.996) and (CAST(LatPrec as DECIMAL(6,4))<56.8106) and (CAST(LongPrec as DECIMAL(6,4))>8.9319) and (CAST(LongPrec as DECIMAL(6,4))<9.8987) )
+poly  ((CAST(LatPrec as DECIMAL(6,4))>57.0325) and (CAST(LatPrec as DECIMAL(6,4))<57.342) and (CAST(LongPrec as DECIMAL(6,4))>9.69) and (CAST(LongPrec as DECIMAL(6,4))<10.1734) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>57.0325) and (CAST(LatPrec as DECIMAL(6,4))<57.342) and (CAST(LongPrec as DECIMAL(6,4))>9.69) and (CAST(LongPrec as DECIMAL(6,4))<10.1734) )
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Species="biovatus" 
+poly  ((CAST(LatPrec as DECIMAL(6,4))>55.9899) and (CAST(LatPrec as DECIMAL(6,4))<56.8286) and (CAST(LongPrec as DECIMAL(6,4))>8.7452) and (CAST(LongPrec as DECIMAL(6,4))<9.9317) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>55.9899) and (CAST(LatPrec as DECIMAL(6,4))<56.8286) and (CAST(LongPrec as DECIMAL(6,4))>8.7452) and (CAST(LongPrec as DECIMAL(6,4))<9.9317) )
+poly  ((CAST(LatPrec as DECIMAL(6,4))>56.0758) and (CAST(LatPrec as DECIMAL(6,4))<56.8707) and (CAST(LongPrec as DECIMAL(6,4))>9.2286) and (CAST(LongPrec as DECIMAL(6,4))<11.4698) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>56.0758) and (CAST(LatPrec as DECIMAL(6,4))<56.8707) and (CAST(LongPrec as DECIMAL(6,4))>9.2286) and (CAST(LongPrec as DECIMAL(6,4))<11.4698) )
+poly  ((CAST(LatPrec as DECIMAL(6,4))>56.2532) and (CAST(LatPrec as DECIMAL(6,4))<56.8887) and (CAST(LongPrec as DECIMAL(6,4))>8.2398) and (CAST(LongPrec as DECIMAL(6,4))<9.6461) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>56.2532) and (CAST(LatPrec as DECIMAL(6,4))<56.8887) and (CAST(LongPrec as DECIMAL(6,4))>8.2398) and (CAST(LongPrec as DECIMAL(6,4))<9.6461) )
+poly  ((CAST(LatPrec as DECIMAL(6,4))>56.7504) and (CAST(LatPrec as DECIMAL(6,4))<57.128) and (CAST(LongPrec as DECIMAL(6,4))>9.3494) and (CAST(LongPrec as DECIMAL(6,4))<10.0965) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>56.7504) and (CAST(LatPrec as DECIMAL(6,4))<57.128) and (CAST(LongPrec as DECIMAL(6,4))>9.3494) and (CAST(LongPrec as DECIMAL(6,4))<10.0965) )
+poly  ((CAST(LatPrec as DECIMAL(6,4))>56.7504) and (CAST(LatPrec as DECIMAL(6,4))<57.2649) and (CAST(LongPrec as DECIMAL(6,4))>8.9539) and (CAST(LongPrec as DECIMAL(6,4))<9.9647) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>56.7504) and (CAST(LatPrec as DECIMAL(6,4))<57.2649) and (CAST(LongPrec as DECIMAL(6,4))>8.9539) and (CAST(LongPrec as DECIMAL(6,4))<9.9647) )
+poly  ((CAST(LatPrec as DECIMAL(6,4))>55.4017) and (CAST(LatPrec as DECIMAL(6,4))<56.0206) and (CAST(LongPrec as DECIMAL(6,4))>8.9759) and (CAST(LongPrec as DECIMAL(6,4))<10.6678) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>55.4017) and (CAST(LatPrec as DECIMAL(6,4))<56.0206) and (CAST(LongPrec as DECIMAL(6,4))>8.9759) and (CAST(LongPrec as DECIMAL(6,4))<10.6678) )
+poly  ((CAST(LatPrec as DECIMAL(6,4))>55.4017) and (CAST(LatPrec as DECIMAL(6,4))<56.0206) and (CAST(LongPrec as DECIMAL(6,4))>8.9759) and (CAST(LongPrec as DECIMAL(6,4))<10.6678) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Species="abnormis"  and  ((CAST(LatPrec as DECIMAL(6,4))>55.4017) and (CAST(LatPrec as DECIMAL(6,4))<56.0206) and (CAST(LongPrec as DECIMAL(6,4))>8.9759) and (CAST(LongPrec as DECIMAL(6,4))<10.6678) )
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Species="gemmosum" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Species="genevensis" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Leg like "%Anders Illum%" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Leg like "%Nikolaj Scharff%" 

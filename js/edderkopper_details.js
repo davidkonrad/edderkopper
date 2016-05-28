@@ -100,6 +100,8 @@ var Details = {
 		}
 	
 		var myLatLng = new google.maps.LatLng(lat, long);
+
+		/*** !!!!!!!!!!!!!!!!!!!!
 		var mapOptions = {
 			zoom: zoom,
 			center: myLatLng,
@@ -124,9 +126,13 @@ var Details = {
 				on: "Zoom fra"
 			}
 		});
+		!!!!!!!!!!! ----------------*/
 
-		//Details.map = Geo.googleMap('map');
+		Details.map = Geo.googleMap('map');
+		Details.map.setCenter(myLatLng);
+		Details.map.setZoom(zoom);
 
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		var rows= $("#result-table tr:gt(0)"); // skip the header row
 		var markers = new Array();
 		rows.each(function(index) {

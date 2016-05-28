@@ -231,7 +231,7 @@ function tdLinkClick(field, value) {
 		$text = array();
 		if ($this->getLanguage()==1) {
 			$text['show']='Vis';
-			$text['table']='Tabel';
+			$text['table']='Oversigt';
 			$text['table-title']='Vis s&oslash;geresultater som tabel';
 			$text['map']='Kort';
 			$text['map-title']='Vis s&oslash;geresultater p&aring; kort';
@@ -244,8 +244,10 @@ function tdLinkClick(field, value) {
 		}
 
 		echo '<div style="float:left;clear:left;">';
-		echo '<input type="button" value="'.trans(ZN_SEARCH_BACK).'" onclick="Edderkopper.back();" title="">';
+		//echo '<input type="button" value="'.trans(ZN_SEARCH_BACK).'" onclick="Edderkopper.back();" title="">';
+		echo '<a class="small" href="#" onclick="Edderkopper.back();" title="Gå tilbage til søøgefunktion">'.trans(ZN_SEARCH_BACK).'</a>';
 		echo '</div>';
+
 		echo '<div id="view" style="margin-left:20px;float:left;">';
 		echo $text['show'].' : ';
 		echo '<input type="radio" id="tabel" name="radio" checked="checked" onclick="Details.changeView(1);" style="vertical-align:text-bottom;">';
@@ -367,7 +369,7 @@ function tdLinkClick(field, value) {
 		echo '<br><select style="margin-left:10px;width:160px;" id="vis-kommuner"></option></select><br>';
 
 		//echo '<span class="funktioner-caption">Vis habitatomr&aring;de(r) :</span>';
-		$habitat = $this->getLanguage()==1 ? '[V&aelig;lg habitatområde]' : '[Select EU Habitat Site]';
+		$habitat = $this->getLanguage()==1 ? '[V&aelig;lg habitatomr&aring;de]' : '[Select EU Habitat Site]';
 		echo '<br><select style="margin-left:10px;width:160px;" id="vis-habitat"><option value="">'.$habitat.'</option></select><br>';
 
 		//echo '<button style="margin-left:10px;" onclick="" disabled="disabled">Vis kommunegr&aelig;nser</button><br>';

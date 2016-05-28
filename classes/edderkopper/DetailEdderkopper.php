@@ -356,7 +356,6 @@ p {
 	private function getImages() {
 		if ($this->species_id=='') return;
 		$SQL='select * from edderkopper_photo where SpeciesId='.$this->species_id;
-		echo $this->species_id;
 		mysql_set_charset('utf8');
 		$result=$this->query($SQL);
 		while ($row=mysql_fetch_array($result)) {

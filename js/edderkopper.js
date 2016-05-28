@@ -90,11 +90,11 @@ var Edderkopper = {
 		$("#result-table").dataTable({
 			//as in SearchBase.php
 			bJQueryUI: true,
-	        bPaginate: false,  
-	        bInfo: false,  
+      bPaginate: false,  
+      bInfo: false,  
 			bLengthChange: false,
-	        bFilter: false,
-	        bAutoWidth: false,
+      bFilter: false,
+      bAutoWidth: false,
 			asStripClasses:[],
 			bSortClasses: false,
 			//sDom: 'T<"clear">lfrtip',

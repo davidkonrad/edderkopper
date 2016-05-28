@@ -46,19 +46,6 @@ var Geo = {
 	UTM10_Grid : null,
 
 	/*
-		common variables used for polygons, kommuner, regions
-		the is defined global so we can erase layers from the amp
-	*/
-	/*
-	bounds : new google.maps.LatLngBounds(),
-	markers : [], 
-	path : new google.maps.MVCArray,
-	bounds : new google.maps.LatLngBounds(),
-	vertices : [],
-	graense : null,
-	*/
-
-	/*
 		shows wait cursor, eg rotating wheel, or not
 	*/
 	wait : function(mode) {
@@ -96,12 +83,17 @@ var Geo = {
 			featureType: "administrative.country",
 			elementType: 'labels',
 			stylers: [{ visibility: 'off' }]
-			},{
+		},{
 			//remove points of interest
 			featureType: "poi",
 			elementType: 'all',
 			stylers: [{ visibility: 'off' }]
-		}];
+		}, {
+			//remove road labels
+	    featureType: "road",
+	    elementType: "labels",
+	    stylers: [{ "visibility": "off" }]
+	  }];
 
 		var mapOptions = {
 			zoom: zoom,
@@ -109,7 +101,8 @@ var Geo = {
 			zoomControl: true,
 			streetViewControl: false,
 			zoomControlOptions: {
-				style: google.maps.ZoomControlStyle.SMALL
+				style: google.maps.ZoomControlStyle.SMALL,
+        position: google.maps.ControlPosition.RIGHT_TOP
 			},
 			styles : stylers,
 			mapTypeId: google.maps.MapTypeId.TERRAIN
@@ -118,8 +111,6 @@ var Geo = {
 
 		if (map.keyDragZoomEnabled) map.enableKeyDragZoom({
 			visualEnabled: true,
-			visualPosition: google.maps.ControlPosition.LEFT,
-			visualPositionMargin: new google.maps.Size(35, 0),
 			visualImages: {},
 			visualTips: {
 				off: Geo.zoom_off,
@@ -457,77 +448,6 @@ var Geo = {
 	//add the polygonborder
 	polygon.setMap(map);
 },
-
-
-
-	//draws a polygon on a map. 
-	//Polygon is an array of string on the form lat,long
-	/*
-	showPolygonSimple : function(polygon, map, event) {
-		var lat, lng;
-		var coordinates = polygon;
-		var latlng;
-		var vertices = new Array(coordinates.length);
-		for (var index = 0; index < coordinates.length; index++) {
-			ll=coordinates[index].split(',');
-			lat = parseFloat(ll[1]);
-			lng = parseFloat(ll[0]);
-			latlng = new google.maps.LatLng(lat, lng);
-			vertices[index] = latlng;
-		}
-
-		var polygon = new google.maps.Polygon({
-			paths: vertices,
-			strokeOpacity: 0.8,
-			strokeWeight: Geo.strokeWeight,
-			strokeColor: Geo.strokeColor,
-			fillColor: Geo.fillColor 
-		});
-
-		google.maps.event.addListener(polygon, 'click', function() {
-			//$(elem_id).text(this.utm);
-			alert('click');
-		});
-
-		//add the polygonborder
-		polygon.setMap(map);
-	},
-	*/
-
-/*
-	//load habitatnavne.json into a selectbox
-	//select is id on the form #select_id
-	getHabitatNames : function(select_id) {
-		var filename='json/habitatnavne.json';
-		$.getJSON(filename, function(data) {
-	 		$.each(data, function(index, navn) {
-				$('<option value="'+navn.id+'">'+navn.navn+'</option>').appendTo(select_id);
-			});
-		});
-	},
-*/
-	//show the selected habitat on a google map
-	//name is the full name of the habitat
-	//map is the variable holding the map
-/*
-
-	showHabitat : function(name, map) {
-		Geo.fillColor = 'red';
-		Geo.strokeWeight = 1;
-		var filename='json/habitatpolygoner.json';
-
-		$.getJSON(filename, function(data) {
-	 		$.each(data, function(index, habitat) {
-				if (habitat.name==name) {
-					var polystr = habitat.coords;
-					var polyarray = polystr.split('/');
-					Geo.showPolygon(polyarray, map);
-					return true;
-				}
-			});
-		});
-	},
-*/
 
 	/****************************************************************************
 		regioner / zootopo.js

@@ -208,6 +208,9 @@ var Search = {
 				var caption=item.caption+' - '+len+' '+item.caption_results;
 				$(item.headline_id).html(caption);
 				System.adjustPageHeight();
+
+				//
+				$("html, body").animate({ scrollTop: 0 }, "slow");
 			}
 		});
 	},
