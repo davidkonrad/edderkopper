@@ -14,6 +14,8 @@ class ClassEdderkopperAdm extends ClassBase {
 <link rel="stylesheet" href="css/edderkopper-adm.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/edderkopper.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.js"></script>
+<script type="text/javascript" src="plugins/tabber/tabber.js"></script>
+<link rel="stylesheet" href="plugins/tabber/example.css" type="text/css" media="screen" />
 <?
 	}
 
@@ -88,19 +90,32 @@ $("#edit-art").combobox({ source: "ajax/edderkopper_lookup.php" });
 
 	public function drawBody() {
 ?>
-<script>
 
-</script>
 
+
+<!-------------->
+
+<div class="tabber">
+
+	<div class="tabbertab">
+		<h2>Upload mv.</h2>
+
+<!--
 <fieldset>
 <legend>Download</legend>
+-->
+<br>
 <button id="download">Download aktuel database som CSV</button>
+<!--
 </fieldset>
-
+-->
 <? HTML::divider(10);?>
 
+<!--
 <fieldset>
 <legend>Upload CSV</legend>
+-->
+<h4>Upload CSV</h4>
 <p style="margin-top:0px;">Upload en ny CSV-fil. Filen vil blive lagt på serveren i et særligt katalog.
 Når filen er successfuldt uploaded vil den kunne blive importeret til databasen..
 </p>
@@ -111,10 +126,13 @@ Når filen er successfuldt uploaded vil den kunne blive importeret til databasen
 </form>
 <hr class="search">
 <div id="csv-filelist" style="clear:left;float:left;"></div>
+
+<!--
 </fieldset>
+-->
 
 <!-- messages window -->
-<div id="messages" title="Status på serveren">
+<div XXid="messages" title="Status på serveren">
 <?
 $f=$this->getParam('f');
 $m=$this->getParam('m');
@@ -127,35 +145,54 @@ if ($f && $m) {
 ?>		
 </div>
 
-<fieldset>
-<legend>Fund</legend>
-LNR : <input type="text" id="fund-lnr" data-provide="typeahead" class="number-only" style="width:80px;">
-<button id="edit-fund">Rediger Fund</button>
-<button id="create-fund">Opret nyt fund</button>
-</fieldset>
-
-<fieldset>
-<legend>Arter</legend>
-Artsnavn : <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:330px;">
-<button id="edit-specie">Rediger art</button>
-<button id="create-specie">Opret ny art</button>
-<br>
-<span id="current-species">&nbsp;</span>
-</fieldset>
-
+<!--
 <fieldset style="clear:both;">
 <legend>Diverse</legend>
+-->
+<h4>Tjekliste</h4>
 <button id="generate-checklist">Generér tjekliste</button>
 <a style="margin-left:20px;" href="Tjekliste-over-Danmarks-edderkopper">&#9658;&nbsp;Se tjekliste</a>
 <hr class="search">
 <button id="update-name">Opdatér &lt;name&gt; på fund</button>
 
+<!--
 </fieldset>
+-->
+
+	</div>
+
+	<div class="tabbertab">
+		<h2>Fund</h2>
+	  <p>
+
+LNR : <input type="text" id="fund-lnr" data-provide="typeahead" class="number-only" style="width:80px;">
+<button id="edit-fund">Rediger Fund</button>
+<button id="create-fund">Opret nyt fund</button>
+
+		</p>
+	</div>
+
+	<div class="tabbertab">
+		<h2>Art</h2>
+	  <p>
+<?
+include('_art.inc.php');
+?>
+		</p>
+	</div>
+
+	<div class="tabbertab">
+		<h2>Slægt</h2>
+	  <p></p>
+	</div>
+
+	<div class="tabbertab">
+		<h2>Familie</h2>
+	  <p></p>
+	</div>
 
 </div>
 
-<? HTML::divider(40);?>
-<hr>
 <?
 	}
 

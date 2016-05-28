@@ -268,7 +268,10 @@ $(document).ready(function() {
 		updater: function(item) {
 			$("#edit-specie").disable(false);
 			return item;
-	    }
+    },
+		afterSelect: function(item) {
+			console.log(item)
+		}
 	});
 	$("#lookup-species").on('click', function() {
 		$(this).val('');
