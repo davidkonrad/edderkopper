@@ -252,6 +252,9 @@ $(document).ready(function() {
 		adm.speciesCreate();
 	});
 
+/********************
+	Art
+********************/
 	var path='ajax/edderkopper/actions.php?action=lookup';
 	$("#lookup-species").typeahead({
 		minLength : 1,
@@ -270,7 +273,111 @@ $(document).ready(function() {
 			return item;
     },
 		afterSelect: function(item) {
-			console.log(item)
+			var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK']
+
+			var getCaption = function(field) {
+				switch (field) {
+					case 'Genus' : return 'Slægt'; break;
+					case 'GenusID' : return 'Slægt'; break;
+					case 'Species' : return 'Artsnavn'; break;
+					case 'den_danske_roedliste': return 'Rødliste'; break;
+					case 'NameDK' : return 'Dansk navn'; break;
+					case 'NameUK' : return 'Navn UK'; break;
+					default : return '??'; break;
+				}
+			}
+
+			var id =  item.match(/[^[\]]+(?=])/g)
+			id = id[0] ? id[0] : false
+			if (!id) return
+			$.ajax({
+				url: 'ajax/edderkopper_Art.php',
+				type: 'post',
+				data : {
+					action: 'get',
+					id: id
+				},
+				success : function(response) {
+					if (!response) return
+					var r = JSON.parse(response),
+							$body = $('#species-table-body');
+
+					$body.html('')
+
+					//slægt
+					var $tr = $('<tr>'), $td = $('<td>');
+					$td.append('<b>'+ getCaption('Genus') +'</b>')
+					$td.appendTo($tr)
+					var $td = $('<td>')
+					$td.append('<input size="40" class="genus-typeahead" value="'+ r['Genus'] +'"/>')
+					$td.append('<small id="hash-GenusID">#'+r['GenusID']+'</span>')
+					$td.appendTo($tr)
+					$tr.appendTo($body);
+
+					//artsnavn
+					var $tr = $('<tr>'), $td = $('<td>');
+					$('<b>').text(getCaption('Species')).appendTo($td).appendTo($tr)
+					var $td = $('<td>')
+					$td.append('<input size="40" value="'+ r['Species'] +'"/>')
+					$td.append('<small>#'+r['SpeciesID']+'</span>')
+					$td.appendTo($tr)
+					$tr.appendTo($body);
+
+					for (var field in r) {
+						if (~allowedFields.indexOf(field)) {
+							var $tr = $('<tr>');
+							$('<td>').text(getCaption(field)).appendTo($tr)
+							var $td = $('<td>')
+							$td.append('<input size="40" name="'+field+'" value="'+r[field]+'">').appendTo($tr)
+							$tr.appendTo($body);
+						}
+					}
+
+					//add save button
+					var $tr = $('<tr>');
+					var $td = $('<td>')
+					$td.attr('colspan', 2).css('text-align', 'center')
+					$td.append('<span id="art-message"></span>')
+					$td.append('<input type="hidden" name="SpeciesID" id="SpeciesID" value="'+r['SpeciesID']+'"/>')
+					$td.append('<input type="hidden" name="GenusID" id="GenusID"  value="'+r['GenusID']+'"/>')
+					$('<button>')
+						.text('Gem')
+						.on('click', function() {
+							var url = 'ajax/edderkopper/actions.php?action=updateSpecie';
+							var params = $('#species-form').serialize()
+							console.log(params)
+							return false;
+						})
+						.appendTo($td)
+
+					$td.appendTo($tr)
+					$tr.appendTo($body);
+
+					//init slægt typeahead
+					var path='ajax/edderkopper/actions.php?action=lookupGenus';
+					$('.genus-typeahead').typeahead({
+						minLength : 1,
+						items : 20,
+						source: function(query, process) {
+							return $.get(path+'&search='+query, {}, function(data) {
+								var a=[];
+								for (var i=0;i<data.length;i++) {
+									a.push(data[i]);
+								}
+								return process(a);
+							})
+						},
+						displayText: function(item) {
+							return item.FullName
+						},
+						afterSelect: function(item) {
+							this.$element.val(item.Genus)
+							$('#hash-GenusID').text('#'+item.GenusID)
+							$('#GenusID').val(item.GenusID)
+						}
+					})
+				}
+			})
 		}
 	});
 	$("#lookup-species").on('click', function() {

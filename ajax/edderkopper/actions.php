@@ -253,6 +253,38 @@ class LookupFullSpecies extends Db {
 	}
 }
 
+//lookup genus with full names
+class LookupFullGenus extends Db {
+	private $search = '';
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->search = $_GET['search'];
+		$this->run();
+	}
+	protected function getJSON($result) {
+		$array = array();
+		while ($row = mysql_fetch_array($result)) {
+			$array[] = array(
+				'GenusID' => $row['GenusID'],
+				'Genus' => $row['Genus'],
+				'FullName' => $row['Genus'].', '.$row['Family'].' ('.$row['GAuthor'].') ['.$row['GenusID'].']'
+			);
+		}
+		return json_encode($array);
+	}
+	private function run() {
+		header('Content-type: application/json; charset=utf-8');
+		$SQL='select distinct s.GenusID, s.Genus, s.GAuthor, g.Family '.
+			'from edderkopper_genus s, edderkopper_family g '.
+			'where s.Genus like "%'.$this->search.'%" and s.FamilyID=g.FamilyID '.
+			'order by Genus ';
+
+		$result=$this->query($SQL);
+		echo $this->getJSON($result);
+	}
+}
+
 //count of fund
 class FundCount extends Db {
 	public function __construct() {
@@ -419,6 +451,9 @@ switch ($action) {
 		break;
 	case 'lookup' :
 		$lookup = new LookupFullSpecies();
+		break;
+	case 'lookupGenus' :
+		$lookupGenus = new LookupFullGenus();
 		break;
 	case 'fundcount' :
 		$fundcount = new FundCount();

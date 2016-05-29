@@ -77,10 +77,14 @@ class Db {
 		return $result;
 	}
 
-	public function getRow($SQL) {
+	public function getRow($SQL, $assoc = false) {
 		try {
 			$result=mysql_query($SQL);
-			$result=mysql_fetch_array($result);
+			if (!$assoc) {
+				$result=mysql_fetch_array($result); 
+			} else {
+				$result=mysql_fetch_assoc($result); 
+			}
 			return $result;
 		} catch (Exception $e) {
 		    echo 'Database error : ',  $e->getMessage(), "\n".$SQL;

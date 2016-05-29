@@ -145,21 +145,17 @@ if ($f && $m) {
 ?>		
 </div>
 
-<!--
-<fieldset style="clear:both;">
-<legend>Diverse</legend>
--->
-<h4>Tjekliste</h4>
+	</div>
+
+	<div class="tabbertab">
+		<h2>Tjekliste</h2>
+		<p>
 <button id="generate-checklist">Generér tjekliste</button>
 <a style="margin-left:20px;" href="Tjekliste-over-Danmarks-edderkopper">&#9658;&nbsp;Se tjekliste</a>
 <hr class="search">
 <button id="update-name">Opdatér &lt;name&gt; på fund</button>
-
-<!--
-</fieldset>
--->
-
-	</div>
+		</p>
+	</div>	
 
 	<div class="tabbertab">
 		<h2>Fund</h2>
@@ -176,14 +172,18 @@ LNR : <input type="text" id="fund-lnr" data-provide="typeahead" class="number-on
 		<h2>Art</h2>
 	  <p>
 <?
-include('_art.inc.php');
+include('_specie.inc.php');
 ?>
 		</p>
 	</div>
 
 	<div class="tabbertab">
 		<h2>Slægt</h2>
-	  <p></p>
+	  <p>
+<?
+include('_genus.inc.php');
+?>
+		</p>
 	</div>
 
 	<div class="tabbertab">

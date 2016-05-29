@@ -1,4 +1,5 @@
 /* boostrap */
+
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -8,6 +9,7 @@
   float: left;
   min-width: 160px;
   padding: 5px 0;
+
   margin: 2px 0 0;
   list-style: none;
   background-color: #ffffff;
@@ -32,11 +34,16 @@
 
 .dropdown-menu a {
 	color: black;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: normal;
 	font-family : arial, helvetica;
+
+	display: block;
+	padding-left: 2px;
+	padding-right: 2px;
 }
 .dropdown-menu a:hover {
-	color: black;
-	background-color: #ebebeb;
+	color: white;
+	background-color: #33613D;
 }
+
