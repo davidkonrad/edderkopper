@@ -110,62 +110,19 @@ var adm = {
 	},
 		
 	downloadCSV : function(element) {
+		var $idown;  // Keep it outside of the function, so it's initialized once.
+		downloadURL = function(url) {
+		  if ($idown) {
+		    $idown.attr('src',url);
+		  } else {
+		    $idown = $('<iframe>', { id:'idown', src:url }).hide().appendTo('body');
+		  }
+		}
+		//downloadURL('http://whatever.com/file.pdf');
+		downloadURL('edderkopper-upload/'+adm.getCSV(this));
+	},
+
 /*
-var downloadURL = function downloadURL(url) {
-    var hiddenIFrameID = 'hiddenDownloader',
-        iframe = document.getElementById(hiddenIFrameID);
-    if (iframe === null) {
-        iframe = document.createElement('iframe');
-        iframe.id = hiddenIFrameID;
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-    }
-    iframe.src = url;
-};
-		alert(adm.getCSV(this));
-*/
-var $idown;  // Keep it outside of the function, so it's initialized once.
-downloadURL = function(url) {
-  if ($idown) {
-    $idown.attr('src',url);
-  } else {
-    $idown = $('<iframe>', { id:'idown', src:url }).hide().appendTo('body');
-  }
-}
-//... How to use it:
-//downloadURL('http://whatever.com/file.pdf');
-	downloadURL('edderkopper-upload/'+adm.getCSV(this));
-	},
-
-	speciesLookUp : function() {
-		var speciesID = $("#species-lookup").val();
-		$.ajax({
-			url : 'ajax/edderkopper/actions.php?action=lookup&speciesID='+speciesID,
-			success : function(name) {
-				name = name!='' ? name : 'SpeciesID findes ikke';
-				$("#current-species").text(name);
-			}
-		});
-	},
-
-	speciesEdit : function() {
-		var species = $("#lookup-species").val(),
-			speciesID = /\[(.*?)\]/.exec(species)[1];
-		window.location.href='edderkopper-rediger-art?speciesID='+speciesID;
-	},
-
-	speciesCreate : function() {
-		var speciesName = prompt('Indtast artsnavn, f.eks quadratus.\nArtsnavnet kan ændres senere.\nHusk at tildele den nye art en slægt!', '');
-		if (speciesName== '') return;
-		$.ajax({
-			url : 'ajax/edderkopper/actions.php?action=createspecie&specie='+speciesName,
-			success : function(speciesID) {
-				//alert(speciesID);
-				window.location.href='edderkopper-rediger-art?speciesID='+speciesID;
-			}
-		});
-	},
-
 	fundCreate : function() {
 		window.location='edderkopper-rediger-fund';
 	},
@@ -200,6 +157,7 @@ downloadURL = function(url) {
 			}
 		});
 	},
+*/
 		
 	generateChecklist : function() {
 		adm.msgWait();
@@ -252,138 +210,6 @@ $(document).ready(function() {
 		adm.speciesCreate();
 	});
 
-/********************
-	Art
-********************/
-	var path='ajax/edderkopper/actions.php?action=lookup';
-	$("#lookup-species").typeahead({
-		minLength : 1,
-		items : 20,
-		source: function(query, process) {
-			return $.get(path+'&search='+query, {}, function(data) {
-				var a=[];
-				for (var i=0;i<data.length;i++) {
-					a.push(data[i].value);
-				}
-				return process(a);
-			});
-		},
-		updater: function(item) {
-			$("#edit-specie").disable(false);
-			return item;
-    },
-		afterSelect: function(item) {
-			var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK']
-
-			var getCaption = function(field) {
-				switch (field) {
-					case 'Genus' : return 'Slægt'; break;
-					case 'GenusID' : return 'Slægt'; break;
-					case 'Species' : return 'Artsnavn'; break;
-					case 'den_danske_roedliste': return 'Rødliste'; break;
-					case 'NameDK' : return 'Dansk navn'; break;
-					case 'NameUK' : return 'Navn UK'; break;
-					default : return '??'; break;
-				}
-			}
-
-			var id =  item.match(/[^[\]]+(?=])/g)
-			id = id[0] ? id[0] : false
-			if (!id) return
-			$.ajax({
-				url: 'ajax/edderkopper_Art.php',
-				type: 'post',
-				data : {
-					action: 'get',
-					id: id
-				},
-				success : function(response) {
-					if (!response) return
-					var r = JSON.parse(response),
-							$body = $('#species-table-body');
-
-					$body.html('')
-
-					//slægt
-					var $tr = $('<tr>'), $td = $('<td>');
-					$td.append('<b>'+ getCaption('Genus') +'</b>')
-					$td.appendTo($tr)
-					var $td = $('<td>')
-					$td.append('<input size="40" class="genus-typeahead" value="'+ r['Genus'] +'"/>')
-					$td.append('<small id="hash-GenusID">#'+r['GenusID']+'</span>')
-					$td.appendTo($tr)
-					$tr.appendTo($body);
-
-					//artsnavn
-					var $tr = $('<tr>'), $td = $('<td>');
-					$('<b>').text(getCaption('Species')).appendTo($td).appendTo($tr)
-					var $td = $('<td>')
-					$td.append('<input size="40" value="'+ r['Species'] +'"/>')
-					$td.append('<small>#'+r['SpeciesID']+'</span>')
-					$td.appendTo($tr)
-					$tr.appendTo($body);
-
-					for (var field in r) {
-						if (~allowedFields.indexOf(field)) {
-							var $tr = $('<tr>');
-							$('<td>').text(getCaption(field)).appendTo($tr)
-							var $td = $('<td>')
-							$td.append('<input size="40" name="'+field+'" value="'+r[field]+'">').appendTo($tr)
-							$tr.appendTo($body);
-						}
-					}
-
-					//add save button
-					var $tr = $('<tr>');
-					var $td = $('<td>')
-					$td.attr('colspan', 2).css('text-align', 'center')
-					$td.append('<span id="art-message"></span>')
-					$td.append('<input type="hidden" name="SpeciesID" id="SpeciesID" value="'+r['SpeciesID']+'"/>')
-					$td.append('<input type="hidden" name="GenusID" id="GenusID"  value="'+r['GenusID']+'"/>')
-					$('<button>')
-						.text('Gem')
-						.on('click', function() {
-							var url = 'ajax/edderkopper/actions.php?action=updateSpecie';
-							var params = $('#species-form').serialize()
-							console.log(params)
-							return false;
-						})
-						.appendTo($td)
-
-					$td.appendTo($tr)
-					$tr.appendTo($body);
-
-					//init slægt typeahead
-					var path='ajax/edderkopper/actions.php?action=lookupGenus';
-					$('.genus-typeahead').typeahead({
-						minLength : 1,
-						items : 20,
-						source: function(query, process) {
-							return $.get(path+'&search='+query, {}, function(data) {
-								var a=[];
-								for (var i=0;i<data.length;i++) {
-									a.push(data[i]);
-								}
-								return process(a);
-							})
-						},
-						displayText: function(item) {
-							return item.FullName
-						},
-						afterSelect: function(item) {
-							this.$element.val(item.Genus)
-							$('#hash-GenusID').text('#'+item.GenusID)
-							$('#GenusID').val(item.GenusID)
-						}
-					})
-				}
-			})
-		}
-	});
-	$("#lookup-species").on('click', function() {
-		$(this).val('');
-		$("#edit-specie").disable(true);
-	});
 
 	$("input.number-only").bind({
 		keydown: function(e) {
@@ -403,20 +229,6 @@ $(document).ready(function() {
 	   }
 	});
 
-
-	$("#fund-lnr").on('keydown', function(e) {	
-		if (e.which == 13 ) {
-			$("#edit-fund").trigger('click');
-		}		
-	});
-	$("#edit-fund").click(function() {
-		var LNR = $("#fund-lnr").val();
-		if (LNR!='') adm.fundEdit(LNR);
-	});
-	$("#create-fund").on('click', function() {
-		adm.fundCreate();
-	});
-				
 	$("#generate-checklist").on('click', function() {			
 		adm.generateChecklist();
 	});
@@ -426,4 +238,5 @@ $(document).ready(function() {
 	});
 
 });
+
 

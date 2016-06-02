@@ -1,4 +1,0 @@
-poly 
-select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Species="acuminata" 
-poly 
-select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Species="acuminata" 

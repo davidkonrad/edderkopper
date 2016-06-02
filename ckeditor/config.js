@@ -26,16 +26,18 @@ CKEDITOR.editorConfig = function( config )
 	    //{ name: 'tools',       items : [ 'Maximize', 'ShowBlocks','-','About' ] }
 	];
 
+	config.skin = 'office2003';
+
 	config.toolbar_edderkopper =
 	[
 	    { name: 'document',    items : [ 'Source' ] },
 	    { name: 'clipboard',   items : [ 'Cut','Copy','Paste' ,'-','Undo','Redo' ] },
 	    { name: 'editing',     items : [ 'Find','Replace','-','SelectAll'  ] },
 	    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-	    { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
+	    //{ name: 'paragraph',   items : [ 'NumberedList','BulletedList','-', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
 	    { name: 'links',       items : [ 'Link','Unlink' ]},
-	    { name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
-	    { name: 'colors',      items : [ 'TextColor','BGColor' ] },
+	    //{ name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
+	    //{ name: 'colors',      items : [ 'TextColor','BGColor' ] },
 	];
 
 };

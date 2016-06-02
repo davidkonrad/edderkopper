@@ -219,7 +219,26 @@ class Check extends CSV {
     }
 }
 
-//lookup species with full names
+
+/*****************************
+	get specie by SpeciesID
+*****************************/
+class GetSpecies extends Db {
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->run();
+	}
+	private function run() {
+		$SQL='select * from edderkopper_species where SpeciesID='.$_GET['SpeciesID'];
+		$row=$this->getRow($SQL, true);
+		echo json_encode($row);
+	}
+}
+
+/*****************************
+	lookup species with FullName
+*****************************/
 class LookupFullSpecies extends Db {
 	private $search = '';
 	public function __construct() {
@@ -232,7 +251,6 @@ class LookupFullSpecies extends Db {
 		$json='';
 		while ($row = mysql_fetch_array($result)) {
 			if ($json!='') $json.=',';
-			//$species = $row['SpeciesID'].' : '.$row['Genus'].' '.$row['Species'].' - '.$row['SAuthor'];
 			$species = $row['Species'].', '.$row['Genus'].' '.$row['SAuthor'].' ['.$row['SpeciesID'].']';
 			$json.='{"value" : "'.$species.'", "text": "'.$species.'"}';
 		}
@@ -246,12 +264,46 @@ class LookupFullSpecies extends Db {
 			'where s.Species like "%'.$this->search.'%" and s.GenusID=g.GenusID '.
 			'order by Species ';
 
-		//$this->fileDebug($SQL);
 		$result=$this->query($SQL);
 		echo $this->getJSON($result);
-		//echo count($row)>-1 ? $row['Genus'].' '.$row['Species'].' - '.$row['SAuthor'] : '';
 	}
 }
+
+/*****************************
+	update a Species
+*****************************/
+class updateSpecies extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		mysql_set_charset('utf8');
+		$SQL='update edderkopper_species set ';
+		foreach($_GET as $key => $value) {
+			if (!in_array($key, array('SpeciesID', 'action'))) {
+				$SQL.=$key.'='.$this->q($value);
+			}
+		}
+		$SQL=$this->removeLastChar($SQL);
+		$SQL.=' where SpeciesID='.$_GET['SpeciesID'];
+
+		$this->exec($SQL);
+		$updateError = mysql_error();
+
+
+		//update Genus on all Species
+		$SQL='update edderkopper_species set edderkopper_species.Genus = ' .
+					'(select edderkopper_genus.Genus from edderkopper_genus ' .
+						'where edderkopper_genus.GenusID = edderkopper_species.GenusID)';
+		$this->exec($SQL);
+
+		$updateError .= mysql_error();
+
+		echo $updateError!='' ? $updateError : 'Ændringerne er blevet gemt ...';
+	}
+}
+
 
 //lookup genus with full names
 class LookupFullGenus extends Db {
@@ -298,7 +350,25 @@ class FundCount extends Db {
 	}
 }
 
-//update fund / table edderkopper	
+/*****************************
+	get fund by LNR
+*****************************/
+class FundGet extends Db {
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->run();
+	}
+	private function run() {
+		$SQL='select * from edderkopper where LNR='.$_GET['LNR'];
+		$row=$this->getRow($SQL, true);
+		echo json_encode($row);
+	}
+}
+
+/*****************************
+	update fund 
+*****************************/
 class FundSave extends Db {
 	public function __construct() {
 		parent::__construct();
@@ -315,7 +385,6 @@ class FundSave extends Db {
 		$SQL=$this->removeLastChar($SQL);
 		$SQL.=' where LNR='.$_GET['LNR'];
 		$this->exec($SQL);
-		//echo $SQL;
 		$updateError = mysql_error();
 
 		//update Name
@@ -449,12 +518,24 @@ switch ($action) {
 	case 'delete' : 
 		$delete = new Delete();
 		break;
-	case 'lookup' :
+
+	//species
+	case 'lookupSpecies' :
 		$lookup = new LookupFullSpecies();
 		break;
+	case 'getSpecies' :
+		$lookup = new GetSpecies();
+		break;
+	case 'updateSpecies' :
+		$lookup = new updateSpecies();
+		break;
+
+	//genus	
 	case 'lookupGenus' :
 		$lookupGenus = new LookupFullGenus();
 		break;
+
+	//fund
 	case 'fundcount' :
 		$fundcount = new FundCount();
 		break;
@@ -464,6 +545,11 @@ switch ($action) {
 	case 'funddelete' :
 		$funddelete = new FundDelete();
 		break;
+	case 'fundGet' :
+		$fundGet = new FundGet();
+		break;
+
+
 	case 'taxonomy' :
 		$taxonomy = new GetTaxonomy();
 		break;

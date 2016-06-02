@@ -14,8 +14,13 @@ class ClassEdderkopperAdm extends ClassBase {
 <link rel="stylesheet" href="css/edderkopper-adm.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/edderkopper.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.js"></script>
+<script type="text/javascript" src="js/edderkopper_adm.species.js"></script>
+<script type="text/javascript" src="js/edderkopper_adm.fund.js"></script>
 <script type="text/javascript" src="plugins/tabber/tabber.js"></script>
 <link rel="stylesheet" href="plugins/tabber/example.css" type="text/css" media="screen" />
+
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+
 <?
 	}
 
@@ -99,37 +104,22 @@ $("#edit-art").combobox({ source: "ajax/edderkopper_lookup.php" });
 
 	<div class="tabbertab">
 		<h2>Upload mv.</h2>
-
-<!--
-<fieldset>
-<legend>Download</legend>
--->
-<br>
-<button id="download">Download aktuel database som CSV</button>
-<!--
-</fieldset>
--->
+		<p>
+			<br>
+			<button id="download">Download aktuel fund-database som CSV</button>
 <? HTML::divider(10);?>
 
-<!--
-<fieldset>
-<legend>Upload CSV</legend>
--->
-<h4>Upload CSV</h4>
-<p style="margin-top:0px;">Upload en ny CSV-fil. Filen vil blive lagt på serveren i et særligt katalog.
-Når filen er successfuldt uploaded vil den kunne blive importeret til databasen..
-</p>
-<form action="ajax/edderkopper/upload.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="return-to" value="../../edderkopper-administration">
-<input type="file" name="file" id="upload-file" onchange="adm.setUploadBtn();"/> 
-<input type="submit" id="upload-begin" value="Upload valgt CSV-fil"/>
-</form>
-<hr class="search">
-<div id="csv-filelist" style="clear:left;float:left;"></div>
-
-<!--
-</fieldset>
--->
+			<h4>Upload CSV</h4>
+			<p style="margin-top:0px;">Upload en ny CSV-fil. Filen vil blive lagt på serveren i et særligt katalog.
+				Når filen er successfuldt uploaded vil den kunne blive importeret til databasen..
+			</p>
+			<form action="ajax/edderkopper/upload.php" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="return-to" value="../../edderkopper-administration">
+				<input type="file" name="file" id="upload-file" onchange="adm.setUploadBtn();"/> 
+				<input type="submit" id="upload-begin" value="Upload valgt CSV-fil"/>
+			</form>
+			<hr class="search">
+			<div id="csv-filelist" style="clear:left;"></div>
 
 <!-- messages window -->
 <div XXid="messages" title="Status på serveren">
@@ -143,6 +133,7 @@ if ($f && $m) {
 	echo $msg;
 }	
 ?>		
+</p>
 </div>
 
 	</div>
@@ -160,20 +151,32 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Fund</h2>
 	  <p>
-
-LNR : <input type="text" id="fund-lnr" data-provide="typeahead" class="number-only" style="width:80px;">
-<button id="edit-fund">Rediger Fund</button>
-<button id="create-fund">Opret nyt fund</button>
-
+			LNR : <input type="text" id="fund-lnr" class="number-only" style="width:80px;" />
+			<button id="edit-fund">Rediger Fund</button>
+			<button id="create-fund">Opret nyt fund</button>
+			<hr>
+			<form id="fund-form">
+				<table id="fund-table">
+					<tbody id="fund-table-body">
+					</tbody>
+				</table>
+			</form>
 		</p>
 	</div>
 
 	<div class="tabbertab">
 		<h2>Art</h2>
 	  <p>
-<?
-include('_specie.inc.php');
-?>
+			Opslag : <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:380px;" />
+			<button id="create-species">Opret ny art</button>
+			<span id="species-messages" style="padding-left:100px;color:green;"></span>
+			<hr>
+			<form id="species-form">
+				<table id="species-table">
+					<tbody id="species-table-body">
+					</tbody>
+				</table>
+			</form>
 		</p>
 	</div>
 

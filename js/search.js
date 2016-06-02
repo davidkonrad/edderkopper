@@ -40,12 +40,6 @@ var Search = {
 				DateEval.keydown(e);
 			});
 
-			/*
-			$('.datoInterval').bind('keyup', function(e) {
-				DateEval.keyup(e);
-			});
-			*/
-
 			$('.datoInterval').blur(function() {
 				DateEval.enableIntervals();
 			});
@@ -169,12 +163,10 @@ var Search = {
 			}
 		});
 
-		//alert(params);
 		return params;
 	},
 
 	prepareSubmit : function(item) {
-		//var item=this.items[form];
 		this.current_search=item;
 
 		if (!$(item.result_id).is(':visible')) { 
@@ -197,9 +189,8 @@ var Search = {
 			success: function(html) {
 				Search.clearResult();
 				$(item.result_id).append(html);
-				//$("input:button").button();
 				Search.wait(false);
-				var len=$(item.result_table+" tr:gt(0)").length;//>1) ? $(item.result_table+" tr:gt(0)").length : 0;
+				var len=$(item.result_table+" tr:gt(0)").length;
 				if (len==1) {
 					if ($(item.result_table+" tr:gt(0)").find('td').hasClass('dataTables_empty')) {
 						len=0;
