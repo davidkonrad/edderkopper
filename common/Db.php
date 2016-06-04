@@ -12,6 +12,7 @@ class Db {
 	private $password;
 	private $link;
 	private $host;
+	public $document_root;
   
 	public static function getInstance(){
 		static $db = null;
@@ -22,17 +23,10 @@ class Db {
 	public function __construct() { 
 		$this->host = $_SERVER["SERVER_ADDR"]; 
 		if (($this->host=='127.0.0.1') || ($this->host=='::1')) {
-			/*
-			$this->database = 'samlingerne';
-			$this->hostname = 'localhost';
-			$this->username = 'root';
-			$this->password = 'zoo';
-			*/
 			$this->database = 'edderkopper';
 			$this->hostname = 'localhost';
 			$this->username = 'root';
 			$this->password = 'dadk';
-
 		} else {
 			$this->database = 'danmarks_edderk';
 			$this->hostname = 'localhost';
@@ -111,10 +105,10 @@ class Db {
 		return mysql_insert_id();
 	}
 
-	//	
-	//common database functions
-	//not nessecarily related to Db, but implemented here so we always have access to them in child classes
-	//
+	/**	
+	  common database functions
+	  not nessecarily related to Db, but implemented here so we always have access to them in child classes
+	 */
 	public function getFields($table) {
 		$SQL='show columns from '.$table;
 		$result=$this->query($SQL);
@@ -147,9 +141,11 @@ class Db {
 	public function getIndexPage() {
 		$host=$_SERVER["SERVER_ADDR"]; 
 		if (($host=='127.0.0.1') || ($host=='::1')) {
-			return 'http://localhost/samlinger';
+			//return 'http://localhost/samlinger';
+			return 'http://localhost/html/edderkopper/';
 		} else {
-			return 'http://daim.snm.ku.dk';
+			//return 'http://daim.snm.ku.dk';
+			return 'http://danmarks-edderkopper.dk';
 		}
 	}
 

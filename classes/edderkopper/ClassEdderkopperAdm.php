@@ -5,6 +5,10 @@ class ClassEdderkopperAdm extends ClassBase {
 
 	public function __construct() {
 		parent::__construct();
+		//redirect to frontpage if user not is logged in
+		if (!Login::isLoggedIn()) {
+			header('Location: '.$this->getIndexPage());
+		}
 	}
 
 	public function extraHead() {
