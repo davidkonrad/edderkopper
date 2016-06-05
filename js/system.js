@@ -49,11 +49,6 @@ var System = {
 		},
 
 		styleElements : function() {
-			/*
-			$.each($('select').not('.no-auto-select'), function () {
-				$(this).chosen();
-			})
-			*/
 			$.each($('a.blank'), function () {
 				$(this).attr('target','_blank');
 			})

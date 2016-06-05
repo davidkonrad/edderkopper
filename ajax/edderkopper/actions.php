@@ -399,8 +399,6 @@ class LookupSpeciesByTaxon extends LookupSpeciesBase {
 	}
 }
 
-
-
 /*****************************
 	update a Species
 *****************************/
@@ -435,8 +433,9 @@ class updateSpecies extends Db {
 	}
 }
 
-
-//lookup genus with full names
+/*****************************
+	lookup genus with full names
+*****************************/
 class LookupFullGenus extends Db {
 	private $search = '';
 	public function __construct() {
@@ -447,12 +446,9 @@ class LookupFullGenus extends Db {
 	}
 	protected function getJSON($result) {
 		$array = array();
-		while ($row = mysql_fetch_array($result)) {
-			$array[] = array(
-				'GenusID' => $row['GenusID'],
-				'Genus' => $row['Genus'],
-				'FullName' => $row['Genus'].', '.$row['Family'].' ('.$row['GAuthor'].') ['.$row['GenusID'].']'
-			);
+		while ($row = mysql_fetch_assoc($result)) {
+			$row['FullName'] = $row['Genus'].', '.$row['Family'].' ('.$row['GAuthor'].') ['.$row['GenusID'].']';
+			$array[] = $row;
 		}
 		return json_encode($array);
 	}
@@ -468,7 +464,26 @@ class LookupFullGenus extends Db {
 	}
 }
 
-//count of fund
+/*****************************
+	get genus by GenusID
+*****************************/
+class GetGenus extends Db {
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->run();
+	}
+	private function run() {
+		$SQL='select * from edderkopper_genus where GenusID='.$_GET['GenusID'];
+		$row=$this->getRow($SQL, true);
+		echo json_encode($row);
+	}
+}
+
+
+/*****************************
+	count of fund
+*****************************/
 class FundCount extends Db {
 	public function __construct() {
 		parent::__construct();
@@ -517,7 +532,7 @@ class FundSave extends Db {
 		$SQL.=' where LNR='.$_GET['LNR'];
 		$this->exec($SQL);
 		$updateError = mysql_error();
-
+		
 		//update Name
 		$SQL='update edderkopper set Name=Concat(Genus," ",Species) where LNR='.$_GET['LNR'];
 		$this->exec($SQL);
@@ -663,7 +678,7 @@ switch ($action) {
 		$lookup = new LookupSpeciesByTaxon();
 		break;
 	case 'getSpecies' :
-		$lookup = new GetSpecies();
+		$getspecies = new GetSpecies();
 		break;
 	case 'updateSpecies' :
 		$lookup = new updateSpecies();
@@ -672,6 +687,9 @@ switch ($action) {
 	//genus	
 	case 'lookupGenus' :
 		$lookupGenus = new LookupFullGenus();
+		break;
+	case 'getGenus' :
+		$getGenus = new GetGenus();
 		break;
 
 	//leg, det

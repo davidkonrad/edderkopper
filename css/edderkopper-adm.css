@@ -55,3 +55,9 @@ input.lookup {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
+
+/** 05062016 **/
+button.save {
+	float:right;
+	font-size:150%;
+}

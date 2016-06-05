@@ -20,6 +20,7 @@ class ClassEdderkopperAdm extends ClassBase {
 <script type="text/javascript" src="js/edderkopper.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.species.js"></script>
+<script type="text/javascript" src="js/edderkopper_adm.genus.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.fund.js"></script>
 <script type="text/javascript" src="plugins/tabber/tabber.js"></script>
 <link rel="stylesheet" href="plugins/tabber/example.css" type="text/css" media="screen" />
@@ -69,40 +70,14 @@ $(document).ready(function() {
 		width: 500
 	});
 });
-/*
-var path='ajax/edderkopper_lookup.php';
-$("#edit-art").typeahead({
-	items : 20,
-	source: function (query, process) {
-		return $.get(path+'?target=species&lookup='+query, {}, function (data) {
-			console.log(data[0].length);
-			console.log(data);
-			var json='';
-			for (var i=0;i<data.length;i++) {
-				if (json!='') json+=',';
-				json+='"'+data[i].value+'"';
-			}
-			console.log(json);
-			return process(json);
-		});
-	}
-});
-*/
-/*
-$("#edit-family").combobox({ source: "ajax/edderkopper_lookup.php" });
-$("#edit-genus").combobox({ source: "ajax/edderkopper_lookup.php" });
-$("#edit-art").combobox({ source: "ajax/edderkopper_lookup.php" });
-*/
 </script>
+
 <?
 	}
 
 	public function drawBody() {
 ?>
 
-
-
-<!-------------->
 
 <div class="tabber">
 
@@ -155,10 +130,11 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Fund</h2>
 	  <p>
-			LNR : <input type="text" id="fund-lnr" class="number-only" style="width:80px;" autofocus/>
+			LNR #<input type="text" id="fund-lnr" class="number-only" style="width:80px;" autofocus/>
 			<button id="edit-fund">Rediger Fund</button>
 			<button id="create-fund">Opret nyt fund</button>
-			<button style="float:right;font-size:150%;" id="fund-save" disabled>Gem / opdater</button>
+			<span id="fund-messages" style="padding-left:100px;color:green;"></span>
+			<button class="save" id="fund-save" disabled>Gem / opdater</button>
 			<hr>
 			<form id="fund-form">
 				<div id="current-art-cnt" style="float:left;clear:both;"></div>
@@ -175,6 +151,7 @@ if ($f && $m) {
 			Opslag : <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:380px;" />
 			<button id="create-species">Opret ny art</button>
 			<span id="species-messages" style="padding-left:100px;color:green;"></span>
+			<button class="save" id="species-save" disabled>Gem / opdater</button>
 			<hr>
 			<form id="species-form">
 				<table id="species-table">
@@ -187,15 +164,34 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Slægt</h2>
 	  <p>
-<?
-include('_genus.inc.php');
-?>
+			Opslag : <input type="text" id="lookup-genus" data-provide="typeahead" class="lookup" style="width:380px;" />
+			<button id="create-genus">Opret ny slægt</button>
+			<span id="genus-messages" style="padding-left:100px;color:green;"></span>
+			<button class="save" id="genus-save" disabled>Gem / opdater</button>
+			<hr>
+			<form id="genus-form">
+				<table id="genus-table">
+					<tbody id="genus-table-body"></tbody>
+				</table>
+			</form>
 		</p>
 	</div>
 
 	<div class="tabbertab">
 		<h2>Familie</h2>
-	  <p></p>
+	  <p>
+			Opslag : <input type="text" id="lookup-family" data-provide="typeahead" class="lookup" style="width:380px;" />
+			<button id="create-family">Opret ny familie</button>
+			<span id="family-messages" style="padding-left:100px;color:green;"></span>
+			<button class="save" id="family-save" disabled>Gem / opdater</button>
+			<hr>
+			<form id="family-form">
+				<table id="family-table">
+					<tbody id="family-table-body"></tbody>
+				</table>
+			</form>
+		</p>
+
 	</div>
 
 </div>

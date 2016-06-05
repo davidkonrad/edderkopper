@@ -15,7 +15,6 @@ class EditEdderkoppeArt extends EditBase {
 	private $family_id;
 
 	public $template = 'TemplateEdderkopper';
-	//private $readonly_fields = array('SpeciesID', 
 
 	public function __construct() {
 		parent::__construct();

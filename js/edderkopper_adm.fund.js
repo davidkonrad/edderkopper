@@ -113,9 +113,10 @@ $(document).ready(function() {
 			$tr.appendTo($body)
 		}
 
-		//current species, genus, family, author
+		//current LNR, species, genus, family, author
 		$cnt = $('#current-art-cnt');
 		$cnt.html('');
+		$('<input type="hidden" name="LNR" value="'+ fund.LNR + '">').appendTo($cnt);
 		['Family', 'Genus', 'Species', 'AuthorYear'].forEach(function(k) {
 			$('<input style="color:gray;border:1px solid #ebebeb;" name="'+k+'" value="'+fund[k]+'" readonly>').appendTo($cnt)
 		})
@@ -273,14 +274,12 @@ $(document).ready(function() {
 	$("#fund-save").on('click', function() {
 		var params=$('#fund-form').serialize();
 		params+='&action=fundSave';
+		console.log(params)	
 		$.ajax({
 			url : 'ajax/edderkopper/actions.php?'+params,
-			success : function(msg) {
-				$(msgElement).show();
-				$(msgElement).html(msg);
-				setTimeout(function() {
-					//$(msgElement).fadeOut( "slow" );
-				}, 3000);
+			success : function(response) {
+				console.log(response)
+				$('#fund-messages').text(response).show().fadeOut(10000)
 			}
 		});
 	})
