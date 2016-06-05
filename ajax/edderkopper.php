@@ -216,11 +216,6 @@ function tdLinkClick(field, value) {
 	}
 
 	private function getDate($row) {
-		/*
-		$day=$row['Date_first'];
-		$month=$row['Month_first'];
-		$year=$row['Year_first'];
-		*/
 		$day=str_pad($row['Date_last'], 2, '0', STR_PAD_LEFT);
 		$month=str_pad($row['Month_last'], 2, '0', STR_PAD_LEFT);
 		$year=$row['Year_last'];
@@ -294,13 +289,6 @@ function tdLinkClick(field, value) {
 		echo '<th style="width:100px;">Det.</th>';
 		echo '<th style="width:100px;">'.trans(LAB_COLLECTION).'</th>';
 		echo '<th style="width:60px;">R</th>';
-
-		/*
-		echo '<th style="display:none;"></th>'; //lat
-		echo '<th style="display:none;"></th>'; //long
-		echo '<th style="display:none;"></th>'; //LNR
-		*/
-		//echo '<th style="width:20px;"></th>'; //edit icon
 
 		echo '</tr></thead>';
 		echo '<tbody>';

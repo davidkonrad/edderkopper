@@ -180,19 +180,14 @@ $(document).ready(function() {
 		items : 20,
 		source: function(query, process) {
 			return $.get(path+'&search='+query, {}, function(data) {
-				var a=[];
-				for (var i=0;i<data.length;i++) {
-					a.push(data[i].value);
-				}
-				return process(a);
+				return process(data);
 			});
 		},
-		updater: function(item) {
-			$("#edit-specie").disable(false);
-			return item;
-    },
+		displayText: function(item) {
+			return item.FullName
+		},
 		afterSelect: function(item) {
-			setSpecie(item)
+			setSpecie(item.FullName)
 		}
 	})
 

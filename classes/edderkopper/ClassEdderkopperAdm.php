@@ -16,6 +16,7 @@ class ClassEdderkopperAdm extends ClassBase {
 <script type="text/javascript" src="js/bootstrap-typeahead.js"></script>
 <link rel="stylesheet" href="css/bootstrap-typeahead.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper-adm.css" type="text/css" media="screen" />
+<script type="text/javascript" src="js/utm.js"></script>
 <script type="text/javascript" src="js/edderkopper.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.species.js"></script>
@@ -41,7 +42,6 @@ $(document).ready(function() {
 			species=json;
 			species_lookup = [];
 			for (var i=0;i<json.length;i++) {
-				//species_lookup.push(json[i].value+' ('+json[i].id+')');
 				species_lookup.push(json[i].value);
 			}
 			$("#edit-art").typeahead({
@@ -155,14 +155,15 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Fund</h2>
 	  <p>
-			LNR : <input type="text" id="fund-lnr" class="number-only" style="width:80px;" />
+			LNR : <input type="text" id="fund-lnr" class="number-only" style="width:80px;" autofocus/>
 			<button id="edit-fund">Rediger Fund</button>
 			<button id="create-fund">Opret nyt fund</button>
+			<button style="float:right;font-size:150%;" id="fund-save" disabled>Gem / opdater</button>
 			<hr>
 			<form id="fund-form">
+				<div id="current-art-cnt" style="float:left;clear:both;"></div>
 				<table id="fund-table">
-					<tbody id="fund-table-body">
-					</tbody>
+					<tbody id="fund-table-body"></tbody>
 				</table>
 			</form>
 		</p>
@@ -177,8 +178,7 @@ if ($f && $m) {
 			<hr>
 			<form id="species-form">
 				<table id="species-table">
-					<tbody id="species-table-body">
-					</tbody>
+					<tbody id="species-table-body"></tbody>
 				</table>
 			</form>
 		</p>

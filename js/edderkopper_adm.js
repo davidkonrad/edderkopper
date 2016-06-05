@@ -122,43 +122,6 @@ var adm = {
 		downloadURL('edderkopper-upload/'+adm.getCSV(this));
 	},
 
-/*
-	fundCreate : function() {
-		window.location='edderkopper-rediger-fund';
-	},
-
-	fundEdit : function(lnr) {
-		window.location='edderkopper-rediger-fund?lnr='+lnr;
-	},
-
-	fundDelete : function(lnr) {
-		if (confirm('Slet fund - er du sikker?')) {
-			var params = 'lnr='+lnr+'&action=funddelete';
-			$.ajax({
-				url : 'ajax/edderkopper/actions.php?'+params,
-				success : function(msg) {
-					window.location='edderkopper-administration';
-				}
-			})
-		}
-	},
-
-	fundSave : function(formElement, msgElement) {
-		var params=$(formElement).serialize();
-		params+='&action=fundsave';
-		$.ajax({
-			url : 'ajax/edderkopper/actions.php?'+params,
-			success : function(msg) {
-				$(msgElement).show();
-				$(msgElement).html(msg);
-				setTimeout(function() {
-					//$(msgElement).fadeOut( "slow" );
-				}, 3000);
-			}
-		});
-	},
-*/
-		
 	generateChecklist : function() {
 		adm.msgWait();
 		$.ajax({
@@ -210,24 +173,46 @@ $(document).ready(function() {
 		adm.speciesCreate();
 	});
 
-
-	$("input.number-only").bind({
-		keydown: function(e) {
-	        if (e.shiftKey === true ) {
-	            if (e.which == 9) {
-	                return true;
-	            }
-	            return false;
-	        }
-	        if (e.which > 57) {
-	            return false;
-	        }
-	        if (e.which==32) {
-	            return false;
-	        }
-	        return true;
-	   }
+	$('body').on('keydown', "input.number-only", function(e) {
+		if (e.shiftKey === true ) {
+			if (e.which == 9) {
+				return true;
+			}
+			return false;
+		}
+		if (e.which > 57) {
+			return false;
+		}
+		if (e.which == 32) {
+			return false;
+		}
+		return true;
 	});
+
+	$('body').on('keydown', "input.float-only", function(e) {
+		if (e.shiftKey === true ) {
+			if (e.which == 9) {
+				return true;
+			}
+			return false;
+		}
+		if (e.which > 57 && e.which != 190) {
+			return false;
+		}
+		if (e.which == 32) {
+			return false;
+		}
+		return true;
+	});
+
+	/* ????????????
+	$('body').on('focus', "input.autoselect", function(e) {
+		e.preventDefault()
+		e.stopImmediatePropagation()
+		this.select()
+		return false
+	});
+	*/
 
 	$("#generate-checklist").on('click', function() {			
 		adm.generateChecklist();

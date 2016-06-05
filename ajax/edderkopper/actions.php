@@ -219,6 +219,94 @@ class Check extends CSV {
     }
 }
 
+/*****************************
+	get all collection names
+*****************************/
+class GetCollections extends Db {
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->run();
+	}
+	private function run() {
+		header('Content-type: application/json; charset=utf-8');
+
+		$SQL = 'select distinct Collection from edderkopper order by Collection';
+		$result = $this->query($SQL);
+		$json = array();
+		while ($row = mysql_fetch_assoc($result)) {
+			$json[] = $row;
+		}
+		echo json_encode($json);
+	}
+}
+
+
+/*****************************
+	get all Leg
+*****************************/
+class GetLegs extends Db {
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->run();
+	}
+	private function run() {
+		header('Content-type: application/json; charset=utf-8');
+
+		$SQL = 'select distinct Leg from edderkopper order by Leg';
+		$result = $this->query($SQL);
+		$json = array();
+		while ($row = mysql_fetch_assoc($result)) {
+			$json[] = $row;
+		}
+		echo json_encode($json);
+	}
+}
+
+/*****************************
+	get all Det
+*****************************/
+class GetDets extends Db {
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->run();
+	}
+	private function run() {
+		header('Content-type: application/json; charset=utf-8');
+
+		$SQL = 'select distinct Det from edderkopper order by Det';
+		$result = $this->query($SQL);
+		$json = array();
+		while ($row = mysql_fetch_assoc($result)) {
+			$json[] = $row;
+		}
+		echo json_encode($json);
+	}
+}
+
+/*****************************
+	get all Locality
+*****************************/
+class GetLocalities extends Db {
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->run();
+	}
+	private function run() {
+		header('Content-type: application/json; charset=utf-8');
+
+		$SQL = 'select distinct Locality from edderkopper order by Locality';
+		$result = $this->query($SQL);
+		$json = array();
+		while ($row = mysql_fetch_assoc($result)) {
+			$json[] = $row;
+		}
+		echo json_encode($json);
+	}
+}
 
 /*****************************
 	get specie by SpeciesID
@@ -239,7 +327,12 @@ class GetSpecies extends Db {
 /*****************************
 	lookup species with FullName
 *****************************/
-class LookupFullSpecies extends Db {
+class LookupSpeciesBase extends Db {
+	protected function getSpeciesFullName($row) {
+		return $row['Species'].', '.$row['Genus'].' '.$row['SAuthor'].' ['.$row['SpeciesID'].']';
+	}
+}
+class LookupSpecies extends LookupSpeciesBase {
 	private $search = '';
 	public function __construct() {
 		parent::__construct();
@@ -251,23 +344,62 @@ class LookupFullSpecies extends Db {
 		$json='';
 		while ($row = mysql_fetch_array($result)) {
 			if ($json!='') $json.=',';
-			$species = $row['Species'].', '.$row['Genus'].' '.$row['SAuthor'].' ['.$row['SpeciesID'].']';
-			$json.='{"value" : "'.$species.'", "text": "'.$species.'"}';
+			$json.= '{"value" : "'.$this->getSpeciesFullName($row).'", "text": "'.$this->getSpeciesFullName($row).'"}';
 		}
 		$json='['.$json.']';
 		return $json;
 	}
 	private function run() {
 		header('Content-type: application/json; charset=utf-8');
-		$SQL='select distinct s.SpeciesID, s.Species, s.SAuthor, g.Genus '.
-			'from edderkopper_species s, edderkopper_genus g '.
-			'where s.Species like "%'.$this->search.'%" and s.GenusID=g.GenusID '.
+
+		$SQL='select distinct s.SpeciesID, s.Species, s.SAuthor, g.Genus, f.Family '.
+			'from edderkopper_species s, edderkopper_genus g, edderkopper_family f '.
+			'where s.Species like "%'.$this->search.'%" '.
+			'and s.GenusID = g.GenusID '.
+			'and g.FamilyID = f.FamilyID '.
 			'order by Species ';
 
-		$result=$this->query($SQL);
-		echo $this->getJSON($result);
+		$result = $this->query($SQL);
+		$json = array();
+
+		while ($row = mysql_fetch_assoc($result)) {
+			$row['FullName'] = $this->getSpeciesFullName($row);
+			$json[] = $row;
+		}
+		echo json_encode($json);
 	}
 }
+/***/
+class LookupSpeciesByTaxon extends LookupSpeciesBase {
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->species = $_GET['species'];
+		$this->genus = $_GET['genus'];
+		$this->family = $_GET['family'];
+		$this->run();
+	}
+	private function run() {
+		header('Content-type: application/json; charset=utf-8');
+		$SQL='select distinct s.SpeciesID, s.Species, s.SAuthor, g.Genus '.
+			'from edderkopper_species s, edderkopper_genus g, edderkopper_family f '.
+			'where s.Species = "'.$this->species.'" '.
+			'and g.Genus = "'.$this->genus.'" '.
+			'and f.Family = "'.$this->family.'" '.
+			'and s.GenusID=g.GenusID '.
+			'order by Species ';
+
+		$row=$this->getRow($SQL, true);
+		if ($row) {
+			$row['FullName'] = $this->getSpeciesFullName($row);
+		} else {
+			$row = '';
+		}
+		echo json_encode($row);
+	}
+}
+
+
 
 /*****************************
 	update a Species
@@ -290,7 +422,6 @@ class updateSpecies extends Db {
 
 		$this->exec($SQL);
 		$updateError = mysql_error();
-
 
 		//update Genus on all Species
 		$SQL='update edderkopper_species set edderkopper_species.Genus = ' .
@@ -519,9 +650,17 @@ switch ($action) {
 		$delete = new Delete();
 		break;
 
+	//collections
+	case 'getCollections' :
+		$collections = new GetCollections();
+		break;
+
 	//species
 	case 'lookupSpecies' :
-		$lookup = new LookupFullSpecies();
+		$lookup = new LookupSpecies();
+		break;
+	case 'lookupSpeciesByTaxon' :
+		$lookup = new LookupSpeciesByTaxon();
 		break;
 	case 'getSpecies' :
 		$lookup = new GetSpecies();
@@ -535,11 +674,24 @@ switch ($action) {
 		$lookupGenus = new LookupFullGenus();
 		break;
 
+	//leg, det
+	case 'getLegs' :
+		$legs = new GetLegs();
+		break;
+	case 'getDets' :
+		$dets = new GetDets();
+		break;
+
+	//locality
+	case 'getLocalities' :
+		$dets = new GetLocalities();
+		break;
+
 	//fund
 	case 'fundcount' :
 		$fundcount = new FundCount();
 		break;
-	case 'fundsave' :
+	case 'fundSave' :
 		$fundsave = new FundSave();
 		break;
 	case 'funddelete' :
