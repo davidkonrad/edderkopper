@@ -1,3 +1,0 @@
-update edderkopper set Species="abetoneensis",Genus="Microcreagrella" where Species="abetoneensis" and Genus="Tapinocyba"
-update edderkopper set Species="lissnerari",Genus="Philaeus" where Species="lissnerari" and Genus=""
-update edderkopper set Species="reclusa",Genus="Zilla" where Species="reclusa" and Genus="Clubiona"
