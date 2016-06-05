@@ -14,7 +14,7 @@ $(document).ready(function() {
 		url: 'ajax/edderkopper/actions.php?action=getCollections',
 		success: function(response) {
 			response.forEach(function(collection) {
-				if (collection.Collection.trim().length > 0) collections.push(collection.Collection)
+				if (collection.Collection && collection.Collection.trim().length > 0) collections.push(collection.Collection)
 			})
 		}
 	})
@@ -26,7 +26,7 @@ $(document).ready(function() {
 		url: 'ajax/edderkopper/actions.php?action=getDets',
 		success: function(response) {
 			response.forEach(function(item) {
-				if (item.Det.trim().length > 0) dets.push(item.Det)
+				if (item.Det && item.Det.trim().length > 0) dets.push(item.Det)
 			})
 		}
 	})
@@ -34,7 +34,7 @@ $(document).ready(function() {
 		url: 'ajax/edderkopper/actions.php?action=getLegs',
 		success: function(response) {
 			response.forEach(function(item) {
-				if (item.Leg.trim().length > 0) legs.push(item.Leg)
+				if (item.leg && item.Leg.trim().length > 0) legs.push(item.Leg)
 			})
 		}
 	})
@@ -46,7 +46,7 @@ $(document).ready(function() {
 		url: 'ajax/edderkopper/actions.php?action=getLocalities',
 		success: function(response) {
 			response.forEach(function(item) {
-				if (item.Locality.trim().length > 0) localities.push(item.Locality)
+				if (item.Locality && item.Locality.trim().length > 0) localities.push(item.Locality)
 			})
 		}
 	})
@@ -55,7 +55,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 
 	function setFund(fund) {
-		fund = JSON.parse(fund)
+		if (!fund.LNR) fund = JSON.parse(fund)
 
 		$('#fund-save').disable(false)
 		$body = $('#fund-table-body');
@@ -268,17 +268,23 @@ $(document).ready(function() {
 	})
 
 	$("#create-fund").on('click', function() {
-		adm.fundCreate();
+		$.ajax({
+			dataType: 'json', 
+			url : 'ajax/edderkopper/actions.php?action=fundCreate',
+			success : function(response) {
+				$("#fund-lnr").val(response.LNR)
+				$("#edit-fund").trigger('click')
+				$('#fund-messages').text('Fund oprettet ...').show().fadeOut(10000)
+			}
+		});
 	})
 
 	$("#fund-save").on('click', function() {
 		var params=$('#fund-form').serialize();
 		params+='&action=fundSave';
-		console.log(params)	
 		$.ajax({
 			url : 'ajax/edderkopper/actions.php?'+params,
 			success : function(response) {
-				console.log(response)
 				$('#fund-messages').text(response).show().fadeOut(10000)
 			}
 		});

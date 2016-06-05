@@ -541,7 +541,46 @@ class FundSave extends Db {
 	}
 }
 
-//update fund Name ALL
+/*****************************
+	create fund 31734
+*****************************/
+class FundCreate extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		mysql_set_charset('utf8');
+		$SQL='insert into edderkopper (Family, Genus, Species, AuthorYear, Leg, Locality, ' .
+						'LatPrec, LongPrec, UTM10, Collection, Det, ' .
+						'Date_last, Month_last, Year_last) values('.
+
+			$this->q('?'). //family
+			$this->q('?'). //genus
+			$this->q('?'). //species
+			$this->q('?'). //authorYear
+			$this->q('?'). //Leg
+			$this->q('?'). //Locality
+			$this->q('?'). //LatPrec
+			$this->q('?'). //LongPrec
+			$this->q('?'). //UTM10
+			$this->q('?'). //Collection
+			$this->q('?'). //Det
+
+			$this->q('1').
+			$this->q('1').
+			$this->q('1900', false).
+		')';
+		$this->exec($SQL);
+		$json = array('LNR' => $this->lastInsertId());
+		echo json_encode($json);
+	}
+}
+
+
+/*****************************
+	update fund Name ALL
+*****************************/
 class FundUpdateNameAll extends Db {
 	public function __construct() {
 		parent::__construct();
@@ -711,6 +750,9 @@ switch ($action) {
 		break;
 	case 'fundSave' :
 		$fundsave = new FundSave();
+		break;
+	case 'fundCreate' :
+		$fundCreate = new FundCreate();
 		break;
 	case 'funddelete' :
 		$funddelete = new FundDelete();
