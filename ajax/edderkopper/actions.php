@@ -463,7 +463,6 @@ class LookupFullGenus extends Db {
 		echo $this->getJSON($result);
 	}
 }
-
 /*****************************
 	get genus by GenusID
 *****************************/
@@ -480,6 +479,37 @@ class GetGenus extends Db {
 	}
 }
 
+
+/*****************************
+	lookup family with full names
+*****************************/
+class LookupFamily extends Db {
+	private $search = '';
+	public function __construct() {
+		parent::__construct();
+		mysql_set_charset('utf8');
+		$this->search = $_GET['search'];
+		$this->run();
+	}
+	protected function getJSON($result) {
+		$array = array();
+		while ($row = mysql_fetch_assoc($result)) {
+			$row['FullName'] = $row['Family'].'  ('.$row['Author'].') ['.$row['FamilyID'].']';
+			$array[] = $row;
+		}
+		return json_encode($array);
+	}
+	private function run() {
+		header('Content-type: application/json; charset=utf-8');
+		$SQL='select distinct FamilyID, Family, Author '.
+			'from edderkopper_family '.
+			'where Family like "%'.$this->search.'%" '.
+			'order by Family ';
+
+		$result=$this->query($SQL);
+		echo $this->getJSON($result);
+	}
+}
 
 /*****************************
 	count of fund
@@ -542,7 +572,7 @@ class FundSave extends Db {
 }
 
 /*****************************
-	create fund 31734
+	create fund
 *****************************/
 class FundCreate extends Db {
 	public function __construct() {
@@ -552,7 +582,7 @@ class FundCreate extends Db {
 	private function run() {
 		mysql_set_charset('utf8');
 		$SQL='insert into edderkopper (Family, Genus, Species, AuthorYear, Leg, Locality, ' .
-						'LatPrec, LongPrec, UTM10, Collection, Det, ' .
+						'LatPrec, LongPrec, UTM10, Collection, Det, KatalogNrPers, ' .
 						'Date_last, Month_last, Year_last) values('.
 
 			$this->q('?'). //family
@@ -566,6 +596,7 @@ class FundCreate extends Db {
 			$this->q('?'). //UTM10
 			$this->q('?'). //Collection
 			$this->q('?'). //Det
+			$this->q('?'). //KatalogNrPers
 
 			$this->q('1').
 			$this->q('1').
@@ -621,7 +652,9 @@ class FundUpdateSpeciesName extends Db {
 	}
 }
 
-//delete fund
+/*****************************
+	delete fund by LNR
+*****************************/
 class FundDelete extends Db {
 	public function __construct() {
 		parent::__construct();
@@ -629,7 +662,7 @@ class FundDelete extends Db {
 		$this->run();
 	}
 	private function run() {
-		$LNR = isset($_GET['lnr']) ? $_GET['lnr'] : false;
+		$LNR = isset($_GET['LNR']) ? $_GET['LNR'] : false;
 		if ($LNR) {
 			$SQL='delete from edderkopper where LNR='.$LNR;
 			$this->exec($SQL);
@@ -731,6 +764,11 @@ switch ($action) {
 		$getGenus = new GetGenus();
 		break;
 
+	//family
+	case 'lookupFamily' :
+		$lookupFamily = new LookupFamily();
+		break;
+	
 	//leg, det
 	case 'getLegs' :
 		$legs = new GetLegs();
@@ -754,7 +792,7 @@ switch ($action) {
 	case 'fundCreate' :
 		$fundCreate = new FundCreate();
 		break;
-	case 'funddelete' :
+	case 'fundDelete' :
 		$funddelete = new FundDelete();
 		break;
 	case 'fundGet' :

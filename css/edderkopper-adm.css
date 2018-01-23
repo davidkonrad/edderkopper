@@ -61,3 +61,16 @@ button.save {
 	float:right;
 	font-size:150%;
 }
+button.delete {
+	color: red;
+}
+span.messages {
+	padding-left: 30px;
+	color: navy;
+	font-weight: bold;
+	display: inline-block;
+}
+form input {
+	font-weight: bold;
+	font-size: 110%;
+}

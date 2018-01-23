@@ -21,6 +21,7 @@ class ClassEdderkopperAdm extends ClassBase {
 <script type="text/javascript" src="js/edderkopper_adm.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.species.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.genus.js"></script>
+<script type="text/javascript" src="js/edderkopper_adm.family.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.fund.js"></script>
 <script type="text/javascript" src="plugins/tabber/tabber.js"></script>
 <link rel="stylesheet" href="plugins/tabber/example.css" type="text/css" media="screen" />
@@ -133,8 +134,8 @@ if ($f && $m) {
 			LNR #<input type="text" id="fund-lnr" class="number-only" style="width:80px;" autofocus/>
 			<button id="edit-fund">Rediger Fund</button>
 			<button id="create-fund">Opret nyt fund</button>
-			<span id="fund-messages" style="padding-left:100px;color:green;"></span>
-			<button class="save" id="fund-save" disabled>Gem / opdater</button>
+			<span id="fund-messages" class="messages"></span>
+			<button class="save" id="fund-save" disabled>Gem</button>
 			<hr>
 			<form id="fund-form">
 				<div id="current-art-cnt" style="float:left;clear:both;"></div>
@@ -150,8 +151,8 @@ if ($f && $m) {
 	  <p>
 			Opslag : <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:380px;" />
 			<button id="create-species">Opret ny art</button>
-			<span id="species-messages" style="padding-left:100px;color:green;"></span>
-			<button class="save" id="species-save" disabled>Gem / opdater</button>
+			<span id="species-messages" class="messages"></span>
+			<button class="save" id="species-save" disabled>Gem</button>
 			<hr>
 			<form id="species-form">
 				<table id="species-table">
@@ -166,8 +167,8 @@ if ($f && $m) {
 	  <p>
 			Opslag : <input type="text" id="lookup-genus" data-provide="typeahead" class="lookup" style="width:380px;" />
 			<button id="create-genus">Opret ny slægt</button>
-			<span id="genus-messages" style="padding-left:100px;color:green;"></span>
-			<button class="save" id="genus-save" disabled>Gem / opdater</button>
+			<span id="genus-messages" class="messages"></span>
+			<button class="save" id="genus-save" disabled>Gem</button>
 			<hr>
 			<form id="genus-form">
 				<table id="genus-table">
@@ -182,8 +183,8 @@ if ($f && $m) {
 	  <p>
 			Opslag : <input type="text" id="lookup-family" data-provide="typeahead" class="lookup" style="width:380px;" />
 			<button id="create-family">Opret ny familie</button>
-			<span id="family-messages" style="padding-left:100px;color:green;"></span>
-			<button class="save" id="family-save" disabled>Gem / opdater</button>
+			<span id="family-messages" class="messages"></span>
+			<button class="save" id="family-save" disabled>Gem</button>
 			<hr>
 			<form id="family-form">
 				<table id="family-table">

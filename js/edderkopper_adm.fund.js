@@ -1,4 +1,7 @@
 
+//regioner
+var regions = ['WJ', 'NWJ', 'EJ', 'SJ', 'NEJ', 'F', 'LFM', 'NWZ', 'SZ', 'NEZ', 'B']
+
 //build a UTM10 lookup list
 var utm = []
 $(document).ready(function() {
@@ -34,7 +37,7 @@ $(document).ready(function() {
 		url: 'ajax/edderkopper/actions.php?action=getLegs',
 		success: function(response) {
 			response.forEach(function(item) {
-				if (item.leg && item.Leg.trim().length > 0) legs.push(item.Leg)
+				if (item.Leg && item.Leg.trim().length > 0) legs.push(item.Leg)
 			})
 		}
 	})
@@ -181,32 +184,45 @@ $(document).ready(function() {
 			source: localities
 		})
 
-		//lat lng leg det
-		addFloat('Lat.', 'LatPrec', fund.LatPrec)
-		addFloat('Lng.', 'LongPrec', fund.LongPrec)
-
-		//utm with typeahead
-		addRow('UTM', 'UTM10', fund.UTM10)
+		//utm, region with typeaheads
+		var $tr = $('<tr>');
+		$('<td>').css('vertical-align','top').text('').appendTo($tr);
+		$td = $('<td>').appendTo($tr)
+		$('<span>').text('UTM').appendTo($td)
+		$('<input size="3" name="UTM10" value="' + fund.UTM10 + '">').appendTo($td)
+		$('<span>').text('Region').appendTo($td)
+		$('<input size="3" name="Region" value="' + fund.Region + '">').appendTo($td)
+		$tr.appendTo($body);
 		$('#fund-form input[name=UTM10]').typeahead({
 			minLength : 1,
 			showHintOnFocus: true,
 			items : 20,
 			source: utm
 		})
+		$('#fund-form input[name=Region]').typeahead({
+			minLength : 1,
+			showHintOnFocus: true,
+			items : 20,
+			source: regions
+		})
+
+		//lat lng leg det
+		addFloat('Lat.', 'LatPrec', fund.LatPrec)
+		addFloat('Lng.', 'LongPrec', fund.LongPrec)
 
 		//det leg with typeahead
 		addRowLong('Det.', 'Det', fund.Det)
 		$('#fund-form input[name=Det]').typeahead({
 			minLength : 1,
 			showHintOnFocus: true,
-			items : 20,
+			items : 10,
 			source: dets
 		})
 		addRowLong('Leg.', 'Leg', fund.Leg)
 		$('#fund-form input[name=Leg]').typeahead({
 			minLength : 1,
 			showHintOnFocus: true,
-			items : 20,
+			items : 10,
 			source: legs
 		})
 
@@ -215,12 +231,12 @@ $(document).ready(function() {
 		$('#fund-form input[name=Collection]').typeahead({
 			minLength : 1,
 			showHintOnFocus: true,
-			items : 20,
+			items : 10,
 			source: collections
 		})
 
 		//KatalogNrPers
-		addRow('KatalogNrPers', 'KatalogNrPers', fund.KatalogNrPers)
+		addRow('KatNrPers', 'KatalogNrPers', fund.KatalogNrPers)
 
 		//antal
 		var $tr = $('<tr>');
@@ -234,19 +250,14 @@ $(document).ready(function() {
 		$('<input class="number-only" name="JuvenileCount" size="2" value="'+fund.JuvenileCount+'">').appendTo($td)
 		$tr.appendTo($body);
 
-		/*
-		for (var field in fund) {
-			console.log(field)
-			if (~allowedFields.indexOf(field)) {
-				var $tr = $('<tr>');
-				$('<td>').css('vertical-align','top').text(getCaption(field)).appendTo($tr)
-				var $td = $('<td>')
-				$td.append(getHTMLElement(field, fund[field] ? fund[field] : '' )).appendTo($tr)
-				$tr.appendTo($body);
-			}
-		}
-		*/
+		//create a delete button
+		var $tr = $('<tr>'),
+				$td = $('<td colspan="2" style="padding-top:20px;">').appendTo($tr)
+		$('<button class="delete" type="button" id="fund-delete">').text('Slet fund').appendTo($td);
+		$tr.appendTo($body);
+		
 	}
+
 
 	$("#fund-lnr").on('keydown', function(e) {	
 		if (e.which == 13 ) {
@@ -290,7 +301,23 @@ $(document).ready(function() {
 		});
 	})
 
-
+	$('body').on('click', '#fund-delete', function() {
+		if (confirm('Slet det aktuelle Fund. Er du sikker?')) {
+			$.ajax({
+				url : 'ajax/edderkopper/actions.php?action=fundDelete',
+				data: {
+					LNR: $("#fund-lnr").val()
+				},
+				success : function(response) {
+					$('#fund-table-body').html('')
+					$('#current-art-cnt').html('')
+					$('#fund-messages').text('Fund slettet ...').show().fadeOut(10000)
+					$("html, body").animate({ scrollTop: 0 }, "fast");
+					$("#fund-lnr").val('').focus()
+				}
+			})
+		}
+	})
 	
 
 })

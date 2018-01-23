@@ -1,47 +1,48 @@
 $(document).ready(function() {
 
-	var currentSpeciesItem = null;
+	var currentFamilyItem = null;
 
-	$('#create-species').on('click', function() {
-		var speciesName = prompt('Indtast artsnavn, f.eks quadratus.\nArtsnavnet kan ændres senere.\nHusk at tildele den nye art en slægt!', '');
-		if (!speciesName || speciesName.trim() == '') return;
+	$('#create-family').on('click', function() {
+		var familyName = prompt('Indtast navn på familie, f.eks Araneidae', '');
+		if (!familyName || familyName.trim() == '') return;
 		$.ajax({
-			url : 'ajax/edderkopper/actions.php?action=createspecie&specie='+speciesName,
-			success : function(speciesID) {
-				setSpecie(parseInt(speciesID))
+			url : 'ajax/edderkopper/actions.php?action=createFamily&family='+familyName,
+			success : function(familyID) {
+				setFamily(parseInt(familyID))
 			}
 		});
 	})
 
-	$("#lookup-species").on('click', function() {
+	$("#lookup-family").on('click', function() {
 		$(this).val('')
 	})
 
-	$("#lookup-species").on('focusout', function() {
-		if (currentSpeciesItem) $(this).val(currentSpeciesItem)
+	$("#lookup-family").on('focusout', function() {
+		if (currentFamilyItem) $(this).val(currentFamilyItem)
 	})
 
-  function setSpecie(item) {
+  function setFamily(item) {
+		console.log(item)
 		if (typeof item == 'number') {
-			currentSpeciesItem = 'Ny art #'+item
-			$("#lookup-species").val(currentSpeciesItem)
+			currentFamilyItem = 'Ny art #'+item
+			$("#lookup-family").val(currentFamilyItem)
 			var id = item
 		} else {
-			currentSpeciesItem = item;	
+			currentFamilyItem = item;	
 			var id =  item.match(/[^[\]]+(?=])/g)
 			id = id[0] ? id[0] : false
 		}
 
+		console.log('id', id)
 		if (!id) return
-		$('#species-save').disable(false)
 
 		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK']
 
 			var getCaption = function(field) {
 				switch (field) {
-					case 'Genus' : return 'Slægt'; break;
-					case 'GenusID' : return 'Slægt'; break;
-					case 'Species' : return 'Artsnavn'; break;
+					case 'Family' : return 'Slægt'; break;
+					case 'FamilyID' : return 'Slægt'; break;
+					case 'Family' : return 'Artsnavn'; break;
 					case 'den_danske_roedliste': return 'Rødliste'; break;
 					case 'NameDK' : return 'Dansk DK'; break;
 					case 'NameUK' : return 'Navn UK'; break;
@@ -66,36 +67,33 @@ $(document).ready(function() {
 			}
 							 
 			$.ajax({
-				url: 'ajax/edderkopper/actions.php?action=getSpecies',
+				url: 'ajax/edderkopper/actions.php?action=getFamily',
 				data : {
-					SpeciesID: id
+					FamilyID: id
 				},
 				success : function(response) {
 					if (!response) return
 					var r = JSON.parse(response),
-							$body = $('#species-table-body');
+							$body = $('#family-table-body');
 
 					$body.html('')
 
-					$('<input type="hidden" name="GenusID" id="GenusID" value="' + r.GenusID +'">').appendTo($body)
-					$('<input type="hidden" name="SpeciesID" value="' + r.SpeciesID +'">').appendTo($body)
-
 					//slægt
 					var $tr = $('<tr>'), $td = $('<td>');
-					$td.append('<b>'+ getCaption('Genus') +'</b>')
+					$td.append('<b>'+ getCaption('Family') +'</b>')
 					$td.appendTo($tr)
 					var $td = $('<td>')
-					$td.append('<input size="40" class="genus-typeahead" value="'+ r['Genus'] +'"/>')
-					$td.append('<small id="hash-GenusID">#'+r['GenusID']+'</span>')
+					$td.append('<input size="40" class="family-typeahead" value="'+ r['Family'] +'"/>')
+					$td.append('<small id="hash-FamilyID">#'+r['FamilyID']+'</span>')
 					$td.appendTo($tr)
 					$tr.appendTo($body);
 
 					//artsnavn
 					var $tr = $('<tr>'), $td = $('<td>');
-					$('<b>').text(getCaption('Species')).appendTo($td).appendTo($tr)
+					$('<b>').text(getCaption('Family')).appendTo($td).appendTo($tr)
 					var $td = $('<td>')
-					$td.append('<input size="40" name="Species" value="'+ r['Species'] +'"/>')
-					$td.append('<small>#'+r['SpeciesID']+'</span>')
+					$td.append('<input size="40" name="Family" value="'+ r['Family'] +'"/>')
+					$td.append('<small>#'+r['FamilyID']+'</span>')
 					$td.appendTo($tr)
 					$tr.appendTo($body);
 
@@ -109,15 +107,13 @@ $(document).ready(function() {
 						}
 					}
 
-				
-					/*
 					//add save button
 					var $tr = $('<tr>');
 					var $td = $('<td>')
 					$td.attr('colspan', 2).css('text-align', 'center')
 					$td.append('<span id="art-message"></span>')
-					$td.append('<input type="hidden" name="SpeciesID" id="SpeciesID" value="'+r['SpeciesID']+'"/>')
-					$td.append('<input type="hidden" name="GenusID" id="GenusID"  value="'+r['GenusID']+'"/>')
+					$td.append('<input type="hidden" name="FamilyID" id="FamilyID" value="'+r['FamilyID']+'"/>')
+					$td.append('<input type="hidden" name="FamilyID" id="FamilyID"  value="'+r['FamilyID']+'"/>')
 					$('<button>')
 						.text('Gem')
 						.css('font-size', '150%')
@@ -125,14 +121,14 @@ $(document).ready(function() {
 							for(var i in CKEDITOR.instances) {
 								CKEDITOR.instances[i].updateElement();
 							}
-							var url = 'ajax/edderkopper/actions.php?action=updateSpecies';
-							var params = $('#species-form').serialize()
+							var url = 'ajax/edderkopper/actions.php?action=updateFamily';
+							var params = $('#family-form').serialize()
 							//console.log(params)
 							$.ajax({
 								url: url,
 								data: params,
 								success: function(response) {
-									$('#species-messages').text(response).show().fadeOut(10000)
+									$('#family-messages').text(response).show().fadeOut(10000)
 								}
 							})
 							return false;
@@ -141,7 +137,6 @@ $(document).ready(function() {
 
 					$td.appendTo($tr)
 					$tr.appendTo($body);
-					*/
 
 					//init editors
 					for (var i in CKEDITOR.instances) {
@@ -154,8 +149,8 @@ $(document).ready(function() {
 					})
 
 					//init slægt typeahead
-					var path='ajax/edderkopper/actions.php?action=lookupGenus';
-					$('.genus-typeahead').typeahead({
+					var path='ajax/edderkopper/actions.php?action=lookupFamily';
+					$('.family-typeahead').typeahead({
 						showHintOnFocus: true,
 						minLength : 1,
 						items : 20,
@@ -172,17 +167,17 @@ $(document).ready(function() {
 							return item.FullName
 						},
 						afterSelect: function(item) {
-							this.$element.val(item.Genus)
-							$('#hash-GenusID').text('#'+item.GenusID)
-							$('#GenusID').val(item.GenusID)
+							this.$element.val(item.Family)
+							$('#hash-FamilyID').text('#'+item.FamilyID)
+							$('#FamilyID').val(item.FamilyID)
 						}
 					})
 				}
 			})
 		}
 
-	var path='ajax/edderkopper/actions.php?action=lookupSpecies';
-	$("#lookup-species").typeahead({
+	var path='ajax/edderkopper/actions.php?action=lookupFamily';
+	$("#lookup-family").typeahead({
 		minLength : 1,
 		items : 20,
 		source: function(query, process) {
@@ -194,24 +189,8 @@ $(document).ready(function() {
 			return item.FullName
 		},
 		afterSelect: function(item) {
-			setSpecie(item.FullName)
+			setFamily(item.FullName)
 		}
 	})
-
-	$('#species-save').on('click', function() {
-		for(var i in CKEDITOR.instances) {
-			CKEDITOR.instances[i].updateElement();
-		}
-		var url = 'ajax/edderkopper/actions.php?action=updateSpecies';
-		var params = $('#species-form').serialize()
-		$.ajax({
-			url: url,
-			data: params,
-			success: function(response) {
-				$('#species-messages').text(response).show().fadeOut(10000)
-			}
-		})
-	})	
-	
 
 })

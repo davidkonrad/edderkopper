@@ -83,7 +83,8 @@ class Login extends Db {
 	}
 	
 	private function redirect() {
-		header('location: ../index.php');
+		//header('location: ../index.php');
+		header('location: ../edderkopper-administration');
 	}
 
 	//page_id is preferly the page semantic name, $semantic

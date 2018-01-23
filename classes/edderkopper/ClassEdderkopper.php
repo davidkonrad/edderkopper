@@ -92,9 +92,6 @@ $(document).ready(function() {
 <?
 		}
 ?>
-<!--
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/keydragzoom/src/keydragzoom.js?"></script>
--->
 <script type="text/javascript" src="https://rawgithub.com/nmccready/google-maps-utility-library-v3-keydragzoom/master/dist/keydragzoom.js"></script>
 <link rel="stylesheet" href="css/ui.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper.css" type="text/css" media="screen" />
