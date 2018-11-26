@@ -100,7 +100,9 @@ var Geo = {
 			center: latlong,
 			zoomControl: true,
 			streetViewControl: false,
+			fullscreenControl: false,
 			zoomControlOptions: {
+				fullscreenControl: false,
 				style: google.maps.ZoomControlStyle.SMALL,
         position: google.maps.ControlPosition.RIGHT_TOP
 			},
@@ -137,6 +139,7 @@ var Geo = {
 			center: latlng,
 			zoomControl: true,
 			streetViewControl: false,
+			fullscreenControl: false,
 			zoomControlOptions: { style: google.maps.ZoomControlStyle.SMALL	},
 			mapTypeId: google.maps.MapTypeId.TERRAIN
 		}

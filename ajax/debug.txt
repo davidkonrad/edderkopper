@@ -1,2 +1,4 @@
 poly 
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Araneus"  and e.Species="quadratus" 
+poly  ((CAST(LatPrec as DECIMAL(6,4))>55.8524) and (CAST(LatPrec as DECIMAL(6,4))<56.67) and (CAST(LongPrec as DECIMAL(6,4))>8.5339) and (CAST(LongPrec as DECIMAL(6,4))<10.83) )
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>55.8524) and (CAST(LatPrec as DECIMAL(6,4))<56.67) and (CAST(LongPrec as DECIMAL(6,4))>8.5339) and (CAST(LongPrec as DECIMAL(6,4))<10.83) )
