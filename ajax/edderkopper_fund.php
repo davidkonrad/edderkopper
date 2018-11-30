@@ -20,7 +20,7 @@ class EdderkopperFund extends Db {
 		$SQL='select UTM10, LNR, LatPrec, LongPrec, Year_last from edderkopper where Name="'.$this->species.'"';
 		$result=$this->query($SQL);
 		$json='';
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = $result->fetch()) {
 			if ($json!='') $json.=',';
 			$utm=$row['UTM10'];			
 			$lnr=$row['LNR'];			

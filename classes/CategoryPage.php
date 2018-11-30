@@ -26,7 +26,8 @@ class CategoryPage extends TemplateSimple {
 	}
 
 	//return language specific URL's for page_id
-	protected function getLangLinks() {
+	//Strict Standards, $page_id inherited from TemplateSimple::getLangLinks()
+	protected function getLangLinks($page_id) {
 		$links=array();
 		$SQL='select lang_id, category_id, semantic_name from zn_category_desc where category_id='.$this->category_id.' order by lang_id';
 		$result=$this->query($SQL);

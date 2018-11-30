@@ -70,10 +70,10 @@ class PageLoader extends Db {
 		get semantic_name, return category_id or false
 	*/
 	private function semanticToCategory($semantic) {
-		$SQL='select category_id, lang_id from zn_category_desc where semantic_name="'.$semantic.'"';
-		$result=$this->query($SQL);
-		if (mysql_num_rows($result)>0) {
-			$row=mysql_fetch_assoc($result);
+		$SQL = 'select category_id, lang_id from zn_category_desc where semantic_name="'.$semantic.'"';
+		$result = $this->query($SQL);
+		if ($result->rowCount() > 0) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
 			$_SESSION[LANGUAGE]=$row['lang_id'];
 			return $row['category_id'];
 		} else {

@@ -205,6 +205,7 @@ function tdLinkClick(field, value) {
 
 	private function performSearch() {
 		//echo $this->baseSQL;
+		$this->setLatin1();
 		$this->result=$this->query($this->baseSQL);	
 	}
 
@@ -292,7 +293,7 @@ function tdLinkClick(field, value) {
 
 		echo '</tr></thead>';
 		echo '<tbody>';
-		while ($row=mysql_fetch_array($this->result)) {
+		while ($row = $this->result->fetch(PDO::FETCH_ASSOC)) {
 			if ($this->polygon->isIncludeable($row['LatPrec'], $row['LongPrec'])) {
 			echo '<tr>';
 

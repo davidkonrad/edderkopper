@@ -62,7 +62,7 @@ class TemplateEdderkopperGallery extends TemplateEdderkopper { //TemplateBase
 		echo '<fieldset id="static'.$this->page_id.'">';
 		echo '<legend>'.$this->row['anchor_caption'].'</legend>';
 
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$subject = $_SESSION[LANGUAGE]==1 ? 'SubjectDK' : 'SubjectUK';
 		$SQL='select p.SpeciesID, p.Filename, p.'.$subject.' as subject '.
 				'from edderkopper_photo p, edderkopper_species s '.
@@ -80,7 +80,7 @@ class TemplateEdderkopperGallery extends TemplateEdderkopper { //TemplateBase
 <?
 	$first = true;
 
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		if ($first) {
 			echo '<div class="active item">';
 			$first=false;

@@ -41,7 +41,7 @@ class Base extends Db {
 		$links=array();
 		$SQL='select lang_id, semantic_name from zn_page_content where page_id='.$page_id.' order by lang_id';
 		$result=$this->query($SQL);
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$href=$row['semantic_name'].$params;
 			$href=str_replace(' ', '%20', $href);
 			$links[$row['lang_id']]=$href;

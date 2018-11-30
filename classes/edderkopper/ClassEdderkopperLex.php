@@ -84,9 +84,9 @@ class ClassEdderkopperLex extends ClassBase {
 		$SQL='select Species, Genus, NameDK, NameUK from edderkopper_species '.
 			'where Genus like "'.$char.'%" order by Genus, Species';
 
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$result=$this->query($SQL);
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			echo '<em>';
 			echo '<a href="'.$href.'?taxon='.$row['Genus'].'%20'.$row['Species'].'">';
 			echo $row['Genus'].' '.$row['Species'];

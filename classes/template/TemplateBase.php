@@ -1,5 +1,8 @@
 <?
 
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
 //TemplateBase, ancestor to all templates
 class TemplateBase extends Db {
 	public function __construct() {
@@ -35,7 +38,8 @@ class TemplateBase extends Db {
 		$links=array();
 		$SQL='select lang_id, semantic_name from zn_page_content where page_id='.$page_id.' order by lang_id';
 		$result=$this->query($SQL);
-		while ($row = mysql_fetch_assoc($result)) {
+		//while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$href=$row['semantic_name'];
 			$href=str_replace(' ', '%20', $href);
 			$links[$row['lang_id']]=$href;
@@ -79,9 +83,9 @@ class TemplateBase extends Db {
 
 			$SQL.='and p.category_id='.$cat.' and '.$visible.' order by weight';
 
-			mysql_set_charset('Latin1');
-			$res=$this->query($SQL);
-			while ($row=mysql_fetch_assoc($res)) {
+			//mysql_set_charset('Latin1');
+			$result = $this->query($SQL);
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$links[]=$row;
 			}
 			return $links;

@@ -213,11 +213,14 @@ Tel. +45 35 32 22 22<br/></address>
 /*
 */
 ?>
-<!doctype html>
+<!doctype html XXX>
 <html> 
 <head> 
 <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+<!--
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+-->
+<meta charset="UTF-8">
 <title><? echo $this->getPageTitle(); ?></title>
 <meta name="description" content="<? $this->getMetaDesc(); ?>" />
 <meta name="google-site-verification" content="HSgAR21NPqTsqtGQpqkIIaPtxpQyxbBgooQaANMEw_Q" />

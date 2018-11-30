@@ -18,7 +18,7 @@ class EditEdderkopperFund extends ClassBase {
 			//$this->headline='Rediger nyt fund';
 		} 
 
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$SQL='select * from edderkopper where LNR="'.$this->LNR.'"';
 		$this->row = $this->getRow($SQL);
 
@@ -29,7 +29,7 @@ class EditEdderkopperFund extends ClassBase {
 	}
 
 	private function createNewFund() {
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$SQL='insert into edderkopper (Family, Genus, Species, AuthorYear, Leg, Locality, Date_last, Month_last, Year_last) values('.
 			$this->q('<not set>').
 			$this->q('<not set>').

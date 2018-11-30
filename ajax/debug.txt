@@ -2,3 +2,21 @@ poly
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Araneus"  and e.Species="quadratus" 
 poly  ((CAST(LatPrec as DECIMAL(6,4))>55.8524) and (CAST(LatPrec as DECIMAL(6,4))<56.67) and (CAST(LongPrec as DECIMAL(6,4))>8.5339) and (CAST(LongPrec as DECIMAL(6,4))<10.83) )
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and  ((CAST(LatPrec as DECIMAL(6,4))>55.8524) and (CAST(LatPrec as DECIMAL(6,4))<56.67) and (CAST(LongPrec as DECIMAL(6,4))>8.5339) and (CAST(LongPrec as DECIMAL(6,4))<10.83) )
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Agroeca" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Aculepeira" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Aculepeira"  and e.Locality like "%Bølshavn%" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Leg like "%Lars Dyhrberg Bruun%"  and e.Genus="Aculepeira" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Name like "%Aculepeira ceropegia%"  and e.Genus="Aculepeira" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Leg like "%Lars Dyhrberg Bruun%"  and e.Genus="Aculepeira" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Aelurillus" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Bolyphantes" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Name like "%Bolyphantes luteolus%"  and e.Genus="Bolyphantes" 

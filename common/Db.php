@@ -1,83 +1,160 @@
-<?php
+<?
+/**
+ * Db.php				PDO wrapper for ESPBA
+ * @copyright   Copyright (C) 2017 david konrad, davidkonrad at gmail com
+ * @license     Licensed under the MIT License; see LICENSE.md
+ */
 
-//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-ini_set('display_errors', '0');
-error_reporting(0); //0 E_ALL
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
 
+/**
+ * Fill out your credentuils
+ **/	 
+include('pw.php');
 
-class Db {
-	private $database;
-	private $hostname;
-	private $username;
-	private $password;
-	private $link;
-	private $host;
-	public $document_root;
+/**
+ * If you want to use an alternative "driver" for ESPBA, extend this abstract class and fill out the blanks
+ **/	 
+abstract class DbProvider {
+	protected $database;
+	protected $hostname;
+	protected $username;
+	protected $password;
+	protected $charset = 'utf8';
+	abstract protected function isLocalhost();		//localhost or production
+	abstract protected function query($SQL);			//perform a query on a fully qualified SQL statement and return the result
+	abstract protected function exec($SQL);				//perform a query on a fully qualified SQL statement and do not return the result
+	abstract protected function s($s);						//escape a string
+	abstract protected function error();					//return errorinfo
+	abstract protected function affected();				//return affected rows
+	abstract protected function lastInsertId();		//return last insert Id
+	abstract protected function queryJSON($SQL);	//return the result of a query() as JSON
+}
+
+/**
+ * default Db provider using PDO
+ **/ 
+class Db extends DbProvider {
+	private $pdo;
   
-	public static function getInstance(){
-		static $db = null;
-		if ( $db == null ) $db = new Db();
-		return $db;
-	}
-
 	public function __construct() { 
-		$this->host = $_SERVER["SERVER_ADDR"]; 
-		if (($this->host=='127.0.0.1') || ($this->host=='::1')) {
-			$this->database = 'edderkopper';
-			$this->hostname = 'localhost';
-			$this->username = 'root';
-			$this->password = 'dadk';
+		global $pw_local, $pw_server;
+
+		$this->charset = 'utf8'; //'latin1';
+
+		if ($this->isLocalhost()) {
+			$this->database = $pw_local['database']; 
+			$this->hostname = $pw_local['hostname'];
+			$this->username = $pw_local['username'];
+			$this->password = $pw_local['password'];
 		} else {
-			$this->database = 'danmarks_edderk';
-			$this->hostname = 'localhost';
-			$this->username = 'danmarks_edderk';
-			$this->password = 'PwH5nbki';
+			$this->database = $pw_server['database']; 
+			$this->hostname = $pw_server['hostname'];
+			$this->username = $pw_server['username'];
+			$this->password = $pw_server['password'];
 		}
 
+		$dsn = "mysql:host=".$this->hostname.";dbname=".$this->database.";charset=".$this->charset;
+		$opt = [
+	    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+	    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+	    PDO::ATTR_EMULATE_PREPARES   => false
+		];
+
 		try {
-			$this->link=mysql_connect($this->hostname,
-						  $this->username,
-						  $this->password);
-			if (!$this->link) {
-				die('Could not connect: ' . mysql_error());
-			} else {
-				mysql_select_db ($this->database);
-			}
-
-		} catch (Exception $e){
-			throw new Exception('Could not connect to database.');
-			exit;
- 		}
+			$this->pdo = new PDO($dsn, $this->username, $this->password, $opt);
+		} catch(PDOException $e) {
+			echo "Error connecting to database: ". $e->getMessage();
+		}
 	}
 
-	public function setUTF8() {
-		mysql_set_charset('UTF8',$this->link);
+	protected function isLocalhost() {
+		$host = $_SERVER["SERVER_ADDR"]; 
+		if (($host=='127.0.0.1') || ($host=='::1')) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+			
+	protected function query($SQL) {
+		try {
+			$result = $this->pdo->query($SQL);
+			return $result;
+		} catch(Exception $e) {
+			return array('error' => $e->getMessage());
+		}
 	}
 
-	public function setLatin1() {
-		mysql_set_charset('Latin1',$this->link);
+	protected function exec($SQL) {
+		try {
+			$this->pdo->query($SQL);
+		} catch(Exception $e) {
+			return array('error' => $e->getMessage());
+		}
 	}
 
-	public function setASCII() {
-		mysql_set_charset('ASCII',$this->link);
+/**
+	* Any string value is quoted, and inside quotes is escaped. 
+	* Along with ATTR_EMULATE_PREPARES == false will this prevent SQL injection
+	* ;drop table user;-- as an evil attempt will insert ';drop table user;--' as field value
+	* Please report any mistakes with this approach
+	*/
+	protected function s($s) {
+		return $this->pdo->quote($s);
 	}
 
-	public function exec($SQL) {
-		mysql_query($SQL);
+	protected function error() {
+		$err = $this->pdo->errorInfo();
+		$err = ($err && is_array($err) && $err[0] != '00000') ? implode(';', $err) : false;
+		return $err;
 	}
 
-	public function query($SQL) {
-		$result=mysql_query($SQL);
-		return $result;
+
+/**
+	* Does not work with MySQL
+	*/
+	protected function affected() {
+		//return $this->pdo->rowCount();
+		return 1;
 	}
+
+	protected function lastInsertId() {
+		return $this->pdo->lastInsertId();
+	}
+
+	protected function queryJSON($SQL) {
+		$result = $this->query($SQL);
+
+		if (!$result instanceof PDOStatement) {
+			return json_encode($result);
+		}
+
+		$return = array();
+		while ($row = $result->fetch()) {
+			$return[] = $row;
+		}
+
+		return json_encode($return);
+	}
+
+/** 
+	* old edderkopper Db* methods (modified)
+	*/
+	public function getRecCount($table) {
+		$SQL='select count(*) from '.$table;
+		$count=$this->getRow($SQL);
+		return $count[0];
+	}		
 
 	public function getRow($SQL, $assoc = false) {
 		try {
-			$result=mysql_query($SQL);
+			$result = $this->query($SQL);
 			if (!$assoc) {
-				$result=mysql_fetch_array($result); 
+				$result = $result->fetch();
 			} else {
-				$result=mysql_fetch_assoc($result); 
+				$result = $result->fetch(PDO::FETCH_ASSOC);
 			}
 			return $result;
 		} catch (Exception $e) {
@@ -86,67 +163,13 @@ class Db {
 	}
 
 	public function hasData($SQL) {
-		$result=mysql_query($SQL);
-		return is_array(@mysql_fetch_array($result));
-	}
-
-	public function getRecCount($table) {
-		$SQL='select count(*) from '.$table;
-		$count=$this->getRow($SQL);
-		return $count[0];
-	}		
-
-	public function q($string, $comma = true) {
-		$string=mysql_real_escape_string($string);
-		return $comma ? '"'.$string.'",' : '"'.$string.'"';
-	}
-	
-	public function lastInsertId() {
-		return mysql_insert_id();
-	}
-
-	/**	
-	  common database functions
-	  not nessecarily related to Db, but implemented here so we always have access to them in child classes
-	 */
-	public function getFields($table) {
-		$SQL='show columns from '.$table;
-		$result=$this->query($SQL);
-		$return = array();
-		while ($row = mysql_fetch_assoc($result)) {
-			$return[]=$row;
-		}
-		return $return;		
-	}
-
-	public function removeLastChar($s) {
-		return substr_replace($s ,"", -1);
-	}
-
-	public function getLanguages() {
-		$SQL='select lang_id, name from zn_languages order by lang_id';
-		$result=$this->query($SQL);
-		$a=array();
-		while ($row=mysql_fetch_array($result)) {
-			$a[]=$row;
-		}
-		return $a;
+		$result = $this->query($SQL);
+		return $result->rowCount() > 0;
 	}
 
 	//url, current page info
 	public function currentDomain() {
 		return $_SERVER['HTTP_HOST'];
-	}
-
-	public function getIndexPage() {
-		$host=$_SERVER["SERVER_ADDR"]; 
-		if (($host=='127.0.0.1') || ($host=='::1')) {
-			//return 'http://localhost/samlinger';
-			return 'http://localhost/html/edderkopper/';
-		} else {
-			//return 'http://daim.snm.ku.dk';
-			return 'http://danmarks-edderkopper.dk';
-		}
 	}
 
 	public function currentURL() {
@@ -175,7 +198,7 @@ class Db {
 		$row = $this->getRow($SQL);
 		return isset($row[0]) ? $row[0] : false;
 	}
-		
+
 	//params, the GET-array is
 	//[0] => param1
 	//[1] => value1
@@ -211,25 +234,6 @@ class Db {
 		return $params;
 	}
 
-	//get page type according to id or semantic name
-	//reduced version of PageLoader->getPageType
-	public function getPageType($semantic, $id) {
-		$where = ($id!='') ? 'z.page_id='.$id : 'z.semantic_name="'.$semantic.'"';
-		$where = ' where '.$where;
-		$where.= ' and (c.page_id=z.page_id) limit 1';
-
-		$SQL='select c.page_id from zn_page_class c, zn_page_content z '.$where;
-		if ($this->hasData($SQL)) return PAGE_CLASS;
-
-		$SQL='select c.page_id from zn_page_static c, zn_page_content z '.$where;
-		if ($this->hasData($SQL)) return PAGE_STATIC;
-
-		$SQL='select page_id from zn_page_link where page_id='.$id.' limit 1';
-		if ($this->hasData($SQL)) return PAGE_LINK;
-
-		return PAGE_UNDEFINED;
-	}
-
 	//debug
 	public function debug($data) {
 		echo '<pre>';
@@ -244,6 +248,13 @@ class Db {
 		fclose($fh);
 	}
 
+	//change charset
+	public function setLatin1() {
+		$this->pdo->exec('SET NAMES Latin1');
+  }
+	public function setUtf8() {
+		$this->pdo->exec('SET NAMES utf8');
+  }
 
 }
 

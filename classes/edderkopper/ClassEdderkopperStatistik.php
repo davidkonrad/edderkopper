@@ -175,7 +175,7 @@ $(document).ready(function() {
 		'(select count(*) from edderkopper where Year_last>1979 and Year_last<2006) as p2005, '.
 		'(select count(*) from edderkopper where Year_last>2005) as Nyeste ';
 		$result=$this->query($SQL);
-		$row=mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 		
 		$fixed=array();
 		$fixed['<1900']=$row['p1900'];
@@ -199,7 +199,8 @@ $(document).ready(function() {
 		'(select count(*) from edderkopper where Region="NEZ") as NEZ, '.
 		'(select count(*) from edderkopper where Region="B") as EL ';
 		$result=$this->query($SQL);
-		$row=mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+
 		Proxy::assocToJS($row, $this->region_names, $this->region_stats);
 	}
 
@@ -209,7 +210,7 @@ $(document).ready(function() {
 
 		$new = array();
 
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$SQL='select min(Year_last) as y from edderkopper where '.
 				'Genus="'.$row['Genus'].'" and Species="'.$row['Species'].'"';
 			$min=$this->getRow($SQL);

@@ -28,7 +28,7 @@ class Lookup extends Db {
 	//return JSON [ { "value":"field", "text":"field"}, .. ]
 	protected function getJSON($dataset, $field) {
 		$json='';
-		while ($row = mysql_fetch_array($dataset)) {
+		while ($row = $dataset->fetch(PDO::FETCH_ASSOC)) {
 			if ($json!='') $json.=',';
 			$json.='{"value" : "'.$row[$field].'", "text": "'.$row[$field].'"}';
 		}
