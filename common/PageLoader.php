@@ -1,7 +1,10 @@
 <?
-error_reporting(1);
 
-ini_set('display_errors', '1'); //
+/*
+error_reporting(1);
+ini_set('display_errors', '1'); 
+*/
+error_reporting(0);
 
 class PageLoader extends Db {
 	//matching page_id found by getPageType, regardless page type or semantic_name load of page

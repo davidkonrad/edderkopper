@@ -40,6 +40,7 @@ class TemplateSimple extends TemplateBase {
 		$SQL='select lang_id, semantic_name from zn_page_content where page_id='.$page_id.' order by lang_id';
 		$result=$this->query($SQL);
 		while ($row = mysql_fetch_assoc($result)) {
+			//echo $row['semantic_name'];
 			$href=$row['semantic_name'];
 			$href=str_replace(' ', '%20', $href);
 			$links[$row['lang_id']]=$href;
@@ -213,7 +214,7 @@ Tel. +45 35 32 22 22<br/></address>
 /*
 */
 ?>
-<!doctype html XXX>
+<!doctype html>
 <html> 
 <head> 
 <meta http-equiv="x-ua-compatible" content="IE=Edge"/>

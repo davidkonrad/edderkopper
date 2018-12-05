@@ -23,7 +23,7 @@ class EdderkoppeDetails extends Db {
 
 	private function getDetails() {
 		$SQL='select * from edderkopper where LNR='.$_GET['LNR'];
-		mysql_set_charset('utf8');
+		$this->setUtf8();
 		$row=$this->getRow($SQL);
 
 		echo '<table class="details">';

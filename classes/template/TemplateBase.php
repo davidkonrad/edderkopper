@@ -84,6 +84,7 @@ class TemplateBase extends Db {
 			$SQL.='and p.category_id='.$cat.' and '.$visible.' order by weight';
 
 			//mysql_set_charset('Latin1');
+			$this->setLatin1();
 			$result = $this->query($SQL);
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$links[]=$row;
