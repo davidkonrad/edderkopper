@@ -1,9 +1,0 @@
-
-
-
-- hvad med verbatimLocality? Den er ikke oversat. Der er en note om "bør nok slåes sammen med locality",
-så det gør jeg, i den udvidede oversigt, dvs ny linie og i enden på locality, hvis feltet er defineret (??)
-verbatimLocality skulle med i den forsimplede oversigt.
-
-
-
