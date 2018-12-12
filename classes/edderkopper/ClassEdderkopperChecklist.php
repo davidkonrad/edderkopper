@@ -1,7 +1,5 @@
 <?
 
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
-
 class ClassEdderkopperChecklist extends ClassBase {
 	public $template = 'TemplateEdderkopper';
 

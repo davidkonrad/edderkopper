@@ -1,7 +1,4 @@
 <?
-//error_reporting(E_ALL ^ E_DEPRECATED ^ E_STRICT);
-error_reporting(1);
-ini_set('display_errors', '1'); //
 
 class DetailEdderkopper extends DetailBase {
 	private $species;
@@ -38,9 +35,7 @@ class DetailEdderkopper extends DetailBase {
 		$this->getRegionStats();
 		$this->getCollectionStats();
 		$this->getIDs();
-		$this->bodyText = $this->getSpeciesDesc().
-						$this->getGenusDesc().
-						$this->getFamilyDesc();
+		$this->bodyText = $this->getSpeciesDesc().$this->getGenusDesc().$this->getFamilyDesc();
 
 		//set title
 		$title=$this->species;
@@ -224,7 +219,6 @@ p {
 	private function getIDs() {
 		$s=explode(' ',$this->species);
 		$SQL='select SpeciesID, NameDK, NameUK, SAuthor from edderkopper_species where species="'.strtolower($s[1]).'"';
-		//mysql_set_charset('utf8');
 			
 		$row=$this->getRow($SQL);
 		$this->species_id=$row['SpeciesID'];
@@ -243,11 +237,10 @@ p {
 	}
 
 	private function getSizeDesc($m, $f) {
-		$male = $_SESSION[LANG]==1 ? 'han ' : 'male ';
-		$female = $_SESSION[LANG]==1 ? 'Hun ' : 'Female ';
-		$size = $_SESSION[LANG]==1 ? 'Størrelse: ' : 'Size: ';
+		$male = $_SESSION[LANGUAGE]==1 ? 'han ' : 'male ';
+		$female = $_SESSION[LANGUAGE]==1 ? 'Hun ' : 'Female ';
+		$size = $_SESSION[LANGUAGE]==1 ? 'Størrelse: ' : 'Size: ';
 
-		$text.=$this->bold($size);
 		$m = $m!='' ? $m.' mm' : '? mm';
 		$f = $f!='' ? $f.' mm' : '?  mm';
 
@@ -255,10 +248,10 @@ p {
 	}
 
 	private function getSpeciesDesc() {
-		$beskrivelse = $_SESSION[LANG]==1 ? 'Beskrivelse: ' : 'Description: ';
-		$udbredelse = $_SESSION[LANG]==1 ? 'Udbredelse: ' : 'Distribution: ';
-		$habitat = $_SESSION[LANG]==1 ? 'Habitat: ' : 'Habitat: ';
-		$biologi = $_SESSION[LANG]==1 ? 'Biologi: ' : 'Biology: ';
+		$beskrivelse = $_SESSION[LANGUAGE]==1 ? 'Beskrivelse: ' : 'Description: ';
+		$udbredelse = $_SESSION[LANGUAGE]==1 ? 'Udbredelse: ' : 'Distribution: ';
+		$habitat = $_SESSION[LANGUAGE]==1 ? 'Habitat: ' : 'Habitat: ';
+		$biologi = $_SESSION[LANGUAGE]==1 ? 'Biologi: ' : 'Biology: ';
 
 		$text = '';
 
@@ -274,7 +267,6 @@ p {
 		$row = $this->getRow($SQL);			
 
 		if ($row['art']!='') {
-			//if ($text!='') $text.='.&nbsp;';
 			$text.=$this->bold($beskrivelse).$row['art'];
 		}
 		if ($row['bio']!='') {
@@ -282,11 +274,9 @@ p {
 			$text.=$this->bold($biologi).$row['bio'];
 		}
 		if ($row['hab']!='') {
-			//if ($text!='') $text.='.&nbsp;';
 			$text.=$this->bold($habitat).$row['hab'];
 		}
 		if ($row['dis']!='') {
-			//if ($text!='') $text.='.&nbsp;';
 			$text.=$this->bold($udbredelse).$row['dis'];
 		}
 
@@ -324,8 +314,8 @@ p {
 
 	private function getFamilyDesc() {
 		$familie = $_SESSION[LANGUAGE]==1 ? 'Familie: ' : 'Family: ';
-		$biologi = $_SESSION[LANG]==1 ? 'Biologi: ' : 'Biology: ';
-		$karakteristik = $_SESSION[LANG]==1 ? 'Familiekarakteristik: ' : 'Characters of family: ';
+		$biologi = $_SESSION[LANGUAGE]==1 ? 'Biologi: ' : 'Biology: ';
+		$karakteristik = $_SESSION[LANGUAGE]==1 ? 'Familiekarakteristik: ' : 'Characters of family: ';
 
 		$SQL='select '.
 			'Family,'.
