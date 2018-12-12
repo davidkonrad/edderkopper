@@ -28,3 +28,5 @@ poly
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Tenuiphantes"  and e.Species="cristatus" 
 poly 
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Tenuiphantes"  and e.Species="cristatus" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Region="SJ" 

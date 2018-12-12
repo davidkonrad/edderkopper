@@ -86,6 +86,7 @@ class TemplateBase extends Db {
 			//mysql_set_charset('Latin1');
 			$this->setLatin1();
 			$result = $this->query($SQL);
+			//$this->debug($result);
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$links[]=$row;
 			}

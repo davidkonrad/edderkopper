@@ -1,5 +1,8 @@
 <?
 
+error_reporting(E_ALL ^ E_STRICT);
+
+
 class TemplateEdderkopper extends TemplateBase {
 	private $class_;
 	private $info;
@@ -101,6 +104,7 @@ foreach ($links as $link) {
 
 	protected function drawBody() {
 		if (is_object($this->class_)) {
+			//$this->debug($this->class_);
 			$this->class_->drawBody();
 		} else {
 			$this->drawStaticPage($this->page_id);

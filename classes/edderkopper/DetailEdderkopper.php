@@ -184,7 +184,7 @@ p {
 		'(select sum(JuvenileCount) from edderkopper where Genus="'.$genus.'" and Species="'.$species.'" and Month_last='.$month.') as juveniles ';
 
 		$result=$this->query($SQL);
-		$row=mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 		return $row;
 	}
 
@@ -217,14 +217,15 @@ p {
 		'(select count(*) from edderkopper where Region="NEZ"'.$spec.') as NEZ, '.
 		'(select count(*) from edderkopper where Region="B"'.$spec.') as B ';
 		$result=$this->query($SQL);
-		$row=mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 		Proxy::assocToJS($row, $this->region_names, $this->region_stats);
 	}
 
 	private function getIDs() {
 		$s=explode(' ',$this->species);
 		$SQL='select SpeciesID, NameDK, NameUK, SAuthor from edderkopper_species where species="'.strtolower($s[1]).'"';
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
+			
 		$row=$this->getRow($SQL);
 		$this->species_id=$row['SpeciesID'];
 		$this->species_dansk=$row['NameDK'];
@@ -356,9 +357,9 @@ p {
 	private function getImages() {
 		if ($this->species_id=='') return;
 		$SQL='select * from edderkopper_photo where SpeciesId='.$this->species_id;
-		mysql_set_charset('utf8');
 		$result=$this->query($SQL);
-		while ($row=mysql_fetch_array($result)) {
+
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$filename=stripslashes($row['Filename']);
 			$filename='lissner/'.$filename;
 			if (file_exists($filename)) {

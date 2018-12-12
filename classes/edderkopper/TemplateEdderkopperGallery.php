@@ -14,7 +14,6 @@ class TemplateEdderkopperGallery extends TemplateEdderkopper { //TemplateBase
 			$this->class_=$class;
 			$this->info=$class->getInfo();
 		} else {
-			
 			$this->page_id=$class;
 		}
 	}

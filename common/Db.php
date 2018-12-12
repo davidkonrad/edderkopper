@@ -143,9 +143,9 @@ class Db extends DbProvider {
 	* old edderkopper Db* methods (modified)
 	*/
 	public function getRecCount($table) {
-		$SQL='select count(*) from '.$table;
+		$SQL='select count(*) as c from '.$table;
 		$count=$this->getRow($SQL);
-		return $count[0];
+		return $count['c'];
 	}		
 
 	public function getRow($SQL, $assoc = false) {
@@ -196,7 +196,18 @@ class Db extends DbProvider {
 		$SQL= 'select p.page_id from zn_page p, zn_page_content c '.
 			'where c.semantic_name="'.$semantic_name.'" and p.page_id=c.page_id';
 		$row = $this->getRow($SQL);
-		return isset($row[0]) ? $row[0] : false;
+		return isset($row['page_id']) ? $row['page_id'] : false;
+	}
+
+	public function getIndexPage() {
+		$host=$_SERVER["SERVER_ADDR"]; 
+		if (($host=='127.0.0.1') || ($host=='::1')) {
+			//return 'http://localhost/samlinger';
+			return 'http://localhost/html/edderkopper/';
+		} else {
+			//return 'http://daim.snm.ku.dk';
+			return 'http://danmarks-edderkopper.dk';
+		}
 	}
 
 	//params, the GET-array is
