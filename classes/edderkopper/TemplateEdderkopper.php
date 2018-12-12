@@ -1,6 +1,6 @@
 <?
 
-error_reporting(E_ALL ^ E_STRICT);
+//error_reporting(E_ALL ^ E_STRICT);
 
 
 class TemplateEdderkopper extends TemplateBase {

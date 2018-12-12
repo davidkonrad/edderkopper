@@ -87,33 +87,7 @@ class Login extends Db {
 		header('location: ../edderkopper-administration');
 	}
 
-	//page_id is preferly the page semantic name, $semantic
-	public function userHasRights($page_id) {
-		if ($page_id=='') return true;
-		if (isset($_SESSION[ISADMIN])) {
-			if ($_SESSION[ISADMIN]) return true;
-		}
 
-		//remove any params from $semantic / $page_id
-		$page_id=explode('?',$page_id);
-		$page_id=$page_id[0];
-
-		$SQL=(is_numeric($page_id)) 
-			? 'select category_id, visible from zn_page where page_id='.$page_id
-			: 'select p.category_id, p.visible from zn_page p, zn_page_content c '.
-				'where c.semantic_name="'.$page_id.'" and p.page_id=c.page_id';
-		$page=$this->getRow($SQL);
-
-		//if (!Login::isLoggedIn() && ($page['visible']==0)) return false;
-	
-		$SQL=(Login::isLoggedIn()) 
-			? 'select count(*) as c from zn_user_rights where user_id='.$_SESSION[LOGIN].' and category_id='.$page['category_id']
-			: 'select count(*) as c from zn_user_rights where user_id=1 and category_id='.$page['category_id'];
-		$row=$this->getRow($SQL);
-		if ($row['c']<=0) return false;
-	
-		return true;
-	}
 }
 
 if (isset($_GET['action'])) {

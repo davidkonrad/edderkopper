@@ -1,11 +1,10 @@
 <?
 
-/*
 error_reporting(1);
 ini_set('display_errors', '1'); 
-*/
+
 //error_reporting(0);
-error_reporting(E_ALL ^ E_STRICT);
+//error_reporting(E_ALL ^ E_STRICT);
 
 class PageLoader extends Db {
 	//matching page_id found by getPageType, regardless page type or semantic_name load of page
@@ -58,12 +57,6 @@ class PageLoader extends Db {
 			$_SESSION[STANDALONE]=($row['standalone']==1);
 		} else {
 			$_SESSION[STANDALONE]=false;
-		}
-
-		if (!@$page->isDetailPage && get_class($page)!='CategoryPage') {
-			if (!Login::userHasRights($semantic)) {
-				$page = new Page404(401, trans(LAB_401));
-			}
 		}
 
 		$page->draw();
