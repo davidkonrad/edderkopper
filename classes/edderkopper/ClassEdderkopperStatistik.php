@@ -210,11 +210,14 @@ $(document).ready(function() {
 
 		$new = array();
 
+		//new species is from within the last 10 years
+		$from_year = date("Y")-11;
+
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$SQL='select min(Year_last) as y from edderkopper where '.
 				'Genus="'.$row['Genus'].'" and Species="'.$row['Species'].'"';
 			$min=$this->getRow($SQL);
-			if ($min['y']>2005) {
+			if ($min['y']>$from_year) {
 				$name= '<em>'.$row['Genus'].' '.$row['Species'].'</em>';
 				$new[]=array('name' => $name, 
 							'year' => $min['y'],
