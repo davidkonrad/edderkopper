@@ -1,7 +1,6 @@
 <?
 include('../common/Db.php');
 include('../common/HTML.php');
-//include('../classes/Template.php');
 
 //lang, assume hidden field sess_lang is defined
 if (isset($_GET['sess_lang'])) {
@@ -156,11 +155,11 @@ button.DTTT_button {
 $(document).ready(function() {
 	$("#result-table").dataTable({
 		bJQueryUI: true,
-        bPaginate: false,  
-        bInfo: false,  
+    bPaginate: false,  
+    bInfo: false,  
 		bLengthChange: false,
-        bFilter: false,
-        bAutoWidth: false,
+    bFilter: false,
+    bAutoWidth: false,
 		asStripClasses:[],
 		bSortClasses: false,
 		sDom: 'T<"clear">lfrtip'
