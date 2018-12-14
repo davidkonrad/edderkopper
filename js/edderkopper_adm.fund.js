@@ -60,6 +60,15 @@ $(document).ready(function() {
 	function setFund(fund) {
 		if (!fund.LNR) fund = JSON.parse(fund)
 
+		//empty
+		if (!fund.LNR) {
+			$('#fund-save').disable(true)
+			$body = $('#fund-table-body');
+			$body.html('')
+			$('#current-art-cnt').html('')
+			return
+		}
+			
 		$('#fund-save').disable(false)
 		$body = $('#fund-table-body');
 		$body.html('')
@@ -273,7 +282,12 @@ $(document).ready(function() {
 				LNR: LNR
 			},
 			success: function(response) {
-				setFund(response)
+				if (response == 'false') {
+					$('#fund-messages').text('Der findes igen fund med LNR '+LNR+' ...').show().fadeOut(5000)
+					setFund('{}')
+				} else {
+					setFund(response)
+				}
 			}
 		})
 	})

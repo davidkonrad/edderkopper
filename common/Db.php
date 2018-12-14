@@ -105,6 +105,22 @@ class Db extends DbProvider {
 		return $this->pdo->quote($s);
 	}
 
+	/*
+		needed for backward compatibility
+		should be sunsetted
+	*/
+	public function q($string, $comma = true) {
+		//$string=mysql_real_escape_string($string);
+		return $comma ? '"'.$string.'",' : '"'.$string.'"';
+	}
+	/*
+		needed for backward compatibility
+		should be sunsetted
+	*/
+	public function removeLastChar($s) {
+		return substr_replace($s ,"", -1);
+	}
+
 	protected function error() {
 		$err = $this->pdo->errorInfo();
 		$err = ($err && is_array($err) && $err[0] != '00000') ? implode(';', $err) : false;

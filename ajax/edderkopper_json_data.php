@@ -40,7 +40,8 @@ class JSON extends Db {
 		$SQL='select '.$field.','.$id.' from '.$table;
 		$result=$this->query($SQL);
 		$JSON='';
-		while ($row = mysql_fetch_assoc($result)) {
+		//while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			if ($JSON!='') $JSON.=',';
 			$JSON.=' { "id" : "'.$row[$id].'", "value" : "'.$row[$field].'" } ';
 		}
@@ -56,7 +57,7 @@ class JSON extends Db {
 
 		$result=$this->query($SQL);
 		$JSON='';
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			if ($JSON!='') $JSON.=',';
 			$value=$row['Genus'].' '.$row['Species'].', '.$row['SAuthor'];
 			$JSON.=' { "id" : "'.$row['SpeciesID'].'", "value" : "'.$value.'" } ';

@@ -1,6 +1,5 @@
 <?
 
-//include('../common/Core.php');
 include('../common/Db.php');
 
 if (isset($_GET['lang'])) {

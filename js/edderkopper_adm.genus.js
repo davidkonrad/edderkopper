@@ -22,7 +22,6 @@ $(document).ready(function() {
 	})
 
   function setGenus(item) {
-		console.log(item)
 		if (typeof item == 'number') {
 			currentGenusItem = 'Ny art #'+item
 			$("#lookup-genus").val(currentGenusItem)
@@ -33,30 +32,29 @@ $(document).ready(function() {
 			id = id[0] ? id[0] : false
 		}
 
-		console.log('id', id)
 		if (!id) return
 
 		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK']
 
 			var getCaption = function(field) {
 				switch (field) {
-					case 'Genus' : return 'Slægt'; break;
-					case 'GenusID' : return 'Slægt'; break;
-					case 'Genus' : return 'Artsnavn'; break;
+					case 'Family' : return 'Familie'; break;
+					case 'FamilyID' : return 'Familie'; break;
+					case 'Genus' : return 'Slægstnavn'; break;
 					case 'den_danske_roedliste': return 'Rødliste'; break;
-					case 'NameDK' : return 'Dansk DK'; break;
-					case 'NameUK' : return 'Navn UK'; break;
-					case 'SAuthor' : return 'Author'; break;
-					case 'SCharDK': return 'Beskrivelse DK'; break;
-					case 'SCharUK': return 'Beskrivelse UK'; break;
+					case 'GNameDK' : return 'Dansk DK'; break;
+					case 'GNameUK' : return 'Navn UK'; break;
+					case 'GAuthor' : return 'Author'; break;
+					case 'GCharactersDK': return 'Beskrivelse DK'; break;
+					case 'GCharactersUK': return 'Beskrivelse UK'; break;
 					default : return '??'; break;
 				}
 			}
 
 			function getHTMLElement(field, value) {
 				switch (field) {
-					case 'SCharDK' :
-					case 'SCharUK' :
+					case 'GCharactersDK' :
+					case 'GCharactersUK' :
 						return '<textarea class="editor" name="'+field+'">'+value+'</textarea>'
 						break;
 
@@ -72,6 +70,7 @@ $(document).ready(function() {
 					GenusID: id
 				},
 				success : function(response) {
+					console.log(response);
 					if (!response) return
 					var r = JSON.parse(response),
 							$body = $('#genus-table-body');

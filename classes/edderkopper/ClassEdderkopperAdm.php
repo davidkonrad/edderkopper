@@ -34,6 +34,29 @@ class ClassEdderkopperAdm extends ClassBase {
 	public function drawBeforeFooter() {
 ?>
 <script type="text/javascript">
+
+//set autofocus on inputs when active tab changes
+$('body').on('click', '.tabbernav li', function(e) {
+	var tabName = e.currentTarget.innerText;
+	switch (tabName) {
+		case 'Art':
+			$('#lookup-species').focus();
+			break;
+		case 'Slægt':
+			$('#lookup-genus').focus();
+			break;
+		case 'Familie':
+			$('#lookup-family').focus();
+			break;
+		case 'Fund':
+			$('#fund-lnr').focus();
+			break;
+		default:
+			break;
+	}
+})
+
+
 var species;
 var species_lookup=[];
 
@@ -47,9 +70,10 @@ $(document).ready(function() {
 				species_lookup.push(json[i].value);
 			}
 			$("#edit-art").typeahead({
-				items : 20,
+				items: 20,
 				source: species_lookup,
-				updater : function(item) {
+				updater: function(item) {
+					alert(item)
 					return item;
 				}
 			});
@@ -137,7 +161,7 @@ if ($f && $m) {
 			<span id="fund-messages" class="messages"></span>
 			<button class="save" id="fund-save" disabled>Gem</button>
 			<hr>
-			<form id="fund-form">
+			<form id="fund-form" spellcheck="false">
 				<div id="current-art-cnt" style="float:left;clear:both;"></div>
 				<table id="fund-table">
 					<tbody id="fund-table-body"></tbody>
@@ -149,12 +173,12 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Art</h2>
 	  <p>
-			Opslag : <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:380px;" />
+			Opslag : <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:380px;" spellcheck="false" />
 			<button id="create-species">Opret ny art</button>
 			<span id="species-messages" class="messages"></span>
 			<button class="save" id="species-save" disabled>Gem</button>
 			<hr>
-			<form id="species-form">
+			<form id="species-form" spellcheck="false">
 				<table id="species-table">
 					<tbody id="species-table-body"></tbody>
 				</table>

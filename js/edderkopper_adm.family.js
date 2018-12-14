@@ -22,7 +22,6 @@ $(document).ready(function() {
 	})
 
   function setFamily(item) {
-		console.log(item)
 		if (typeof item == 'number') {
 			currentFamilyItem = 'Ny art #'+item
 			$("#lookup-family").val(currentFamilyItem)
@@ -33,7 +32,6 @@ $(document).ready(function() {
 			id = id[0] ? id[0] : false
 		}
 
-		console.log('id', id)
 		if (!id) return
 
 		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK']

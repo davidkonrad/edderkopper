@@ -141,7 +141,7 @@ class Insert extends CSV {
 	}
 	private function run() {
 		global $columns;
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$error = $this->csv.' er indsat i fund-tabellen ..';
 		if (($handle = fopen(UPLOAD_PATH.$this->csv, "r")) !== false) {
 			//read columns / first line
@@ -168,10 +168,12 @@ class Insert extends CSV {
 				$this->query($SQL);
 				$count++;
 
+				/*
 				if (mysql_error()!='') {
 					$error = '<span class="msg-error">'.mysql_error().'</span>';
 					break;
 				}
+				*/
 
 			}
 		    fclose($handle);
@@ -225,7 +227,7 @@ class Check extends CSV {
 class GetCollections extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -248,7 +250,7 @@ class GetCollections extends Db {
 class GetLegs extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -270,7 +272,7 @@ class GetLegs extends Db {
 class GetDets extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -292,7 +294,7 @@ class GetDets extends Db {
 class GetLocalities extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -314,7 +316,7 @@ class GetLocalities extends Db {
 class GetSpecies extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -336,13 +338,13 @@ class LookupSpecies extends LookupSpeciesBase {
 	private $search = '';
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$this->search = $_GET['search'];
 		$this->run();
 	}
 	protected function getJSON($result) {
 		$json='';
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			if ($json!='') $json.=',';
 			$json.= '{"value" : "'.$this->getSpeciesFullName($row).'", "text": "'.$this->getSpeciesFullName($row).'"}';
 		}
@@ -362,7 +364,7 @@ class LookupSpecies extends LookupSpeciesBase {
 		$result = $this->query($SQL);
 		$json = array();
 
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$row['FullName'] = $this->getSpeciesFullName($row);
 			$json[] = $row;
 		}
@@ -373,7 +375,7 @@ class LookupSpecies extends LookupSpeciesBase {
 class LookupSpeciesByTaxon extends LookupSpeciesBase {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
+		//mysql_set_charset('utf8');
 		$this->species = $_GET['species'];
 		$this->genus = $_GET['genus'];
 		$this->family = $_GET['family'];
@@ -440,13 +442,12 @@ class LookupFullGenus extends Db {
 	private $search = '';
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->search = $_GET['search'];
 		$this->run();
 	}
 	protected function getJSON($result) {
 		$array = array();
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$row['FullName'] = $row['Genus'].', '.$row['Family'].' ('.$row['GAuthor'].') ['.$row['GenusID'].']';
 			$array[] = $row;
 		}
@@ -469,7 +470,6 @@ class LookupFullGenus extends Db {
 class GetGenus extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -487,13 +487,12 @@ class LookupFamily extends Db {
 	private $search = '';
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->search = $_GET['search'];
 		$this->run();
 	}
 	protected function getJSON($result) {
 		$array = array();
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$row['FullName'] = $row['Family'].'  ('.$row['Author'].') ['.$row['FamilyID'].']';
 			$array[] = $row;
 		}
@@ -508,6 +507,20 @@ class LookupFamily extends Db {
 
 		$result=$this->query($SQL);
 		echo $this->getJSON($result);
+	}
+}
+/*****************************
+	get family by FamilyID
+*****************************/
+class GetFamily extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		$SQL='select * from edderkopper_family where FamilyID='.$_GET['FamilyID'];
+		$row=$this->getRow($SQL, true);
+		echo json_encode($row);
 	}
 }
 
@@ -532,7 +545,6 @@ class FundCount extends Db {
 class FundGet extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -551,7 +563,6 @@ class FundSave extends Db {
 		$this->run();
 	}
 	private function run() {
-		mysql_set_charset('utf8');
 		$SQL='update edderkopper set ';
 		foreach($_GET as $key => $value) {
 			if (!in_array($key, array('LNR', 'action'))) {
@@ -561,13 +572,13 @@ class FundSave extends Db {
 		$SQL=$this->removeLastChar($SQL);
 		$SQL.=' where LNR='.$_GET['LNR'];
 		$this->exec($SQL);
-		$updateError = mysql_error();
+		//$updateError = mysql_error();
 		
 		//update Name
 		$SQL='update edderkopper set Name=Concat(Genus," ",Species) where LNR='.$_GET['LNR'];
 		$this->exec($SQL);
 
-		echo $updateError!='' ? $updateError : 'Ændringerne er blevet gemt ...';
+		echo isset($updateError) ? $updateError : 'Ændringerne er blevet gemt ...';
 	}
 }
 
@@ -580,7 +591,6 @@ class FundCreate extends Db {
 		$this->run();
 	}
 	private function run() {
-		mysql_set_charset('utf8');
 		$SQL='insert into edderkopper (Family, Genus, Species, AuthorYear, Leg, Locality, ' .
 						'LatPrec, LongPrec, UTM10, Collection, Det, KatalogNrPers, ' .
 						'Date_last, Month_last, Year_last) values('.
@@ -615,7 +625,6 @@ class FundCreate extends Db {
 class FundUpdateNameAll extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -629,7 +638,6 @@ class FundUpdateNameAll extends Db {
 class FundUpdateSpeciesName extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -658,7 +666,6 @@ class FundUpdateSpeciesName extends Db {
 class FundDelete extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -675,7 +682,6 @@ class GetTaxonomy extends Db {
 	private $search = '';
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -687,7 +693,7 @@ class GetTaxonomy extends Db {
 
 		$result=$this->query($SQL);
 		$json='';
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			if ($json!='') $json.=',';
 			$json.=json_encode($row);
 		}
@@ -699,7 +705,6 @@ class GetTaxonomy extends Db {
 class CreateSpecie extends Db {
 	public function __construct() {
 		parent::__construct();
-		mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -767,6 +772,9 @@ switch ($action) {
 	//family
 	case 'lookupFamily' :
 		$lookupFamily = new LookupFamily();
+		break;
+	case 'getFamily' :
+		$getFamily = new GetFamily();
 		break;
 	
 	//leg, det
