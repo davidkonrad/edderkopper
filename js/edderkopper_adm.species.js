@@ -22,6 +22,12 @@ $(document).ready(function() {
 	})
 
   function setSpecie(item) {
+
+		for (var i in CKEDITOR.instances) {
+			console.log('setspecie CKEditor', CKEDITOR.instances[i]);
+		}
+
+
 		if (typeof item == 'number') {
 			currentSpeciesItem = 'Ny art #'+item
 			$("#lookup-species").val(currentSpeciesItem)
@@ -56,7 +62,7 @@ $(document).ready(function() {
 				switch (field) {
 					case 'SCharDK' :
 					case 'SCharUK' :
-						return '<textarea class="editor" name="'+field+'">'+value+'</textarea>'
+						return '<textarea class="editor" id="'+field+'" name="'+field+'">'+value+'</textarea>'
 						break;
 
 					default :
@@ -150,7 +156,7 @@ $(document).ready(function() {
 
 					$('.editor').each(function() {
 						var name=$(this).attr('name');
-						CKEDITOR.replace(name, { width:"750px", height:"90px", toolbar:'edderkopper' }); //, toolbar:'Basic'
+						CKEDITOR.replace(name, { width:"750px", height:"200px", toolbar:'edderkopper' }); //, toolbar:'Basic'
 					})
 
 					//init slægt typeahead

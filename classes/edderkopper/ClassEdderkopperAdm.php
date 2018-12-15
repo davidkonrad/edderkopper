@@ -25,9 +25,10 @@ class ClassEdderkopperAdm extends ClassBase {
 <script type="text/javascript" src="js/edderkopper_adm.fund.js"></script>
 <script type="text/javascript" src="plugins/tabber/tabber.js"></script>
 <link rel="stylesheet" href="plugins/tabber/example.css" type="text/css" media="screen" />
-
+<script type="text/javascript">
+	window.CKEDITOR_BASEPATH = 'ckeditor/'
+</script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-
 <?
 	}
 

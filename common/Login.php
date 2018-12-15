@@ -29,10 +29,10 @@ class Login extends Db {
 		if (isset($_SESSION[LOGIN])) {
 			echo '<div style="display:block;float:right;font-size:90%;width:100%;clear:both;text-align:right;"><a href="common/Login.php?action=logout">Log af</a></div>';
 		} else {
-			echo '<form name="login" method="get" action="common/Login.php" style="float:left;clear:none;">';
+			echo '<form name="edderkopper_login" method="get" action="common/Login.php" style="float:left;clear:none;">';
 			echo '<input type="hidden" name="action" value="login">';
-			echo '<input type="text" name="username" style="width:90px;float:left;">';
-			echo '<input type="password" name="password" style="width:90px;float:left;margin-left:4px;">';
+			echo '<input type="text" name="edderkopper_username" style="width:90px;float:left;">';
+			echo '<input type="password" name="edderkopper_password" style="width:90px;float:left;margin-left:4px;">';
 			echo '<input type="submit" value=" '.trans(LAB_LOGIN).'  " style="padding:0px;height:26px;">';
 			echo '</form>';
 		}
@@ -56,9 +56,9 @@ class Login extends Db {
 			$this->logout();
 		} else {
 			parent::__construct();
-			$username = isset($_GET['username']) ? $_GET['username'] : '';
-			$password = isset($_GET['password']) ? $_GET['password'] : '';
-			$SQL='select user_id, username, is_admin from  zn_user where username="'.$username.'" and password="'.$password.'"';
+			$username = isset($_GET['edderkopper_username']) ? $_GET['edderkopper_username'] : '';
+			$password = isset($_GET['edderkopper_password']) ? $_GET['edderkopper_password'] : '';
+			$SQL='select user_id, username, is_admin from zn_user where username="'.$username.'" and password="'.$password.'"';
 			$row=$this->getRow($SQL);
 			if ($row) {
 				$this->login($row['user_id'], $row['username'], $row['is_admin']);

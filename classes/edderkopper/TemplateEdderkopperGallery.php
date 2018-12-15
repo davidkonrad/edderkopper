@@ -180,7 +180,6 @@ $(document).ready(function()  {
 	//remove additional flag-menu's added by sub pages
 	var test=$('.flag-menu-cnt');
 	if (test.length>1) for (var i=test.length;i>0;i--) {
-		console.log('flagmenu removed'); 
 		$(test[i]).remove();
 	}
 });
@@ -190,15 +189,6 @@ $(document).ready(function()  {
 <?
 	}
 
-/*
-	protected function getMetaDesc() {
-		echo $this->info['meta_desc'];
-	}
-
-	protected function getPageTitle() {
-		echo $this->info['title'];
-	}
-*/
 	//<head>...</head>
 	protected function pageHead() {
 /*

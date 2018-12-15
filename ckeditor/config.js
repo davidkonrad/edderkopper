@@ -26,7 +26,10 @@ CKEDITOR.editorConfig = function( config )
 	    //{ name: 'tools',       items : [ 'Maximize', 'ShowBlocks','-','About' ] }
 	];
 
-	config.skin = 'office2003';
+	//config.skin = 'office2003';
+	//console.log(CKEDITOR.version);
+	//config.skin = 'minimalist';
+	config.language = 'da';
 
 	config.toolbar_edderkopper =
 	[
