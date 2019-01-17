@@ -23,11 +23,6 @@ $(document).ready(function() {
 
   function setSpecie(item) {
 
-		for (var i in CKEDITOR.instances) {
-			console.log('setspecie CKEditor', CKEDITOR.instances[i]);
-		}
-
-
 		if (typeof item == 'number') {
 			currentSpeciesItem = 'Ny art #'+item
 			$("#lookup-species").val(currentSpeciesItem)
@@ -150,13 +145,15 @@ $(document).ready(function() {
 					*/
 
 					//init editors
+					/*
 					for (var i in CKEDITOR.instances) {
 						CKEDITOR.instances[i].destroy(true);
 					}
+					*/
 
 					$('.editor').each(function() {
 						var name=$(this).attr('name');
-						CKEDITOR.replace(name, { width:"750px", height:"200px", toolbar:'edderkopper' }); //, toolbar:'Basic'
+						CKEDITOR.replace(name, { width:"750px", height:"200px", toolbar:'edderkopper' }); 
 					})
 
 					//init slægt typeahead

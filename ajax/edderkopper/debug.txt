@@ -1,0 +1,45 @@
+update zn_page_static set page_html="<div>
+	<strong>Velkommen til &#39;Danmarks Edderkopper&#39;</strong></div>
+<div>
+	&nbsp;</div>
+<div>
+	Her finder du oplysninger om danske edderkoppers udbredelse og forekomst. Data stammer fra en r&aelig;kke offentlige og private samlinger (<a href=\"danmarks-edderkopper-samlinger\">se oversigt her</a>) og de fleste fund er baseret p&aring; et individ i en samling. Nogle f&aring; observationsdata er medtaget, n&aring;r det drejer sig om let genkendelige arter (som Hvepseedderkoppen, Argiope bruennichi). L&aelig;s mere om baggrunden for &#39;Danmarks Edderkopper&#39; <a href=\"danmarks-edderkopper-baggrund\">her</a>. Opdatering sker l&oslash;bende. Oplysninger om de enkelte arter findes p&aring; s&oslash;gesiden (her) hvor der kan s&oslash;ges p&aring; artens latinske navn (art, sl&aelig;gt familie), indsamler, tidsperiode, geografisk region m.m. &Oslash;nsker du at bidrage med oplysninger s&aring; kontakt venligst redaktionskomitteen.</div>
+<div>
+	&nbsp;</div>
+<div>
+	En s&oslash;gning returnerer de fund der m&aring;tte ligge i databasen i tabelformat. Oplysninger omfatter art, dato for fund, lokalitet, UTM 10x10 kvadrat, indsamler (leg.), bestemmer (det.) og den samling hvori dyret opbevares. Man kan f&aring; fundene plottet p&aring; et kort ved at trykke p&aring; knappen &rsquo;kort&rsquo;. P&aring; artsudbredelseskortene angiver farvede cirkler (prikker) fund med bel&aelig;gseksemplar (dvs. eksemplaret findes i en samling) og hvide firkanter angiver observationer af en art (dvs. uden bel&aelig;gseksemplar). I h&oslash;jre side af sk&aelig;rmbilledet p&aring; kortsiden kan man klikke p&aring; &rsquo;Vis UTM felter&rsquo; eller man kan f&aring; vist kommunegr&aelig;nser eller EU habitatsomr&aring;der. UTM kvadraterne er 10x10 km. Ved at klikke p&aring; de enkelte prikker bliver man pr&aelig;senteret for yderligere detaljer om de enkelte fund. P&aring; den generelle s&oslash;geside kan man ogs&aring; definere en hvilken som helst polygon ved at klikke p&aring; mindst 3 omr&aring;der i kortfeltet. &nbsp;</div>
+<div>
+	&nbsp;</div>
+<div>
+	En samlet opdateret checkliste over Danmarks edderkopper kan genereres under &rdquo;<a href=\"Tjekliste-over-Danmarks-edderkopper\">Tjekliste over Danmarks edderkopper</a>&rdquo; og omfatter s&aring;vel artsliste som &rsquo;prikkort&rsquo; over distriktfund.&nbsp;</div>
+" where page_id=22 and lang_id=1
+update zn_page_static set page_html="<div>
+	<strong>Velkommen til &#39;Danmarks Edderkopper&#39;&nbsp; dddddddddddddddd</strong></div>
+<div>
+	&nbsp;</div>
+<div>
+	Her finder du oplysninger om danske edderkoppers udbredelse og forekomst. Data stammer fra en r&aelig;kke offentlige og private samlinger (<a href=\"danmarks-edderkopper-samlinger\">se oversigt her</a>) og de fleste fund er baseret p&aring; et individ i en samling. Nogle f&aring; observationsdata er medtaget, n&aring;r det drejer sig om let genkendelige arter (som Hvepseedderkoppen, Argiope bruennichi). L&aelig;s mere om baggrunden for &#39;Danmarks Edderkopper&#39; <a href=\"danmarks-edderkopper-baggrund\">her</a>. Opdatering sker l&oslash;bende. Oplysninger om de enkelte arter findes p&aring; s&oslash;gesiden (her) hvor der kan s&oslash;ges p&aring; artens latinske navn (art, sl&aelig;gt familie), indsamler, tidsperiode, geografisk region m.m. &Oslash;nsker du at bidrage med oplysninger s&aring; kontakt venligst redaktionskomitteen.</div>
+<div>
+	&nbsp;</div>
+<div>
+	En s&oslash;gning returnerer de fund der m&aring;tte ligge i databasen i tabelformat. Oplysninger omfatter art, dato for fund, lokalitet, UTM 10x10 kvadrat, indsamler (leg.), bestemmer (det.) og den samling hvori dyret opbevares. Man kan f&aring; fundene plottet p&aring; et kort ved at trykke p&aring; knappen &rsquo;kort&rsquo;. P&aring; artsudbredelseskortene angiver farvede cirkler (prikker) fund med bel&aelig;gseksemplar (dvs. eksemplaret findes i en samling) og hvide firkanter angiver observationer af en art (dvs. uden bel&aelig;gseksemplar). I h&oslash;jre side af sk&aelig;rmbilledet p&aring; kortsiden kan man klikke p&aring; &rsquo;Vis UTM felter&rsquo; eller man kan f&aring; vist kommunegr&aelig;nser eller EU habitatsomr&aring;der. UTM kvadraterne er 10x10 km. Ved at klikke p&aring; de enkelte prikker bliver man pr&aelig;senteret for yderligere detaljer om de enkelte fund. P&aring; den generelle s&oslash;geside kan man ogs&aring; definere en hvilken som helst polygon ved at klikke p&aring; mindst 3 omr&aring;der i kortfeltet. &nbsp;</div>
+<div>
+	&nbsp;</div>
+<div>
+	En samlet opdateret checkliste over Danmarks edderkopper kan genereres under &rdquo;<a href=\"Tjekliste-over-Danmarks-edderkopper\">Tjekliste over Danmarks edderkopper</a>&rdquo; og omfatter s&aring;vel artsliste som &rsquo;prikkort&rsquo; over distriktfund.&nbsp;</div>
+" where page_id=22 and lang_id=1
+update zn_page_static set page_html="<div>
+	<strong>Velkommen til &#39;Danmarks Edderkopper&#39;&nbsp; dddddddddddddddd</strong></div>
+<div>
+	&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</div>
+<div>
+	Her finder du oplysninger om danske edderkoppers udbredelse og forekomst. Data stammer fra en r&aelig;kke offentlige og private samlinger (<a href=\"danmarks-edderkopper-samlinger\">se oversigt her</a>) og de fleste fund er baseret p&aring; et individ i en samling. Nogle f&aring; observationsdata er medtaget, n&aring;r det drejer sig om let genkendelige arter (som Hvepseedderkoppen, Argiope bruennichi). L&aelig;s mere om baggrunden for &#39;Danmarks Edderkopper&#39; <a href=\"danmarks-edderkopper-baggrund\">her</a>. Opdatering sker l&oslash;bende. Oplysninger om de enkelte arter findes p&aring; s&oslash;gesiden (her) hvor der kan s&oslash;ges p&aring; artens latinske navn (art, sl&aelig;gt familie), indsamler, tidsperiode, geografisk region m.m. &Oslash;nsker du at bidrage med oplysninger s&aring; kontakt venligst redaktionskomitteen.</div>
+<div>
+	&nbsp;</div>
+<div>
+	En s&oslash;gning returnerer de fund der m&aring;tte ligge i databasen i tabelformat. Oplysninger omfatter art, dato for fund, lokalitet, UTM 10x10 kvadrat, indsamler (leg.), bestemmer (det.) og den samling hvori dyret opbevares. Man kan f&aring; fundene plottet p&aring; et kort ved at trykke p&aring; knappen &rsquo;kort&rsquo;. P&aring; artsudbredelseskortene angiver farvede cirkler (prikker) fund med bel&aelig;gseksemplar (dvs. eksemplaret findes i en samling) og hvide firkanter angiver observationer af en art (dvs. uden bel&aelig;gseksemplar). I h&oslash;jre side af sk&aelig;rmbilledet p&aring; kortsiden kan man klikke p&aring; &rsquo;Vis UTM felter&rsquo; eller man kan f&aring; vist kommunegr&aelig;nser eller EU habitatsomr&aring;der. UTM kvadraterne er 10x10 km. Ved at klikke p&aring; de enkelte prikker bliver man pr&aelig;senteret for yderligere detaljer om de enkelte fund. P&aring; den generelle s&oslash;geside kan man ogs&aring; definere en hvilken som helst polygon ved at klikke p&aring; mindst 3 omr&aring;der i kortfeltet. &nbsp;</div>
+<div>
+	&nbsp;</div>
+<div>
+	En samlet opdateret checkliste over Danmarks edderkopper kan genereres under &rdquo;<a href=\"Tjekliste-over-Danmarks-edderkopper\">Tjekliste over Danmarks edderkopper</a>&rdquo; og omfatter s&aring;vel artsliste som &rsquo;prikkort&rsquo; over distriktfund.&nbsp;</div>
+" where page_id=22 and lang_id=1

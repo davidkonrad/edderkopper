@@ -723,10 +723,79 @@ class CreateSpecie extends Db {
 		echo $id;
 	}
 }		
-	
-	
-$action = $_GET['action'];
 
+/*****************************
+	tekster
+*****************************/
+class GetPage extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		$page_id = isset($_GET['page_id']) ? $_GET['page_id'] : false;
+		$lang_id = isset($_GET['lang']) ? $_GET['lang'] : false;
+		if ($page_id && $lang_id) {
+$SQL = <<<SQL
+			select 
+				c.anchor_title,
+				c.title,
+				c.meta_desc,
+				c.anchor_caption,
+				s.page_html
+			from 
+				zn_page_content c,
+				zn_page_static s
+			where
+				s.page_id = $page_id and
+				s.lang_id = $lang_id and
+				c.page_id = $page_id and
+				c.lang_id = $lang_id
+SQL;
+			$row=$this->getRow($SQL, true);
+			echo json_encode($row);
+		}
+	}			
+}
+class SavePage extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		$page_id = isset($_GET['page_id']) ? $_GET['page_id'] : false;
+		$lang_id = isset($_GET['lang_id']) ? $_GET['lang_id'] : false;
+		if ($page_id && $lang_id) {
+			//strings
+			$SQL='update zn_page_content set ';
+			$SQL.= 'title='.$this->q($_GET['tekst-title']);
+			$SQL.= 'meta_desc='.$this->q($_GET['tekst-meta']);
+			$SQL.= 'anchor_caption='.$this->q($_GET['tekst-caption'], false);
+			$SQL.= ' where ';
+			$SQL.= 'page_id='.$page_id.' and ';			
+			$SQL.= 'lang_id='.$lang_id;			
+			$this->exec($SQL);
+			//page
+			$text = addslashes($_GET['tekst-tekst']);
+			$SQL='update zn_page_static set ';
+			$SQL.= 'page_html='.$this->q($text, false);
+			$SQL.= ' where ';
+			$SQL.= 'page_id='.$page_id.' and ';			
+			$SQL.= 'lang_id='.$lang_id;			
+			$this->fileDebug($SQL);
+			$this->exec($SQL);
+			echo 'Ændringerne er blevet gemt ...';
+		} else {
+			echo 'Der skete en fejl (page_id eller lang_id ikke sat)';
+		}
+
+	}
+}
+
+
+	
+//-----------------------------------	
+$action = $_GET['action'];
 
 switch ($action) {
 	case 'truncate' :
@@ -821,6 +890,14 @@ switch ($action) {
 		$create = new CreateSpecie();
 		break;
 
+	//tekster
+	case 'getPage' :
+		$page = new GetPage();
+		break;
+	case 'savePage' :
+		$page = new SavePage();
+		break;
+	
 	default :
 		break;
 }

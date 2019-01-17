@@ -23,6 +23,7 @@ class ClassEdderkopperAdm extends ClassBase {
 <script type="text/javascript" src="js/edderkopper_adm.genus.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.family.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.fund.js"></script>
+<script type="text/javascript" src="js/edderkopper_adm.tekster.js"></script>
 <script type="text/javascript" src="plugins/tabber/tabber.js"></script>
 <link rel="stylesheet" href="plugins/tabber/example.css" type="text/css" media="screen" />
 <script type="text/javascript">
@@ -152,6 +153,51 @@ if ($f && $m) {
 <button id="update-name">Opdatér &lt;name&gt; på fund</button>
 		</p>
 	</div>	
+
+	<div class="tabbertab">
+		<h2>Sidetekster</h2>
+		<p>
+			Side:
+			<!-- value == page_id -->
+			<select id="tekst-page">
+				<option value="22">Introduktion</option>
+				<option value="4">Baggrund</option>
+				<option value="38">Samlinger</option>
+				<option value="39">Redaktionskomieté</option>
+			</select>
+			&nbsp;&nbsp;
+			Sprog:
+			<img src="ico/wdk.gif" class="tekst-lang cursor-pointer" lang="1" style="border:1px solid green;">
+			<img src="ico/wgb.gif" class="tekst-lang cursor-pointer" lang="2">
+			<span id="tekst-messages" class="messages"></span>
+			<button class="save" id="tekst-save">Gem</button>
+			<hr>
+			<form id="tekst-form" spellcheck="false">
+				<input type="hidden" id="tekst-lang-id" name="lang_id">
+				<input type="hidden" id="tekst-page-id" name="page_id">
+				<table id="tekst-table">
+					<tbody id="tekst-table-body">
+						<tr>
+							<td>&lt;title></td>
+							<td><input name="tekst-title" size="90" class="normal-text"></td>
+						</tr>
+						<tr>
+							<td class="align-top">&lt;meta></td>
+							<td><textarea name="tekst-meta" cols="80" rows="2"></textarea></td>
+						</tr>
+						<tr>
+							<td class="align-top">Overskrift</td>
+							<td><input name="tekst-caption" size="90" class="normal-text"></td>
+						</tr>
+						<tr>
+							<td class="align-top">Tekst</td>
+							<td><textarea name="tekst-tekst" id="tekst-editor"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</p>
+	</div>
 
 	<div class="tabbertab">
 		<h2>Fund</h2>

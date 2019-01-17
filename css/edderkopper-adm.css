@@ -74,3 +74,20 @@ form input {
 	font-weight: bold;
 	font-size: 110%;
 }
+
+/* ... */
+.cursor-pointer {
+	cursor: pointer;
+}
+td.align-top {
+	vertical-align: top;
+}
+input.normal-text {
+	font-weight: normal;
+}
+
+/* override some CKEditor styles */
+span.cke_skin_kama {
+	padding: 0px !important;
+}
+

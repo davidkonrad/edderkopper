@@ -31,8 +31,7 @@ CKEDITOR.editorConfig = function( config )
 	//config.skin = 'minimalist';
 	config.language = 'da';
 
-	config.toolbar_edderkopper =
-	[
+	config.toolbar_edderkopper = [
 	    { name: 'document',    items : [ 'Source' ] },
 	    { name: 'clipboard',   items : [ 'Cut','Copy','Paste' ,'-','Undo','Redo' ] },
 	    { name: 'editing',     items : [ 'Find','Replace','-','SelectAll'  ] },
@@ -42,6 +41,7 @@ CKEDITOR.editorConfig = function( config )
 	    //{ name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
 	    //{ name: 'colors',      items : [ 'TextColor','BGColor' ] },
 	];
+
 
 };
 
