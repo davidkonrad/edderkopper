@@ -36,20 +36,25 @@ $(document).ready(function() {
 		if (!id) return
 		$('#species-save').disable(false)
 
-		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK']
+		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK',
+			'SDistriEuDK', 'SDistriEuUK', 'SDistriDkUK', 'SDistriDkDK']
 
 			var getCaption = function(field) {
 				switch (field) {
-					case 'Genus' : return 'Slægt'; break;
-					case 'GenusID' : return 'Slægt'; break;
-					case 'Species' : return 'Artsnavn'; break;
-					case 'den_danske_roedliste': return 'Rødliste'; break;
-					case 'NameDK' : return 'Dansk DK'; break;
-					case 'NameUK' : return 'Navn UK'; break;
-					case 'SAuthor' : return 'Author'; break;
-					case 'SCharDK': return 'Beskrivelse DK'; break;
-					case 'SCharUK': return 'Beskrivelse UK'; break;
-					default : return '??'; break;
+					//case 'Genus' : return 'Slægt'; break;
+					//case 'GenusID' : return 'Slægt'; break;
+					//case 'Species' : return 'Artsnavn'; break;
+					case 'den_danske_roedliste': 
+						return 'Rødliste'; 
+						break;
+					//case 'NameDK' : return 'Dansk DK'; break;
+					//case 'NameUK' : return 'Navn UK'; break;
+					//case 'SAuthor' : return 'Author'; break;
+					//case 'SCharDK': return 'Beskrivelse DK'; break;
+					//case 'SCharUK': return 'Beskrivelse UK'; break;
+					default : 
+						return field; 
+						break;
 				}
 			}
 
@@ -57,6 +62,10 @@ $(document).ready(function() {
 				switch (field) {
 					case 'SCharDK' :
 					case 'SCharUK' :
+					case 'SDistriEuDK' :
+					case 'SDistriEuUK' :
+					case 'SDistriDkUK' :
+					case 'SDistriDkDK' :
 						return '<textarea class="editor" id="'+field+'" name="'+field+'">'+value+'</textarea>'
 						break;
 
@@ -151,9 +160,12 @@ $(document).ready(function() {
 					}
 					*/
 
+					for (var i in CKEDITOR.instances) {
+						CKEDITOR.instances[i].destroy(true);
+					}
 					$('.editor').each(function() {
 						var name=$(this).attr('name');
-						CKEDITOR.replace(name, { width:"750px", height:"200px", toolbar:'edderkopper' }); 
+						CKEDITOR.replace(name, { width:"750px", height:"150px", toolbar:'edderkopper_small' }); 
 					})
 
 					//init slægt typeahead

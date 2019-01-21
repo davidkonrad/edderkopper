@@ -653,9 +653,8 @@ class FundUpdateSpeciesName extends Db {
 			'Species='.$this->q($oldSpecies, false).' and '.
 			'Genus='.$this->q($oldGenus, false);
 
-		echo $SQL;
-
-		$this->fileDebug($SQL);
+		//echo $SQL;
+		//$this->fileDebug($SQL);
 		$this->exec($SQL);
 	}
 }
@@ -782,7 +781,6 @@ class SavePage extends Db {
 			$SQL.= ' where ';
 			$SQL.= 'page_id='.$page_id.' and ';			
 			$SQL.= 'lang_id='.$lang_id;			
-			$this->fileDebug($SQL);
 			$this->exec($SQL);
 			echo 'Ændringerne er blevet gemt ...';
 		} else {

@@ -34,9 +34,12 @@ $(document).ready(function() {
 
 		if (!id) return
 
-		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK']
+		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK', 
+			'SDistriEuDK', 'SDistriEuUK', 'SDistriDkUK', 'SDistriDkDK'];
+
 
 			var getCaption = function(field) {
+				/*
 				switch (field) {
 					case 'Family' : return 'Familie'; break;
 					case 'FamilyID' : return 'Familie'; break;
@@ -49,12 +52,18 @@ $(document).ready(function() {
 					case 'GCharactersUK': return 'Beskrivelse UK'; break;
 					default : return '??'; break;
 				}
+				*/
+				return field
 			}
 
 			function getHTMLElement(field, value) {
 				switch (field) {
 					case 'GCharactersDK' :
 					case 'GCharactersUK' :
+					case 'SDistriEuDK':
+					case 'SDistriEuUK': 
+					case 'SDistriDkUK': 
+					case 'SDistriDkDK':
 						return '<textarea class="editor" name="'+field+'">'+value+'</textarea>'
 						break;
 

@@ -32,14 +32,19 @@ CKEDITOR.editorConfig = function( config )
 	config.language = 'da';
 
 	config.toolbar_edderkopper = [
-	    { name: 'document',    items : [ 'Source' ] },
-	    { name: 'clipboard',   items : [ 'Cut','Copy','Paste' ,'-','Undo','Redo' ] },
-	    { name: 'editing',     items : [ 'Find','Replace','-','SelectAll'  ] },
-	    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-	    //{ name: 'paragraph',   items : [ 'NumberedList','BulletedList','-', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
-	    { name: 'links',       items : [ 'Link','Unlink' ]},
-	    //{ name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
-	    //{ name: 'colors',      items : [ 'TextColor','BGColor' ] },
+    { name: 'document',    items : [ 'Source' ] },
+    { name: 'clipboard',   items : [ 'Cut','Copy','Paste' ,'-','Undo','Redo' ] },
+    { name: 'editing',     items : [ 'Find','Replace','-','SelectAll'  ] },
+    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+    //{ name: 'paragraph',   items : [ 'NumberedList','BulletedList','-', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
+    { name: 'links',       items : [ 'Link','Unlink' ]},
+    //{ name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
+    //{ name: 'colors',      items : [ 'TextColor','BGColor' ] },
+	];
+
+	config.toolbar_edderkopper_small = [
+    { name: 'document',    items : [ 'Source' ] },
+    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 	];
 
 

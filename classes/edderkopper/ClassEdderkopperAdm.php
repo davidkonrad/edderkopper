@@ -27,7 +27,10 @@ class ClassEdderkopperAdm extends ClassBase {
 <script type="text/javascript" src="plugins/tabber/tabber.js"></script>
 <link rel="stylesheet" href="plugins/tabber/example.css" type="text/css" media="screen" />
 <script type="text/javascript">
-	window.CKEDITOR_BASEPATH = 'ckeditor/'
+	window.CKEDITOR_BASEPATH = 'ckeditor/';
+	setTimeout(function() {
+		window.scrollTo(0,0)
+	}, 100);
 </script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <?
@@ -218,7 +221,7 @@ if ($f && $m) {
 	</div>
 
 	<div class="tabbertab">
-		<h2>Art</h2>
+		<h2>Specie</h2>
 	  <p>
 			Opslag : <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:380px;" spellcheck="false" />
 			<button id="create-species">Opret ny art</button>
@@ -234,7 +237,7 @@ if ($f && $m) {
 	</div>
 
 	<div class="tabbertab">
-		<h2>Slægt</h2>
+		<h2>Genus</h2>
 	  <p>
 			Opslag : <input type="text" id="lookup-genus" data-provide="typeahead" class="lookup" style="width:380px;" />
 			<button id="create-genus">Opret ny slægt</button>
@@ -250,7 +253,7 @@ if ($f && $m) {
 	</div>
 
 	<div class="tabbertab">
-		<h2>Familie</h2>
+		<h2>Family</h2>
 	  <p>
 			Opslag : <input type="text" id="lookup-family" data-provide="typeahead" class="lookup" style="width:380px;" />
 			<button id="create-family">Opret ny familie</button>
