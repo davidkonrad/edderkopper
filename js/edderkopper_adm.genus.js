@@ -34,8 +34,10 @@ $(document).ready(function() {
 
 		if (!id) return
 
-		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK', 
-			'SDistriEuDK', 'SDistriEuUK', 'SDistriDkUK', 'SDistriDkDK'];
+		$('#genus-save').disable(false)
+
+		var allowedFields = ['GAuthor', 'GNameDK', 'GNameUK', 'GCharactersDK', 
+			'GCharactersUK', 'GBiologyEuDK', 'GBiologyEuUK', 'GBiologyDkDK', 'GBiologyDkUK'];
 
 
 			var getCaption = function(field) {
@@ -59,16 +61,16 @@ $(document).ready(function() {
 			function getHTMLElement(field, value) {
 				switch (field) {
 					case 'GCharactersDK' :
-					case 'GCharactersUK' :
-					case 'SDistriEuDK':
-					case 'SDistriEuUK': 
-					case 'SDistriDkUK': 
-					case 'SDistriDkDK':
-						return '<textarea class="editor" name="'+field+'">'+value+'</textarea>'
+					case 'GCharactersUK' : 
+					case 'GBiologyEuDK' : 
+					case 'GBiologyEuUK' :
+					case 'GBiologyDkDK' :
+					case 'GBiologyDkUK' :
+						return '<textarea class="editor" name="'+field+'" spellcheck="false">'+value+'</textarea>'
 						break;
 
 					default :
-						return '<input size="40" name="'+field+'" value="'+value+'">'
+						return '<input size="40" name="'+field+'" value="'+value+'" spellcheck="false">'
 						break;
 				}
 			}
@@ -81,18 +83,21 @@ $(document).ready(function() {
 				success : function(response) {
 					console.log(response);
 					if (!response) return
-					var r = JSON.parse(response),
-							$body = $('#genus-table-body');
+					var r = JSON.parse(response);
+					var	$body = $('#genus-table-body');
 
 					$body.html('')
 
+					$('<input type="hidden" name="GenusID" id="GenusID" value="' + r.GenusID +'">').appendTo($body)
+					$('<input type="hidden" name="FamilyID" id="FamilyID" value="' + r.FamilyID +'">').appendTo($body)
+
 					//slægt
 					var $tr = $('<tr>'), $td = $('<td>');
-					$td.append('<b>'+ getCaption('Genus') +'</b>')
+					$td.append('<b>'+ getCaption('Family') +'</b>')
 					$td.appendTo($tr)
 					var $td = $('<td>')
-					$td.append('<input size="40" class="genus-typeahead" value="'+ r['Genus'] +'"/>')
-					$td.append('<small id="hash-GenusID">#'+r['GenusID']+'</span>')
+					$td.append('<input size="40" class="family-typeahead" value="'+ r['Family'] +'" spellcheck="false" />')
+					$td.append('<small id="hash-FamilyID">#'+r['FamilyID']+'</span>')
 					$td.appendTo($tr)
 					$tr.appendTo($body);
 
@@ -100,7 +105,7 @@ $(document).ready(function() {
 					var $tr = $('<tr>'), $td = $('<td>');
 					$('<b>').text(getCaption('Genus')).appendTo($td).appendTo($tr)
 					var $td = $('<td>')
-					$td.append('<input size="40" name="Genus" value="'+ r['Genus'] +'"/>')
+					$td.append('<input size="40" name="Genus" value="'+ r['Genus'] +'" spellcheck="false" />')
 					$td.append('<small>#'+r['GenusID']+'</span>')
 					$td.appendTo($tr)
 					$tr.appendTo($body);
@@ -115,37 +120,6 @@ $(document).ready(function() {
 						}
 					}
 
-					//add save button
-					var $tr = $('<tr>');
-					var $td = $('<td>')
-					$td.attr('colspan', 2).css('text-align', 'center')
-					$td.append('<span id="art-message"></span>')
-					$td.append('<input type="hidden" name="GenusID" id="GenusID" value="'+r['GenusID']+'"/>')
-					$td.append('<input type="hidden" name="GenusID" id="GenusID"  value="'+r['GenusID']+'"/>')
-					$('<button>')
-						.text('Gem')
-						.css('font-size', '150%')
-						.on('click', function() {
-							for(var i in CKEDITOR.instances) {
-								CKEDITOR.instances[i].updateElement();
-							}
-							var url = 'ajax/edderkopper/actions.php?action=updateGenus';
-							var params = $('#genus-form').serialize()
-							//console.log(params)
-							$.ajax({
-								url: url,
-								data: params,
-								success: function(response) {
-									$('#genus-messages').text(response).show().fadeOut(10000)
-								}
-							})
-							return false;
-						})
-						.appendTo($td)
-
-					$td.appendTo($tr)
-					$tr.appendTo($body);
-
 					//init editors
 					for (var i in CKEDITOR.instances) {
 						CKEDITOR.instances[i].destroy(true);
@@ -157,8 +131,8 @@ $(document).ready(function() {
 					})
 
 					//init slægt typeahead
-					var path='ajax/edderkopper/actions.php?action=lookupGenus';
-					$('.genus-typeahead').typeahead({
+					var path='ajax/edderkopper/actions.php?action=lookupFamily';
+					$('.family-typeahead').typeahead({
 						showHintOnFocus: true,
 						minLength : 1,
 						items : 20,
@@ -175,9 +149,9 @@ $(document).ready(function() {
 							return item.FullName
 						},
 						afterSelect: function(item) {
-							this.$element.val(item.Genus)
-							$('#hash-GenusID').text('#'+item.GenusID)
-							$('#GenusID').val(item.GenusID)
+							this.$element.val(item.Family)
+							$('#hash-FamilyID').text('#'+item.FamilyID)
+							$('#FamilyID').val(item.FamilyID)
 						}
 					})
 				}
@@ -200,5 +174,21 @@ $(document).ready(function() {
 			setGenus(item.FullName)
 		}
 	})
+
+	//save button
+	$('#genus-save').on('click', function() {
+		for(var i in CKEDITOR.instances) {
+			CKEDITOR.instances[i].updateElement();
+		}
+		var url = 'ajax/edderkopper/actions.php?action=updateGenus';
+		var params = $('#genus-form').serialize()
+		$.ajax({
+			url: url,
+			data: params,
+			success: function(response) {
+				$('#genus-messages').text(response).show().fadeOut(5000)
+			}
+		})
+	})	
 
 })

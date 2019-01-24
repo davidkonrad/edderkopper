@@ -66,11 +66,11 @@ $(document).ready(function() {
 					case 'SDistriEuUK' :
 					case 'SDistriDkUK' :
 					case 'SDistriDkDK' :
-						return '<textarea class="editor" id="'+field+'" name="'+field+'">'+value+'</textarea>'
+						return '<textarea class="editor" id="'+field+'" name="'+field+'" spellcheck="false">'+value+'</textarea>'
 						break;
 
 					default :
-						return '<input size="40" name="'+field+'" value="'+value+'">'
+						return '<input size="40" name="'+field+'" value="'+value+'" spellcheck="false">'
 						break;
 				}
 			}
@@ -95,7 +95,7 @@ $(document).ready(function() {
 					$td.append('<b>'+ getCaption('Genus') +'</b>')
 					$td.appendTo($tr)
 					var $td = $('<td>')
-					$td.append('<input size="40" class="genus-typeahead" value="'+ r['Genus'] +'"/>')
+					$td.append('<input size="40" class="genus-typeahead" value="'+ r['Genus'] +'" spellcheck="false"/>')
 					$td.append('<small id="hash-GenusID">#'+r['GenusID']+'</span>')
 					$td.appendTo($tr)
 					$tr.appendTo($body);
@@ -104,7 +104,7 @@ $(document).ready(function() {
 					var $tr = $('<tr>'), $td = $('<td>');
 					$('<b>').text(getCaption('Species')).appendTo($td).appendTo($tr)
 					var $td = $('<td>')
-					$td.append('<input size="40" name="Species" value="'+ r['Species'] +'"/>')
+					$td.append('<input size="40" name="Species" value="'+ r['Species'] +'" spellcheck="false"/>')
 					$td.append('<small>#'+r['SpeciesID']+'</span>')
 					$td.appendTo($tr)
 					$tr.appendTo($body);
@@ -118,47 +118,6 @@ $(document).ready(function() {
 							$tr.appendTo($body);
 						}
 					}
-
-				
-					/*
-					//add save button
-					var $tr = $('<tr>');
-					var $td = $('<td>')
-					$td.attr('colspan', 2).css('text-align', 'center')
-					$td.append('<span id="art-message"></span>')
-					$td.append('<input type="hidden" name="SpeciesID" id="SpeciesID" value="'+r['SpeciesID']+'"/>')
-					$td.append('<input type="hidden" name="GenusID" id="GenusID"  value="'+r['GenusID']+'"/>')
-					$('<button>')
-						.text('Gem')
-						.css('font-size', '150%')
-						.on('click', function() {
-							for(var i in CKEDITOR.instances) {
-								CKEDITOR.instances[i].updateElement();
-							}
-							var url = 'ajax/edderkopper/actions.php?action=updateSpecies';
-							var params = $('#species-form').serialize()
-							//console.log(params)
-							$.ajax({
-								url: url,
-								data: params,
-								success: function(response) {
-									$('#species-messages').text(response).show().fadeOut(10000)
-								}
-							})
-							return false;
-						})
-						.appendTo($td)
-
-					$td.appendTo($tr)
-					$tr.appendTo($body);
-					*/
-
-					//init editors
-					/*
-					for (var i in CKEDITOR.instances) {
-						CKEDITOR.instances[i].destroy(true);
-					}
-					*/
 
 					for (var i in CKEDITOR.instances) {
 						CKEDITOR.instances[i].destroy(true);
@@ -223,7 +182,7 @@ $(document).ready(function() {
 			url: url,
 			data: params,
 			success: function(response) {
-				$('#species-messages').text(response).show().fadeOut(10000)
+				$('#species-messages').text(response).show().fadeOut(5000)
 			}
 		})
 	})	

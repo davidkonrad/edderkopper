@@ -473,9 +473,49 @@ class GetGenus extends Db {
 		$this->run();
 	}
 	private function run() {
-		$SQL='select * from edderkopper_genus where GenusID='.$_GET['GenusID'];
+		$id = $_GET['GenusID'];
+$SQL = <<<SQL
+		select 
+			g.*,
+			f.Family
+		from edderkopper_genus g
+		left join edderkopper_family f on g.FamilyID = f.FamilyID
+		where	GenusID=$id
+SQL;
 		$row=$this->getRow($SQL, true);
 		echo json_encode($row);
+	}
+}
+/*****************************
+	update a Genus
+*****************************/
+class updateGenus extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		$SQL='update edderkopper_genus set ';
+		foreach($_GET as $key => $value) {
+			if (!in_array($key, array('GenusID', 'action'))) {
+				$SQL.=$key.'='.$this->q($value);
+			}
+		}
+		$SQL=$this->removeLastChar($SQL);
+		$SQL.=' where GenusID='.$_GET['GenusID'];
+
+		$this->exec($SQL);
+
+		//update Genus on all Species
+		/*
+		$SQL='update edderkopper_species set edderkopper_species.Genus = ' .
+					'(select edderkopper_genus.Genus from edderkopper_genus ' .
+						'where edderkopper_genus.GenusID = edderkopper_species.GenusID)';
+		$this->exec($SQL);
+		$updateError .= mysql_error();
+		*/
+	
+		echo 'Ændringerne er blevet gemt ...';
 	}
 }
 
@@ -653,8 +693,6 @@ class FundUpdateSpeciesName extends Db {
 			'Species='.$this->q($oldSpecies, false).' and '.
 			'Genus='.$this->q($oldGenus, false);
 
-		//echo $SQL;
-		//$this->fileDebug($SQL);
 		$this->exec($SQL);
 	}
 }
@@ -835,6 +873,10 @@ switch ($action) {
 	case 'getGenus' :
 		$getGenus = new GetGenus();
 		break;
+	case 'updateGenus' :
+		$updateGenus = new UpdateGenus();
+		break;
+
 
 	//family
 	case 'lookupFamily' :

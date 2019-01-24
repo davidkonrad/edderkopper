@@ -30,7 +30,7 @@ class ClassEdderkopperAdm extends ClassBase {
 	window.CKEDITOR_BASEPATH = 'ckeditor/';
 	setTimeout(function() {
 		window.scrollTo(0,0)
-	}, 100);
+	}, 500);
 </script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <?
@@ -44,13 +44,13 @@ class ClassEdderkopperAdm extends ClassBase {
 $('body').on('click', '.tabbernav li', function(e) {
 	var tabName = e.currentTarget.innerText;
 	switch (tabName) {
-		case 'Art':
+		case 'Specie':
 			$('#lookup-species').focus();
 			break;
-		case 'Slægt':
+		case 'Genus':
 			$('#lookup-genus').focus();
 			break;
-		case 'Familie':
+		case 'Family':
 			$('#lookup-family').focus();
 			break;
 		case 'Fund':
@@ -223,7 +223,7 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Specie</h2>
 	  <p>
-			Opslag : <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:380px;" spellcheck="false" />
+			Opslag: <input type="text" id="lookup-species" data-provide="typeahead" class="lookup" style="width:380px;" spellcheck="false" />
 			<button id="create-species">Opret ny art</button>
 			<span id="species-messages" class="messages"></span>
 			<button class="save" id="species-save" disabled>Gem</button>
@@ -239,7 +239,7 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Genus</h2>
 	  <p>
-			Opslag : <input type="text" id="lookup-genus" data-provide="typeahead" class="lookup" style="width:380px;" />
+			Opslag: <input type="text" id="lookup-genus" data-provide="typeahead" class="lookup" style="width:380px;"  spellcheck="false" />
 			<button id="create-genus">Opret ny slægt</button>
 			<span id="genus-messages" class="messages"></span>
 			<button class="save" id="genus-save" disabled>Gem</button>
@@ -255,7 +255,7 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Family</h2>
 	  <p>
-			Opslag : <input type="text" id="lookup-family" data-provide="typeahead" class="lookup" style="width:380px;" />
+			Opslag: <input type="text" id="lookup-family" data-provide="typeahead" class="lookup" style="width:380px;" />
 			<button id="create-family">Opret ny familie</button>
 			<span id="family-messages" class="messages"></span>
 			<button class="save" id="family-save" disabled>Gem</button>
