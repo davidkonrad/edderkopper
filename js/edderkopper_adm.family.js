@@ -56,12 +56,14 @@ $(document).ready(function() {
 
 			function getHTMLElement(field, value) {
 				switch (field) {
-					case 'FBiologyEuDK':
-					case 'FBiologyEuUK': 
-					case 'FBiologyDkDK':
-					case 'FBiologyDkUK':
-					case 'FCharactersDK':
-					case 'FCharactersUK':
+					case 'FBiologyEuDK' :
+					case 'FBiologyEuUK' : 
+					case 'FBiologyDkDK' :
+					case 'FBiologyDkUK' :
+					case 'FCharactersDK' :
+					case 'FCharactersUK' :
+					case 'FTaxNoteDK' : 
+					case 'FTaxNoteUK' :
 						return '<textarea class="editor" name="'+field+'" spellcheck="false">'+value+'</textarea>'
 						break;
 					default :

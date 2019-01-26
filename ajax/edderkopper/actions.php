@@ -423,14 +423,13 @@ class updateSpecies extends Db {
 	}
 }
 
+
 /*****************************
 	lookup genus with full names
 *****************************/
 class LookupFullGenus extends Db {
-	private $search = '';
 	public function __construct() {
 		parent::__construct();
-		$this->search = $_GET['search'];
 		$this->run();
 	}
 	protected function getJSON($result) {
@@ -443,11 +442,17 @@ class LookupFullGenus extends Db {
 	}
 	private function run() {
 		header('Content-type: application/json; charset=utf-8');
-		$SQL='select distinct s.GenusID, s.Genus, s.GAuthor, g.Family '.
-			'from edderkopper_genus s, edderkopper_family g '.
-			'where s.Genus like "%'.$this->search.'%" and s.FamilyID=g.FamilyID '.
-			'order by Genus ';
-
+		$search = $_GET['search'];
+$SQL = <<<SQL
+		select 
+			g.GenusID, 
+			g.Genus, 
+			g.GAuthor, 
+			f.Family
+		from edderkopper_genus g
+		left join edderkopper_family f on g.FamilyID = f.FamilyID
+		where g.Genus like "%$search%"
+SQL;
 		$result=$this->query($SQL);
 		echo $this->getJSON($result);
 	}
@@ -496,6 +501,30 @@ class updateGenus extends Db {
 		echo 'Ændringerne er blevet gemt ...';
 	}
 }
+/*****************************
+	create a Genus
+*****************************/
+class CreateGenus extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		$genus = $_GET['genus'];
+		
+		$SQL='select max(GenusID)+1 as id from edderkopper_genus';
+		$row=$this->getRow($SQL);
+		$id=$row['id'];
+
+		$SQL='insert into edderkopper_genus (GenusID, Genus) values('.
+			$id.','.
+			$this->q($genus, false).
+			')';
+
+		$this->exec($SQL);
+		echo $id;
+	}
+}		
 
 
 /*****************************
@@ -906,6 +935,9 @@ switch ($action) {
 		break;
 	case 'updateGenus' :
 		$updateGenus = new UpdateGenus();
+		break;
+	case 'createGenus' :
+		$createGenus = new CreateGenus();
 		break;
 
 

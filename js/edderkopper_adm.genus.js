@@ -37,7 +37,7 @@ $(document).ready(function() {
 		$('#genus-save').disable(false)
 
 		var allowedFields = ['GAuthor', 'GNameDK', 'GNameUK', 'GCharactersDK', 
-			'GCharactersUK', 'GBiologyEuDK', 'GBiologyEuUK', 'GBiologyDkDK', 'GBiologyDkUK'];
+			'GCharactersUK', 'GBiologyEuDK', 'GBiologyEuUK', 'GBiologyDkDK', 'GBiologyDkUK', 'GTaxNoteDK', 'GTaxNoteUK'];
 
 
 			var getCaption = function(field) {
@@ -66,6 +66,8 @@ $(document).ready(function() {
 					case 'GBiologyEuUK' :
 					case 'GBiologyDkDK' :
 					case 'GBiologyDkUK' :
+					case 'GTaxNoteDK' :
+					case 'GTaxNoteUK' :
 						return '<textarea class="editor" name="'+field+'" spellcheck="false">'+value+'</textarea>'
 						break;
 
@@ -92,12 +94,13 @@ $(document).ready(function() {
 
 					//slægt
 					var $tr = $('<tr>'), $td = $('<td>');
-					$td.append('<b>'+ getCaption('Family') +'</b>')
-					$td.appendTo($tr)
-					var $td = $('<td>')
-					$td.append('<input size="40" class="family-typeahead" value="'+ r['Family'] +'" spellcheck="false" />')
-					$td.append('<small id="hash-FamilyID">#'+r['FamilyID']+'</span>')
-					$td.appendTo($tr)
+					$td.append('<b>'+ getCaption('Family') +'</b>');
+					$td.appendTo($tr);
+					var $td = $('<td>');
+					var currentFamily = r.Family || '';
+					$td.append('<input size="40" class="family-typeahead" value="'+ currentFamily +'" spellcheck="false" />');
+					$td.append('<small id="hash-FamilyID">#'+r['FamilyID']+'</span>');
+					$td.appendTo($tr);
 					$tr.appendTo($body);
 
 					//artsnavn
