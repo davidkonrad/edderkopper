@@ -34,8 +34,8 @@ $(document).ready(function() {
 
 		if (!id) return
 
-		var allowedFields = ['Family', 'FamilyDK', 'FamilyUK', 
-			'FBiologyEuDK', 'FBiologyEuUK', 'FBiologyDkDK', 'FBiologyDkUK', 'FCharactersDK', 'FCharactersUK']
+		var allowedFields = ['Family', 'Author', 'FamilyDK', 'FamilyUK', 
+			'FBiologyEuDK', 'FBiologyEuUK', 'FBiologyDkDK', 'FBiologyDkUK', 'FCharactersDK', 'FCharactersUK', 'FTaxNoteDK', 'FTaxNoteUK']
 
 			var getCaption = function(field) {
 				/*

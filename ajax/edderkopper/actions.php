@@ -563,6 +563,30 @@ class UpdateFamily extends Db {
 		echo 'Ændringerne er blevet gemt ...';
 	}
 }
+/*****************************
+	create a Family
+*****************************/
+class CreateFamily extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		$family = $_GET['family'];
+		
+		$SQL='select max(FamilyID)+1 as id from edderkopper_family';
+		$row=$this->getRow($SQL);
+		$id=$row['id'];
+
+		$SQL='insert into edderkopper_family (FamilyID, Family) values('.
+			$id.','.
+			$this->q($family, false).
+			')';
+
+		$this->exec($SQL);
+		echo $id;
+	}
+}		
 
 
 /*****************************
@@ -894,6 +918,9 @@ switch ($action) {
 		break;
 	case 'updateFamily' :
 		$updateFamily = new UpdateFamily();
+		break;
+	case 'createFamily' :
+		$createFamily = new CreateFamily();
 		break;
 
 	
