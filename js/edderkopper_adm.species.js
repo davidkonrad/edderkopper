@@ -41,17 +41,9 @@ $(document).ready(function() {
 
 			var getCaption = function(field) {
 				switch (field) {
-					//case 'Genus' : return 'Slægt'; break;
-					//case 'GenusID' : return 'Slægt'; break;
-					//case 'Species' : return 'Artsnavn'; break;
 					case 'den_danske_roedliste': 
 						return 'Rødliste'; 
 						break;
-					//case 'NameDK' : return 'Dansk DK'; break;
-					//case 'NameUK' : return 'Navn UK'; break;
-					//case 'SAuthor' : return 'Author'; break;
-					//case 'SCharDK': return 'Beskrivelse DK'; break;
-					//case 'SCharUK': return 'Beskrivelse UK'; break;
 					default : 
 						return field; 
 						break;
@@ -68,7 +60,6 @@ $(document).ready(function() {
 					case 'SDistriDkDK' :
 						return '<textarea class="editor" id="'+field+'" name="'+field+'" spellcheck="false">'+value+'</textarea>'
 						break;
-
 					default :
 						return '<input size="40" name="'+field+'" value="'+value+'" spellcheck="false">'
 						break;
@@ -82,8 +73,8 @@ $(document).ready(function() {
 				},
 				success : function(response) {
 					if (!response) return
-					var r = JSON.parse(response),
-							$body = $('#species-table-body');
+					var r = JSON.parse(response);
+					var	$body = $('#species-table-body');
 
 					$body.html('')
 

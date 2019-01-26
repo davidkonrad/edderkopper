@@ -34,9 +34,11 @@ $(document).ready(function() {
 
 		if (!id) return
 
-		var allowedFields = ['den_danske_roedliste', 'NameDK', 'NameUK', 'SAuthor', 'SCharDK', 'SCharUK']
+		var allowedFields = ['Family', 'FamilyDK', 'FamilyUK', 
+			'FBiologyEuDK', 'FBiologyEuUK', 'FBiologyDkDK', 'FBiologyDkUK', 'FCharactersDK', 'FCharactersUK']
 
 			var getCaption = function(field) {
+				/*
 				switch (field) {
 					case 'Family' : return 'Slægt'; break;
 					case 'FamilyID' : return 'Slægt'; break;
@@ -49,21 +51,25 @@ $(document).ready(function() {
 					case 'SCharUK': return 'Beskrivelse UK'; break;
 					default : return '??'; break;
 				}
+				*/ return field
 			}
 
 			function getHTMLElement(field, value) {
 				switch (field) {
-					case 'SCharDK' :
-					case 'SCharUK' :
-						return '<textarea class="editor" name="'+field+'">'+value+'</textarea>'
+					case 'FBiologyEuDK':
+					case 'FBiologyEuUK': 
+					case 'FBiologyDkDK':
+					case 'FBiologyDkUK':
+					case 'FCharactersDK':
+					case 'FCharactersUK':
+						return '<textarea class="editor" name="'+field+'" spellcheck="false">'+value+'</textarea>'
 						break;
-
 					default :
-						return '<input size="40" name="'+field+'" value="'+value+'">'
+						return '<input size="40" name="'+field+'" value="'+value+'" spellcheck="false">'
 						break;
 				}
 			}
-							 
+
 			$.ajax({
 				url: 'ajax/edderkopper/actions.php?action=getFamily',
 				data : {
@@ -71,29 +77,14 @@ $(document).ready(function() {
 				},
 				success : function(response) {
 					if (!response) return
-					var r = JSON.parse(response),
-							$body = $('#family-table-body');
+					var r = JSON.parse(response);
+					var $body = $('#family-table-body');
 
 					$body.html('')
 
-					//slægt
-					var $tr = $('<tr>'), $td = $('<td>');
-					$td.append('<b>'+ getCaption('Family') +'</b>')
-					$td.appendTo($tr)
-					var $td = $('<td>')
-					$td.append('<input size="40" class="family-typeahead" value="'+ r['Family'] +'"/>')
-					$td.append('<small id="hash-FamilyID">#'+r['FamilyID']+'</span>')
-					$td.appendTo($tr)
-					$tr.appendTo($body);
+					$('#family-save').disable(false)
 
-					//artsnavn
-					var $tr = $('<tr>'), $td = $('<td>');
-					$('<b>').text(getCaption('Family')).appendTo($td).appendTo($tr)
-					var $td = $('<td>')
-					$td.append('<input size="40" name="Family" value="'+ r['Family'] +'"/>')
-					$td.append('<small>#'+r['FamilyID']+'</span>')
-					$td.appendTo($tr)
-					$tr.appendTo($body);
+					$('<input type="hidden" name="FamilyID" id="FamilyID" value="' + r.FamilyID +'">').appendTo($body)							 
 
 					for (var field in r) {
 						if (~allowedFields.indexOf(field)) {
@@ -110,31 +101,6 @@ $(document).ready(function() {
 					var $td = $('<td>')
 					$td.attr('colspan', 2).css('text-align', 'center')
 					$td.append('<span id="art-message"></span>')
-					$td.append('<input type="hidden" name="FamilyID" id="FamilyID" value="'+r['FamilyID']+'"/>')
-					$td.append('<input type="hidden" name="FamilyID" id="FamilyID"  value="'+r['FamilyID']+'"/>')
-					$('<button>')
-						.text('Gem')
-						.css('font-size', '150%')
-						.on('click', function() {
-							for(var i in CKEDITOR.instances) {
-								CKEDITOR.instances[i].updateElement();
-							}
-							var url = 'ajax/edderkopper/actions.php?action=updateFamily';
-							var params = $('#family-form').serialize()
-							//console.log(params)
-							$.ajax({
-								url: url,
-								data: params,
-								success: function(response) {
-									$('#family-messages').text(response).show().fadeOut(10000)
-								}
-							})
-							return false;
-						})
-						.appendTo($td)
-
-					$td.appendTo($tr)
-					$tr.appendTo($body);
 
 					//init editors
 					for (var i in CKEDITOR.instances) {
@@ -143,33 +109,9 @@ $(document).ready(function() {
 
 					$('.editor').each(function() {
 						var name=$(this).attr('name');
-						CKEDITOR.replace(name, { width:"750px", height:"90px", toolbar:'edderkopper' }); //, toolbar:'Basic'
+						CKEDITOR.replace(name, { width:"750px", height:"90px", toolbar:'edderkopper_small' }); 
 					})
 
-					//init slægt typeahead
-					var path='ajax/edderkopper/actions.php?action=lookupFamily';
-					$('.family-typeahead').typeahead({
-						showHintOnFocus: true,
-						minLength : 1,
-						items : 20,
-						source: function(query, process) {
-							return $.get(path+'&search='+query, {}, function(data) {
-								var a=[];
-								for (var i=0;i<data.length;i++) {
-									a.push(data[i]);
-								}
-								return process(a);
-							})
-						},
-						displayText: function(item) {
-							return item.FullName
-						},
-						afterSelect: function(item) {
-							this.$element.val(item.Family)
-							$('#hash-FamilyID').text('#'+item.FamilyID)
-							$('#FamilyID').val(item.FamilyID)
-						}
-					})
 				}
 			})
 		}
@@ -190,5 +132,20 @@ $(document).ready(function() {
 			setFamily(item.FullName)
 		}
 	})
+
+	$('#family-save').on('click', function() {
+		for(var i in CKEDITOR.instances) {
+			CKEDITOR.instances[i].updateElement();
+		}
+		var url = 'ajax/edderkopper/actions.php?action=updateFamily';
+		var params = $('#family-form').serialize()
+		$.ajax({
+			url: url,
+			data: params,
+			success: function(response) {
+				$('#family-messages').text(response).show().fadeOut(5000)
+			}
+		})
+	})	
 
 })

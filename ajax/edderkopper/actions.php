@@ -141,7 +141,6 @@ class Insert extends CSV {
 	}
 	private function run() {
 		global $columns;
-		//mysql_set_charset('utf8');
 		$error = $this->csv.' er indsat i fund-tabellen ..';
 		if (($handle = fopen(UPLOAD_PATH.$this->csv, "r")) !== false) {
 			//read columns / first line
@@ -227,7 +226,6 @@ class Check extends CSV {
 class GetCollections extends Db {
 	public function __construct() {
 		parent::__construct();
-		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -250,7 +248,6 @@ class GetCollections extends Db {
 class GetLegs extends Db {
 	public function __construct() {
 		parent::__construct();
-		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -272,7 +269,6 @@ class GetLegs extends Db {
 class GetDets extends Db {
 	public function __construct() {
 		parent::__construct();
-		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -294,7 +290,6 @@ class GetDets extends Db {
 class GetLocalities extends Db {
 	public function __construct() {
 		parent::__construct();
-		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -316,7 +311,6 @@ class GetLocalities extends Db {
 class GetSpecies extends Db {
 	public function __construct() {
 		parent::__construct();
-		//mysql_set_charset('utf8');
 		$this->run();
 	}
 	private function run() {
@@ -338,7 +332,6 @@ class LookupSpecies extends LookupSpeciesBase {
 	private $search = '';
 	public function __construct() {
 		parent::__construct();
-		//mysql_set_charset('utf8');
 		$this->search = $_GET['search'];
 		$this->run();
 	}
@@ -375,7 +368,6 @@ class LookupSpecies extends LookupSpeciesBase {
 class LookupSpeciesByTaxon extends LookupSpeciesBase {
 	public function __construct() {
 		parent::__construct();
-		//mysql_set_charset('utf8');
 		$this->species = $_GET['species'];
 		$this->genus = $_GET['genus'];
 		$this->family = $_GET['family'];
@@ -410,7 +402,6 @@ class updateSpecies extends Db {
 		$this->run();
 	}
 	private function run() {
-		mysql_set_charset('utf8');
 		$SQL='update edderkopper_species set ';
 		foreach($_GET as $key => $value) {
 			if (!in_array($key, array('SpeciesID', 'action'))) {
@@ -421,7 +412,6 @@ class updateSpecies extends Db {
 		$SQL.=' where SpeciesID='.$_GET['SpeciesID'];
 
 		$this->exec($SQL);
-		$updateError = mysql_error();
 
 		//update Genus on all Species
 		$SQL='update edderkopper_species set edderkopper_species.Genus = ' .
@@ -429,9 +419,7 @@ class updateSpecies extends Db {
 						'where edderkopper_genus.GenusID = edderkopper_species.GenusID)';
 		$this->exec($SQL);
 
-		$updateError .= mysql_error();
-
-		echo $updateError!='' ? $updateError : 'Ændringerne er blevet gemt ...';
+		echo 'Ændringerne er blevet gemt ...';
 	}
 }
 
@@ -505,16 +493,6 @@ class updateGenus extends Db {
 		$SQL.=' where GenusID='.$_GET['GenusID'];
 
 		$this->exec($SQL);
-
-		//update Genus on all Species
-		/*
-		$SQL='update edderkopper_species set edderkopper_species.Genus = ' .
-					'(select edderkopper_genus.Genus from edderkopper_genus ' .
-						'where edderkopper_genus.GenusID = edderkopper_species.GenusID)';
-		$this->exec($SQL);
-		$updateError .= mysql_error();
-		*/
-	
 		echo 'Ændringerne er blevet gemt ...';
 	}
 }
@@ -563,6 +541,29 @@ class GetFamily extends Db {
 		echo json_encode($row);
 	}
 }
+/*****************************
+	update a Family
+*****************************/
+class UpdateFamily extends Db {
+	public function __construct() {
+		parent::__construct();
+		$this->run();
+	}
+	private function run() {
+		$SQL='update edderkopper_family set ';
+		foreach($_GET as $key => $value) {
+			if (!in_array($key, array('FamilyID', 'action'))) {
+				$SQL.=$key.'='.$this->q($value);
+			}
+		}
+		$SQL=$this->removeLastChar($SQL);
+		$SQL.=' where FamilyID='.$_GET['FamilyID'];
+
+		$this->exec($SQL);
+		echo 'Ændringerne er blevet gemt ...';
+	}
+}
+
 
 /*****************************
 	count of fund
@@ -612,7 +613,6 @@ class FundSave extends Db {
 		$SQL=$this->removeLastChar($SQL);
 		$SQL.=' where LNR='.$_GET['LNR'];
 		$this->exec($SQL);
-		//$updateError = mysql_error();
 		
 		//update Name
 		$SQL='update edderkopper set Name=Concat(Genus," ",Species) where LNR='.$_GET['LNR'];
@@ -674,7 +674,10 @@ class FundUpdateNameAll extends Db {
 	}
 }
 
-//update fund Genus and Species
+
+/*****************************
+	update fund Genus and Species
+*****************************/
 class FundUpdateSpeciesName extends Db {
 	public function __construct() {
 		parent::__construct();
@@ -714,7 +717,9 @@ class FundDelete extends Db {
 	}			
 }
 
-//get all species with specie, genus, family names and ids
+/*****************************
+	get all species with specie, genus, family names and ids
+*****************************/
 class GetTaxonomy extends Db {
 	private $search = '';
 	public function __construct() {
@@ -738,7 +743,9 @@ class GetTaxonomy extends Db {
 	}
 }
 
-//create new specie
+/*****************************
+	create new specie
+*****************************/
 class CreateSpecie extends Db {
 	public function __construct() {
 		parent::__construct();
@@ -885,6 +892,10 @@ switch ($action) {
 	case 'getFamily' :
 		$getFamily = new GetFamily();
 		break;
+	case 'updateFamily' :
+		$updateFamily = new UpdateFamily();
+		break;
+
 	
 	//leg, det
 	case 'getLegs' :

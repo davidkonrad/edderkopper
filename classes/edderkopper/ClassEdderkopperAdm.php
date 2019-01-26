@@ -255,7 +255,7 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Family</h2>
 	  <p>
-			Opslag: <input type="text" id="lookup-family" data-provide="typeahead" class="lookup" style="width:380px;" />
+			Opslag: <input type="text" id="lookup-family" data-provide="typeahead" class="lookup" style="width:380px;" spellcheck="false" />
 			<button id="create-family">Opret ny familie</button>
 			<span id="family-messages" class="messages"></span>
 			<button class="save" id="family-save" disabled>Gem</button>

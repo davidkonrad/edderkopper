@@ -81,7 +81,6 @@ $(document).ready(function() {
 					GenusID: id
 				},
 				success : function(response) {
-					console.log(response);
 					if (!response) return
 					var r = JSON.parse(response);
 					var	$body = $('#genus-table-body');
@@ -127,7 +126,7 @@ $(document).ready(function() {
 
 					$('.editor').each(function() {
 						var name=$(this).attr('name');
-						CKEDITOR.replace(name, { width:"750px", height:"90px", toolbar:'edderkopper' }); //, toolbar:'Basic'
+						CKEDITOR.replace(name, { width:"750px", height:"90px", toolbar:'edderkopper_small' }); 
 					})
 
 					//init slægt typeahead
