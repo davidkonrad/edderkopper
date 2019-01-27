@@ -222,7 +222,7 @@ Tel. +45 35 32 22 22<br/></address>
 <title><? echo $this->getPageTitle(); ?></title>
 <meta name="description" content="<? $this->getMetaDesc(); ?>" />
 <meta name="google-site-verification" content="HSgAR21NPqTsqtGQpqkIIaPtxpQyxbBgooQaANMEw_Q" />
-<link rel="shortcut icon" href='//ku.dk/images/favicons/favicon_nat.ico' />
+<link rel="shortcut icon" href='img/favicon_nat.ico' />
 <link rel="stylesheet" href="css/zn.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/template.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css?ver=123" type="text/css" media="screen" />

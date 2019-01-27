@@ -98,10 +98,10 @@ $(document).ready(function() {
 <link rel="stylesheet" href="css/edderkopper_popup.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/bootstrap-typeahead.js"></script>
 <link rel="stylesheet" href="css/bootstrap-typeahead.css" type="text/css" media="screen" />
-<script type="text/javascript" src="js/edderkopper.js?ver=1"></script>
-<script type="text/javascript" src="js/edderkopper_details.js?ver=2"></script>
+<script type="text/javascript" src="js/edderkopper.js"></script>
+<script type="text/javascript" src="js/edderkopper_details.js"></script>
 <script type="text/javascript" src="js/utm.js"></script>
-<script type="text/javascript" src="js/geo.js?id=188823"></script>
+<script type="text/javascript" src="js/geo.js"></script>
 <script type="text/javascript" src="js/zootopo.js"></script>
 <script type="text/javascript">
 </script>

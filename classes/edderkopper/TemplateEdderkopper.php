@@ -216,7 +216,7 @@ $(document).ready(function()  {
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <title><? echo $this->getPageTitle(); ?></title>
 <meta name="description" content="<? echo $this->getMetaDesc(); ?>" />
-<link rel="shortcut icon" href='https://ku.dk/images/favicons/favicon_nat.ico' />
+<link rel="shortcut icon" href='img/favicon_nat.ico' />
 <link rel="stylesheet" href="css/zn.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper-template.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
