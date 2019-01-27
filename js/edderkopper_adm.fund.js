@@ -25,6 +25,11 @@ $(document).ready(function() {
 //build leg, det lookup arrays
 var dets = [], legs = []
 $(document).ready(function() {
+
+	$("#fund-lnr").on('click', function() {
+		$(this).val('')
+	})
+
 	$.ajax({
 		url: 'ajax/edderkopper/actions.php?action=getDets',
 		success: function(response) {
@@ -147,6 +152,9 @@ $(document).ready(function() {
 				species: fund.Species,
 				genus: fund.Genus,
 				family: fund.Family
+			},
+			error: function() {
+				//console.log('error', arguments);
 			},
 			success: function(response) {
 				$('#fund-current-art').val(response.FullName)

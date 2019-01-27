@@ -329,10 +329,8 @@ class LookupSpeciesBase extends Db {
 	}
 }
 class LookupSpecies extends LookupSpeciesBase {
-	private $search = '';
 	public function __construct() {
 		parent::__construct();
-		$this->search = $_GET['search'];
 		$this->run();
 	}
 	protected function getJSON($result) {
@@ -346,13 +344,28 @@ class LookupSpecies extends LookupSpeciesBase {
 	}
 	private function run() {
 		header('Content-type: application/json; charset=utf-8');
-
+/*
 		$SQL='select distinct s.SpeciesID, s.Species, s.SAuthor, g.Genus, f.Family '.
 			'from edderkopper_species s, edderkopper_genus g, edderkopper_family f '.
 			'where s.Species like "%'.$this->search.'%" '.
 			'and s.GenusID = g.GenusID '.
 			'and g.FamilyID = f.FamilyID '.
 			'order by Species ';
+*/
+		$search = $_GET['search'];
+$SQL = <<<SQL
+		select 
+			s.SpeciesID, 
+			s.Species, 
+			s.SAuthor, 
+			g.Genus, 
+			f.Family
+		from edderkopper_species s
+		left join edderkopper_genus g on g.GenusID = s.GenusID
+		left join edderkopper_family f on f.FamilyID = g.FamilyID
+		where s.Species like "%$search%"
+		order by s.Species
+SQL;
 
 		$result = $this->query($SQL);
 		$json = array();
@@ -375,6 +388,7 @@ class LookupSpeciesByTaxon extends LookupSpeciesBase {
 	}
 	private function run() {
 		header('Content-type: application/json; charset=utf-8');
+/*
 		$SQL='select distinct s.SpeciesID, s.Species, s.SAuthor, g.Genus '.
 			'from edderkopper_species s, edderkopper_genus g, edderkopper_family f '.
 			'where s.Species = "'.$this->species.'" '.
@@ -382,6 +396,12 @@ class LookupSpeciesByTaxon extends LookupSpeciesBase {
 			'and f.Family = "'.$this->family.'" '.
 			'and s.GenusID=g.GenusID '.
 			'order by Species ';
+*/
+		$SQL='select s.SpeciesID, s.Species, s.SAuthor, g.Genus '.
+			'from edderkopper_species s, edderkopper_genus g '.
+			'where s.Species = "'.$this->species.'" '.
+			'and g.Genus = "'.$this->genus.'" '.
+			'and s.GenusID=g.GenusID ';
 
 		$row=$this->getRow($SQL, true);
 		if ($row) {
@@ -452,6 +472,7 @@ $SQL = <<<SQL
 		from edderkopper_genus g
 		left join edderkopper_family f on g.FamilyID = f.FamilyID
 		where g.Genus like "%$search%"
+		order by g.Genus
 SQL;
 		$result=$this->query($SQL);
 		echo $this->getJSON($result);
