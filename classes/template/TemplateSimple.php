@@ -218,19 +218,16 @@ Tel. +45 35 32 22 22<br/></address>
 <html> 
 <head> 
 <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
-<!--
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
--->
 <meta charset="UTF-8">
 <title><? echo $this->getPageTitle(); ?></title>
 <meta name="description" content="<? $this->getMetaDesc(); ?>" />
 <meta name="google-site-verification" content="HSgAR21NPqTsqtGQpqkIIaPtxpQyxbBgooQaANMEw_Q" />
-<link rel="shortcut icon" href='http://ku.dk/images/favicons/favicon_nat.ico' />
+<link rel="shortcut icon" href='//ku.dk/images/favicons/favicon_nat.ico' />
 <link rel="stylesheet" href="css/zn.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/template.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css?ver=123" type="text/css" media="screen" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link href="css/ui.css" type="text/css" media="screen" rel="stylesheet" />
 <script src="plugins/resize.js"></script>
 <script src="DataTables-1.9.1/media/js/jquery.dataTables.js"></script> 

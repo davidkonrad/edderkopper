@@ -57,21 +57,24 @@ class DetailEdderkopper extends DetailBase {
 		parent::extraHead();
 		if ($_SESSION['LANG']==1) {
 ?>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true&language=da&v=3.33"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true&language=da&v=3.33"></script>
 <?
 		} else {
 ?>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true&language=en&v=3.33"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true&language=en&v=3.33"></script>
 <?
 		}
 ?>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
 <script type="text/javascript">google.load('visualization', '1.1', {'packages':['corechart, bar']});</script>
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/keydragzoom/src/keydragzoom.js?"></script>
-<script type="text/javascript" src="js/edderkopper.js?ver=11"></script>
-<script type="text/javascript" src="js/edderkopper_details.js?ver=3311"></script>
-<script type="text/javascript" src="js/utm.js?ver=212"></script>
+<!---
+<script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/keydragzoom/src/keydragzoom.js?"></script>
+-->
+<script type="text/javascript" src="js/keydragzoom.js"></script>
+<script type="text/javascript" src="js/edderkopper.js"></script>
+<script type="text/javascript" src="js/edderkopper_details.js"></script>
+<script type="text/javascript" src="js/utm.js"></script>
 <script type="text/javascript" src="js/charts.js"></script>
 <link rel="stylesheet" href="css/edderkopper.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper_popup.css" type="text/css" media="screen" />

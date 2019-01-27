@@ -216,12 +216,12 @@ $(document).ready(function()  {
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <title><? echo $this->getPageTitle(); ?></title>
 <meta name="description" content="<? echo $this->getMetaDesc(); ?>" />
-<link rel="shortcut icon" href='http://ku.dk/images/favicons/favicon_nat.ico' />
+<link rel="shortcut icon" href='https://ku.dk/images/favicons/favicon_nat.ico' />
 <link rel="stylesheet" href="css/zn.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper-template.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/autocomplete.js"></script>
 <script type="text/javascript" language="javascript" src="DataTables-1.9.1/media/js/jquery.dataTables.js"></script> 

@@ -68,13 +68,6 @@ include('adm/EditTranslations.php');
 include('adm/EditCategories.php');
 include('adm/EditSemanticNames.php');
 
-//digitalisering, stored in separate folder
-/*
-include('digitalisering/ClassDigitaliseringBase.php');
-include('digitalisering/ClassDigitalisering.php');
-include('digitalisering/ClassDigitaliseringInfo.php');
-*/
-
 //consts
 define('EDIT_PAGE','editpage');
 define('EDIT_CATEGORY','admin-categories');

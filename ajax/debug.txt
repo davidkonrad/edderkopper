@@ -36,3 +36,5 @@ poly
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Family="Anyphaenidae" 
 poly 
 select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Name like "%as%" 
+poly 
+select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s where s.Genus=e.Genus and s.Species=e.Species  and e.Genus="Myrmarachne"  and e.Species="formicaria" 
