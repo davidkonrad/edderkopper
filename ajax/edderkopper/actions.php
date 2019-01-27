@@ -234,7 +234,7 @@ class GetCollections extends Db {
 		$SQL = 'select distinct Collection from edderkopper order by Collection';
 		$result = $this->query($SQL);
 		$json = array();
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$json[] = $row;
 		}
 		echo json_encode($json);
@@ -256,7 +256,7 @@ class GetLegs extends Db {
 		$SQL = 'select distinct Leg from edderkopper order by Leg';
 		$result = $this->query($SQL);
 		$json = array();
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$json[] = $row;
 		}
 		echo json_encode($json);
@@ -277,7 +277,7 @@ class GetDets extends Db {
 		$SQL = 'select distinct Det from edderkopper order by Det';
 		$result = $this->query($SQL);
 		$json = array();
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$json[] = $row;
 		}
 		echo json_encode($json);
@@ -298,7 +298,7 @@ class GetLocalities extends Db {
 		$SQL = 'select distinct Locality from edderkopper order by Locality';
 		$result = $this->query($SQL);
 		$json = array();
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$json[] = $row;
 		}
 		echo json_encode($json);

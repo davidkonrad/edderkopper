@@ -41,7 +41,6 @@ $(document).ready(function() {
 	$.ajax({
 		url: 'ajax/edderkopper/actions.php?action=getLegs',
 		success: function(response) {
-			console.log(response)
 			response.forEach(function(item) {
 				if (item.Leg && item.Leg.trim().length > 0) legs.push(item.Leg)
 			})
@@ -119,7 +118,7 @@ $(document).ready(function() {
 			var $tr = $('<tr>');
 			$('<td>').css('vertical-align','top').text(caption).appendTo($tr);
 			$td = $('<td>').appendTo($tr)
-			$('<input name="' + name + '" value="' + value + '" size="55">').appendTo($td)
+			$('<input name="' + name + '" value="' + value + '" size="70">').appendTo($td)
 			$tr.appendTo($body)
 		}
 
