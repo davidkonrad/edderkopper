@@ -68,9 +68,6 @@ class DetailEdderkopper extends DetailBase {
 
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
 <script type="text/javascript">google.load('visualization', '1.1', {'packages':['corechart, bar']});</script>
-<!---
-<script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/keydragzoom/src/keydragzoom.js?"></script>
--->
 <script type="text/javascript" src="js/keydragzoom.js"></script>
 <script type="text/javascript" src="js/edderkopper.js"></script>
 <script type="text/javascript" src="js/edderkopper_details.js"></script>

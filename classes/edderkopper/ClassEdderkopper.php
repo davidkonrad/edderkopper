@@ -103,6 +103,10 @@ $(document).ready(function() {
 <script type="text/javascript" src="js/utm.js"></script>
 <script type="text/javascript" src="js/geo.js"></script>
 <script type="text/javascript" src="js/zootopo.js"></script>
+<!--
+<script type="text/javascript" src="js/kommuner.js"></script>
+<script type="text/javascript" src="js/Wicket/wicket.js"></script>
+-->
 <script type="text/javascript">
 </script>
 <style>
@@ -135,19 +139,19 @@ $this->drawLoggedIn();
 <table style="width:420px;float:left;clear:none;" class="unstyled">
 	<tr>
 		<td><label for="taxon" class="unstyled">Taxon</label></td>
-		<td><input type="text" name="taxon" id="taxon" class="unstyled mw"/></td>
+		<td><input type="text" name="taxon" id="taxon" class="unstyled mw" spellcheck="false"/></td>
 	</tr>
 	<tr>
 		<td><label for="familie"><? trans(LAB_FAMILY, true);?></label></td>
-		<td><input type="text" name="familie" id="familie"/></td>
+		<td><input type="text" name="familie" id="familie" spellcheck="false"/></td>
 	</tr>
 	<tr>
 		<td><label for="genus"><? trans(LAB_GENUS, true);?></label></td>
-		<td><input type="text" name="genus" id="genus"/></td>
+		<td><input type="text" name="genus" id="genus" spellcheck="false"/></td>
 	</tr>
 	<tr>
 		<td><label for="species"><? trans(LAB_SPECIES, true);?></label></td>
-		<td><input type="text" name="species" id="species"/></td>
+		<td><input type="text" name="species" id="species" spellcheck="false"/></td>
 	</tr>
 	<tr>
 		<td colspan="2"><hr class="pale"></td>
@@ -158,11 +162,11 @@ $this->drawLoggedIn();
 	</tr>
 	<tr>
 		<td><label for="utm">UTM10</label></td>
-		<td><input type="text" name="utm" id="utm" style="width:80px;"/></td>
+		<td><input type="text" name="utm" id="utm" style="width:80px;" spellcheck="false"/></td>
 	</tr>
 	<tr>
 		<td><label for="locality"><? trans(LAB_LOCALITY, true);?></label></td>
-		<td><input type="text" name="locality" id="locality" class="mw"></td>
+		<td><input type="text" name="locality" id="locality" class="mw" spellcheck="false"></td>
 	</tr>
 	<tr>
 		<td><label for="kommune"><? trans(LAB_COUNTY, true);?></label></td>
@@ -197,7 +201,7 @@ $this->drawLoggedIn();
 	</tr>
 	<tr>
 		<td><label for="leg"><? trans(LAB_COLLECTOR, true);?></label></td>
-		<td><input type="text" name="leg" id="leg" class="mw"/></td>
+		<td><input type="text" name="leg" id="leg" class="mw" spellcheck="false"/></td>
 	</tr>
 	<tr>
 		<td colspan="2"><hr class="pale"></td>
@@ -210,7 +214,7 @@ $this->drawLoggedIn();
 			<span class="date-space">
 			-
 			</span>
-			<input type="text" name="to-day" id="to-day" class="datoInterval" value="" style="width:50px;"/>
+			<input type="text" name="to-day" id="to-day" class="datoInterval" value="" style="width:50px;" spellcheck="false"/>
 		</td>
 	</tr>
 
@@ -221,7 +225,7 @@ $this->drawLoggedIn();
 			<span class="date-space">
 			-
 			</span>
-			<input type="text" name="to-month" id="to-month" class="datoInterval" value="" style="width:50px;"/>
+			<input type="text" name="to-month" id="to-month" class="datoInterval" value="" style="width:50px;" spellcheck="false"/>
 		</td>
 	</tr>
 
@@ -247,6 +251,46 @@ $this->drawLoggedIn();
 <div id="search-result" style="float:left;text-align:left;"></div>
 <div id="edit-record" style="float:left;text-align:left;display:none;"></div>
 </fieldset>
+
+<button id="start-convert">Konverter</button>
+<textarea style="width:100%;height:150px;" id="convert-text"></textarea>
+
+<script>
+$('#start-convert').on('click', function() {
+	$('#convert-text').append('{ "kommuner_WGS84" : ['+"\n");
+	for (var i=0, l=Kommune.kommuner.length; i<l; i++) {
+		//console.log(Kommune.kommuner[i].nr);
+		var polygons = Kommune.polygon(Kommune.kommuner[i].nr);
+		var s = '  { "knr": "'+Kommune.kommuner[i].nr+'",'+"\n";
+		s+= '    "border" : ['+"\n";
+
+		//cleanup empty
+		polygons = polygons.filter(function(p) {
+			return p.length>0
+		})
+
+		for (p in polygons) {
+			var polygon = polygons[p];
+			//if (polygon.length > 0) {
+				s+= '     { "coords": "';
+				var latlng = '';
+				for (ll=0;ll<polygon.length;ll++) {
+					if (latlng != '') latlng+='/';
+					latlng+=polygon[ll].lng+','+polygon[ll].lat;
+				}
+				s += latlng+'" }';
+				s += (p<polygons.length-1) ? ','+"\n" : "\n"
+			//}
+		}
+		s+='  ]},'+"\n";
+		//console.log(s);
+		$('#convert-text').append(s);
+	}	
+	$('#convert-text').append(']}');						
+
+})
+</script>
+
 <?
 	}
 

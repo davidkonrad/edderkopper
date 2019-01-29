@@ -73,12 +73,10 @@ var Edderkopper = {
 
 	initKommuner : function() {
 		Geo.populateKommuner('#kommune');
-
 		$("#kommune").change(function() {
 			var knr=$("#kommune option:selected").val()
 			if (knr!='') {
-				Geo.getKommuneGraense(knr, polygonMap);
-				$("#hidden-kommune").val(knr);
+				Geo.showKommune(knr, polygonMap);
 			}
 		});
 	},

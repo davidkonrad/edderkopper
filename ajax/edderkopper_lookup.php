@@ -46,21 +46,11 @@ class EdderkoppeLookup extends Lookup {
 			$SQL='select distinct Family from edderkopper where Family like "'.$_GET['lookup'].'%" order by Family';
 		}
 		$result=$this->query($SQL);
-		/*
-		$html='';
-		while ($row = mysql_fetch_array($result)) {
-			if ($html!='') $html.=',';
-			$html.='{"value" : "'.$row['Family'].'", "text": "'.$row['Family'].'"}';
-		}
-		$html='['.$html.']';
-		echo $html;
-		*/
 		echo $this->getJSON($result, 'Family');
 	}
 
 	private function lookupGenus() {
 		$lookup=$_GET['lookup'];
-		//$extra=(isset($_GET['familie']) && ($_GET['familie']!='')) ? 'Family="'.$_GET['familie'].'"' : false;
 		$extra=$this->getExtra('familie','Family');
 
 		if ($lookup=='' || $lookup==' ') {
@@ -77,15 +67,6 @@ class EdderkoppeLookup extends Lookup {
 			}
 		}
 		$result=$this->query($SQL);
-		/*
-		$html='';
-		while ($row = mysql_fetch_array($result)) {
-			if ($html!='') $html.=',';
-			$html.='{"value" : "'.$row['Genus'].'", "text": "'.$row['Genus'].'"}';
-		}
-		$html='['.$html.']';
-		echo $html;
-		*/
 		echo $this->getJSON($result, 'Genus');
 	}
 
@@ -93,15 +74,6 @@ class EdderkoppeLookup extends Lookup {
 		$lookup=$_GET['lookup'];
 		
 		$extra=false;
-		/*
-		if (isset($_GET['familie']) && ($_GET['familie']!='')) {
-			$extra='Family="'.$_GET['familie'].'"';
-		}
-		if (isset($_GET['genus']) && ($_GET['genus']!='')) {
-			if (is_string($extra)) $extra.=' and ';
-			$extra.='Genus="'.$_GET['genus'].'"';
-		}
-		*/
 		$e=$this->getExtra('familie','Family');	
 		if ($e) $extra=$e;
 		$e=$this->getExtra('genus','Genus');	
@@ -124,15 +96,6 @@ class EdderkoppeLookup extends Lookup {
 			}
 		}
 		$result=$this->query($SQL);
-		/*
-		$html='';
-		while ($row = mysql_fetch_array($result)) {
-			if ($html!='') $html.=',';
-			$html.='{"value" : "'.$row['Species'].'", "text": "'.$row['Species'].'"}';
-		}
-		$html='['.$html.']';
-		echo $html;
-		*/
 		echo $this->getJSON($result, 'Species');
 	}
 			

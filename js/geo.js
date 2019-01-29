@@ -5,6 +5,7 @@ Namespace with singleton model.
 	- getlocation
 	- google maps
 	- oiorest.dk 
+	- kommuner
 	- UTM
 	- habitater
 	- handles table geocoding
@@ -13,6 +14,9 @@ Namespace with singleton model.
 Using 
 	js/utm.js
 	json/habitater_27062013.json
+	json/kommuner
+	json/kommuner_geometryWkt_details.json
+
 	proxy.php
 
 ***********************************************************/
@@ -30,7 +34,7 @@ var Geo = {
 		default colors and weight for polygons, change these before calling showPolygon
 	*/
 	strokeColor : '#FFF380', 
-	strokeWeight : 2,
+	strokeWeight : 0.5,
 	fillColor : 'blue',
 
 	/*
@@ -44,6 +48,12 @@ var Geo = {
 		holding an array of polygons
 	*/
 	UTM10_Grid : null,
+
+	/*
+		map polygon data
+	*/
+	polygons: [],
+	bounds: null,
 
 	/*
 		shows wait cursor, eg rotating wheel, or not
@@ -159,48 +169,33 @@ var Geo = {
 	},
 
 	/*
-		resets a map by reloading
+		remove polygons and markers
 	*/
 	resetMap : function(map) {
 		Geo.bounds = new google.maps.LatLngBounds(); 
-		if (Geo.graense) Geo.graense.setMap(null);
+		Geo.polygons.forEach(function(p) {
+			p.setMap(null);
+		})
+		Geo.polygons = [];
+		/*
 		for (var i = 0; i < Geo.markers.length; i++ ) {
 			Geo.markers[i].setMap(null);
-	  	}
-
-		//alert('ok');
-
-		/*
-		var zoom = map.getZoom();
-		var center = map.getCenter();
-		var div = map.getDiv();
-		console.log(zoom, center, div);
-		*/
-
-		/*
-		var newMap = Geo.
-		
-	if (graense) graense.setMap(null);
-	for (var i = 0; i < markers.length; i++ ) {
-		markers[i].setMap(null);
   	}
-	*/
+		*/
 	},
 
 	/* 
 		loads list of kommuner, sort it and insert them as options in a select
-		requires proxy.php on script path		
-		12.11.2013 : now uses local copy of kommuner,json for better performance
+		12.11.2013 : now uses local copy of kommuner.json for better performance
+		29.01.2019 : due to iorest no longer exists, now using local version of kommune borders in wgs84 format
 	*/
 	populateKommuner : function(select) {
-		//var url = "proxy.php?url=http://geo.oiorest.dk/kommuner.json";
 		var url = "json/kommuner.json";
 		var ka = [];
 		$.ajax({
 			url: url,
 			dataType: 'json',
 			success: function(data) {
-				//console.log(data);
 				$.each(data, function(index, kommune) {
 					ka[ka.length+1]={navn:kommune.navn,nr:kommune.nr}
 				});
@@ -220,93 +215,24 @@ var Geo = {
 				}
 			}
 		});
+		//get kommune borders
+		$.getJSON('json/kommuner_wgs84.json', function(json) {
+			Geo.kommuner_wgs84 = json;
+			//console.log(Geo.kommuner_wgs84);
+		})
 	},
 
-	/*
-		load the borders for a kommune, after that draw them on a google map
-	*/
-	getKommuneGraense : function(nr, map) {
-		Geo.wait(true);
-		var url= "proxy.php?url=http://geo.oiorest.dk/kommuner/"+nr+"/graense.json"; 			
-		$.ajax({
-			url: url,
-			dataType: 'json',
-			success:  function (data) {
-				for (var index = 0; index<data.coordinates.length; index++) {
-					Geo.showKommuneGraense(data.coordinates[index], map);
+	showKommune : function(knr, map) {
+		Geo.resetMap();
+		for (var k in Geo.kommuner_wgs84.kommuner_WGS84) {
+			if (Geo.kommuner_wgs84.kommuner_WGS84[k].knr == knr) {
+				var borders = Geo.kommuner_wgs84.kommuner_WGS84[k].border;
+				for (var i=0;i<borders.length;i++) {
+					var polyarray = borders[i].coords.split('/');
+					Geo.showPolygon(polyarray, map, true);
 				}
-				Geo.wait(false);
-			},
-			error : Geo.ajaxError
-		});
-	},
-
-	/*
-		kommuner from iorest in json need special treatment, so it has a special function
-	*/
-	showKommuneGraense : function(polygon, map) {
-		//Geo.resetMap(map);
-		var lat, lng;
-		var paths;
-		var coordinates= polygon[0];
-		var latlng;
-		var markers = []; //!!
-		var path = new google.maps.MVCArray; //!!
-		var bounds = new google.maps.LatLngBounds(); //!!
-		var vertices = new Array(coordinates.length);
-		for (var index = 0; index < coordinates.length; index++) {
-			lat = parseFloat(coordinates[index][1]);
-			lng = parseFloat(coordinates[index][0]);
-			latlng = new google.maps.LatLng(lat, lng);
-			vertices[index] = latlng;
-			bounds.extend(latlng); 
-
-			//add each 20 latlong as invisible marker 
-			if (index % 40 == 0)  {
-				var marker = new google.maps.Marker({
-					icon : 'none',
-					position: latlng,
-					map: map,
-					draggable: true,
-		        		strokeColor: "transparent",
-				        fillColor: "transparent"
-				});
-				markers.push(marker);
-				path.insertAt(path.length, latlng);
 			}
 		}
-
-		var hole;
-		if (polygon.length > 1) {
-			coordinates= polygon[1];
-			hole= new Array(coordinates.length);
-			for (var index = 0; index < coordinates.length; index++) {
-				lat = parseFloat(coordinates[index][1]);
-				lng = parseFloat(coordinates[index][0]);
-				latlng = new google.maps.LatLng(lat, lng);
-				hole[index] = latlng;
-				Geo.bounds.extend(latlng); 
-			}
-		}
-	
-		if (polygon.length > 1) {
-			paths= new Array(2);
-			paths[0]= vertices;
-			paths[1]= hole;
-		} else paths= vertices;
-
-		graense = new google.maps.Polygon({
-			paths: paths,
-			strokeOpacity: 0.8,
-			strokeWeight: 2,
-			strokeColor: '#FFF380',
-			fillColor: 'blue',
-			zIndex: 0
-		});
-
-		//zoom
-		map.fitBounds(bounds); 
-		graense.setMap(map);
 	},
 
 	/* 
@@ -367,25 +293,11 @@ var Geo = {
 	},
 
 	/*
-		resets any polygon, graense, bounds previously placed on the map
-	*/
-
-	/*
-	resetMap : function(map) {		
-		for (var i = 0; i < Geo.markers.length; i++ ) {
-			if (Geo.markers[i].getMap()==map) {
-				Geo.markers[i].setMap(null);
-			}
-		}
-	},
-	*/
-
-	/*
 		draws a polygon on a map. 
 		Polygon is an array of strings on the form lat,long
 	*/
 	showPolygon : function(polygon, map, zoom) {
-		var bounds = new google.maps.LatLngBounds(); 				
+		//var bounds = new google.maps.LatLngBounds(); 				
 		var lat, lng;
 		var coordinates = polygon;
 		var latlng;
@@ -396,15 +308,15 @@ var Geo = {
 			lng = parseFloat(ll[0]);
 			latlng = new google.maps.LatLng(lat, lng);
 			vertices[index] = latlng;
-			bounds.extend(latlng); 
+			Geo.bounds.extend(latlng); 
 
 			var marker = new google.maps.Marker({
 				icon : 'none',
 				position: latlng,
 				map: map, //polygonMap,
 				draggable: true,
-        		strokeColor: "transparent",
-		        fillColor: "transparent"
+      	strokeColor: "transparent",
+		    fillColor: "transparent"
 			});
 		}
 
@@ -417,10 +329,12 @@ var Geo = {
 		});
 
 		//zoom
-		if (zoom) map.fitBounds(bounds); 
+		if (zoom) map.fitBounds(Geo.bounds); 
 		//add the polygonborder
 		graense.setMap(map);
+		Geo.polygons.push(graense);
 	},
+
 
 	/*
 		show <polygon> on <map>
@@ -442,7 +356,6 @@ var Geo = {
 	var polygon = new google.maps.Polygon({
 		paths: vertices,
 		strokeOpacity: 0.8,
-		//obj: obj,
 		strokeWeight: Geo.strokeWeight,
 		strokeColor: Geo.strokeColor,
 		fillColor: Geo.fillColor 
@@ -548,9 +461,7 @@ var Geo = {
 			show a habitat polygon for <name> on <map>
 		*/
 		showHabitat : function(name, map) {
-			//overwrite strokeWeight
-			Geo.strokeWeight=0.5;
-
+			Geo.resetMap();
 			if ((!Geo.Habitater.ready) || (typeof map=='undefined')) return false;
 			var polygons = Geo.Habitater.nameToPolygons(name);
 			for (var i=0;i<polygons.length;i++) {

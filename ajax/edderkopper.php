@@ -56,8 +56,6 @@ $(document).ready(function() {
 		}
 	});	
 
-	//$("#view").buttonset();
-
 	$('.table-details-link').click(function(e) {
 		e.preventDefault();
 		Details.loadDetailsFromTable(
@@ -83,12 +81,6 @@ function tdLinkClick(field, value) {
 	}
 
 	private function createSQL() {
-		/*
-		foreach($_GET as $n=>$g) {
-			$this->fileDebug($n.' '.$g);
-		};
-		*/
-
 		$this->baseSQL='select e.*, s.den_danske_roedliste from edderkopper e, edderkopper_species s ';
 		$where='s.Genus=e.Genus and s.Species=e.Species ';
 		if ($this->testParam('region')) {
@@ -204,7 +196,6 @@ function tdLinkClick(field, value) {
 	}
 
 	private function performSearch() {
-		//echo $this->baseSQL;
 		$this->setLatin1();
 		$this->result=$this->query($this->baseSQL);	
 	}
