@@ -297,7 +297,6 @@ var Geo = {
 		Polygon is an array of strings on the form lat,long
 	*/
 	showPolygon : function(polygon, map, zoom) {
-		//var bounds = new google.maps.LatLngBounds(); 				
 		var lat, lng;
 		var coordinates = polygon;
 		var latlng;
@@ -310,6 +309,7 @@ var Geo = {
 			vertices[index] = latlng;
 			Geo.bounds.extend(latlng); 
 
+/*
 			var marker = new google.maps.Marker({
 				icon : 'none',
 				position: latlng,
@@ -318,6 +318,7 @@ var Geo = {
       	strokeColor: "transparent",
 		    fillColor: "transparent"
 			});
+*/
 		}
 
 		var graense = new google.maps.Polygon({
@@ -353,7 +354,7 @@ var Geo = {
 		vertices[index] = latlng;
 	}
 
-	var polygon = new google.maps.Polygon({
+	var poly = new google.maps.Polygon({
 		paths: vertices,
 		strokeOpacity: 0.8,
 		strokeWeight: Geo.strokeWeight,
@@ -362,21 +363,21 @@ var Geo = {
 	});
 
 	//add the polygonborder
-	polygon.setMap(map);
+	poly.setMap(map);
 },
 
 	/****************************************************************************
 		regioner / zootopo.js
 	*/
 	Regioner : {
-
 		/*
 			show region (multiple polygons from zootopo.js) on map
 		*/
 		showRegion : function(region, map) {
+			Geo.resetMap();
 			var polygons = eval('Zootopo_'+region);
 			for (var i=0;i<polygons.length;i++) {
-				Geo.showPolygon(polygons[i], map);
+				Geo.showPolygon(polygons[i], map, true);
 			}
 		}
 	},
@@ -470,66 +471,6 @@ var Geo = {
 			}
 		}
 	},
-
-	/****************************************************************************
-		GeoCoding handles the geocoding table along with ajax/geoding.php
-	*/
-	GeoCoding : {
-		getLatLng : function(country_or_region, callbackFunction) {
-			$.ajax({
-				url: 'ajax/geocoding.php?action=get&cor='+encodeURIComponent(country_or_region),
-				dataType : 'json',
-				success : function (json) {
-					console.log(json);
-					if (json.hasOwnProperty('error')) {
-						console.log('call geocoder');
-						Geo.GeoCoding.googleGeoCoder(country_or_region, callbackFunction);
-					} else {
-						console.log('plottng from db', json.lat, json.lng);
-						callbackFunction(json.lat, json.lng);
-					}
-				},
-				error : Geo.ajaxError
-			});
-		},
-
-		/*
-			callbackFunction is not mandatory
-			must be a function on the form function(lat, lng)
-		*/
-		googleGeoCoder : function(country_or_region, callbackFunction) {
-			geocoder = new google.maps.Geocoder();
-			geocoder.geocode( { 'address': country_or_region }, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					console.log(results);
-					var lat=results[0].geometry.location.lat();
-					var lng=results[0].geometry.location.lng();
-					if (typeof callbackFunction === 'function') {
-						callbackFunction(lat, lng);
-					}
-					Geo.GeoCoding.storeLatLng(country_or_region, lat, lng);
-					/*
-					var json=new Object;
-					json.lat=results[0].geometry.location.lat();
-					json.lng=results[0].geometry.location.lat();
-					console.log(JSON.stringify(json));
-					return JSON.stringify(json);
-					*/
-				}
-			});
-		},
-
-		storeLatLng : function(country_or_region, lat, lng) {
-			$.ajax({
-				url: 'ajax/geocoding.php?action=put&cor='+encodeURIComponent(country_or_region)+'&lat='+lat+'&lng='+lng,
-				dataType : 'json',
-				success : function (json) {
-					//return json;
-				},
-				error : Geo.ajaxError
-			});
-		}
-	}
 
 };
 
