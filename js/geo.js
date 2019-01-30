@@ -405,29 +405,6 @@ var Geo = {
 		},
 
 		/* 
-			return a sorted array of unique habitat names 
-		*/
-		sortedList : function() {
-			if (!Geo.Habitater.ready) return [];
-			var names=[];
-			for (var i=0;i<Geo.Habitater.json.habitater.length;i++) {
-				var item=Geo.Habitater.json.habitater[i];
-				if (names.indexOf(item.navn)<0) names.push(item.navn);
-			}
-			return names.sort();
-		},
-		
-		/* 
-			populates a <select> #element with a sorted list of habitat names 
-		*/
-		populate : function(element) {
-			var list=this.sortedList();
-			for (var i=0;i<list.length;i++) {
-				$(element).append('<option value="'+list[i]+'">'+list[i]+'</option>');
-			}
-		},
-
-		/* 
 			populates a <select> #element with a sorted list of habitat names 
 			the list of habitats is loaded from habitater_navne.json 
 		*/
@@ -435,7 +412,7 @@ var Geo = {
 			var habitater = [];
 			$.getJSON('json/habitater_navne.json', function(json) {
 				for (var i=0;i<json.length;i++) {
-					habitater.push(json[i].navn);
+					if (habitater.indexOf(json[i].navn)<0) habitater.push(json[i].navn);
 				}
 				habitater.sort();
 				for (var i=0;i<habitater.length;i++) {

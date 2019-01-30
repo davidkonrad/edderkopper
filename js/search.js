@@ -181,7 +181,7 @@ var Search = {
 	},
 
 	performSearch : function(url, item) {
-		console.log(url);
+		//console.log(url);
 		$.ajax({
 			url: url,
 			cache: true,

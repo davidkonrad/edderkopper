@@ -31,7 +31,11 @@ class ClassEdderkopper extends ClassBase {
 <script type="text/javascript">
 function showZootopo() {
 	var region = $("#region option:selected").text();
-	Geo.Regioner.showRegion(region, polygonMap);
+	if (region) {
+		$("#kommune").prop('selectedIndex', null);
+		$("#habitat").prop('selectedIndex', null);
+		Geo.Regioner.showRegion(region, polygonMap);
+	}
 }
 $(document).ready(function() {
 	$("#familie").combobox({ source: "ajax/edderkopper_lookup.php" });
@@ -53,6 +57,8 @@ $(document).ready(function() {
 	$("#habitat").change(function() {
 		var name=$("#habitat option:selected").text();
 		if (name!='') {
+			$("#kommune").prop('selectedIndex', null);
+			$("#region").prop('selectedIndex', null);
 			Geo.Habitater.showHabitat(name, polygonMap);
 			$("#hidden-habitat").val(name);
 		}
@@ -103,10 +109,6 @@ $(document).ready(function() {
 <script type="text/javascript" src="js/utm.js"></script>
 <script type="text/javascript" src="js/geo.js"></script>
 <script type="text/javascript" src="js/zootopo.js"></script>
-<!--
-<script type="text/javascript" src="js/kommuner.js"></script>
-<script type="text/javascript" src="js/Wicket/wicket.js"></script>
--->
 <script type="text/javascript">
 </script>
 <style>

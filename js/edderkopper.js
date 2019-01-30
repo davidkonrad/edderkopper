@@ -54,28 +54,13 @@ var Edderkopper = {
 		google.maps.event.trigger(polygonMap, 'resize');
 	},
 
-	resetPolygon : function() {
-		//e.stopPropagation();
-		//e.preventDefault();
-		/*
-		for (var i = 0; i < markers.length; i++ ) {
-			markers[i].setMap(null);
-		}
-		for (i=0;i<=path.getLength();i++){
-			path.removeAt(i);
-			path.clear();
-			path.pop();
-		}
-		markers=[];
-		*/
-		return true;
-	},
-
 	initKommuner : function() {
 		Geo.populateKommuner('#kommune');
 		$("#kommune").change(function() {
 			var knr=$("#kommune option:selected").val()
 			if (knr!='') {
+				$("#region").prop('selectedIndex', null);
+				$("#habitat").prop('selectedIndex', null);
 				Geo.showKommune(knr, polygonMap);
 			}
 		});
