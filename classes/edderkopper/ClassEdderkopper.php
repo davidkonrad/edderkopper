@@ -44,6 +44,9 @@ $(document).ready(function() {
 
 	var map = Edderkopper.initPolygonMap();
 	Edderkopper.initKommuner();
+	Edderkopper.initLocalities();
+	Edderkopper.initLegs();
+	Edderkopper.initUTM();
 
 	$.getJSON("json/leg.json", function(json) {
 		$("#leg").typeahead({
@@ -254,9 +257,9 @@ $this->drawLoggedIn();
 <div id="edit-record" style="float:left;text-align:left;display:none;"></div>
 </fieldset>
 
+<!--
 <button id="start-convert">Konverter</button>
 <textarea style="width:100%;height:150px;" id="convert-text"></textarea>
-
 <script>
 $('#start-convert').on('click', function() {
 	$('#convert-text').append('{ "kommuner_WGS84" : ['+"\n");
@@ -273,25 +276,23 @@ $('#start-convert').on('click', function() {
 
 		for (p in polygons) {
 			var polygon = polygons[p];
-			//if (polygon.length > 0) {
-				s+= '     { "coords": "';
-				var latlng = '';
-				for (ll=0;ll<polygon.length;ll++) {
-					if (latlng != '') latlng+='/';
-					latlng+=polygon[ll].lng+','+polygon[ll].lat;
-				}
-				s += latlng+'" }';
-				s += (p<polygons.length-1) ? ','+"\n" : "\n"
-			//}
-		}
+			s+= '     { "coords": "';
+			var latlng = '';
+			for (ll=0;ll<polygon.length;ll++) {
+				if (latlng != '') latlng+='/';
+				latlng+=polygon[ll].lng+','+polygon[ll].lat;
+			}
+			s += latlng+'" }';
+			s += (p<polygons.length-1) ? ','+"\n" : "\n"
+			}
 		s+='  ]},'+"\n";
-		//console.log(s);
 		$('#convert-text').append(s);
 	}	
 	$('#convert-text').append(']}');						
 
 })
 </script>
+-->
 
 <?
 	}

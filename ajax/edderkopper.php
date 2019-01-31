@@ -35,7 +35,7 @@ $(document).ready(function() {
 	Edderkopper.initSearchResult();
 });
 $(document).ready(function() {
-	Geo.Habitater.populate("#vis-habitat");
+	Geo.Habitater.populateSimple("#vis-habitat");
 
 	$('#kommune option').clone().appendTo('#vis-kommuner');
 	$('#vis-kommuner option').each(function() {

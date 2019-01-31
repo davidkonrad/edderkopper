@@ -54,18 +54,85 @@ var Edderkopper = {
 		google.maps.event.trigger(polygonMap, 'resize');
 	},
 
+	resetLocalityValues: function(not) {
+		Geo.resetMap();
+		if (not != '#kommune') $("#kommune").prop('selectedIndex', null);
+		if (not != '#region') $("#region").prop('selectedIndex', null);
+		if (not != '#habitet')$("#habitat").prop('selectedIndex', null);
+		if (not != '#utm')$("#utm").val('');
+		if (not != '#locality')$("#locality").val('');
+	},
+
 	initKommuner : function() {
 		Geo.populateKommuner('#kommune');
 		$("#kommune").change(function() {
 			var knr=$("#kommune option:selected").val()
 			if (knr!='') {
-				$("#region").prop('selectedIndex', null);
-				$("#habitat").prop('selectedIndex', null);
+				Edderkopper.resetLocalityValues('#kommune');
 				Geo.showKommune(knr, polygonMap);
 			}
 		});
 	},
 
+	initLegs: function() {
+		$.ajax({
+			url: 'ajax/edderkopper/actions.php?action=getLegs',
+			success: function(response) {
+				var legs = [];
+				response.forEach(function(item) {
+					if (item.Leg && item.Leg.trim().length > 0) legs.push(item.Leg)
+				})
+				$('#leg').typeahead({
+					minLength : 1,
+					showHintOnFocus: true,
+					items : 10,
+					source: legs,
+					afterSelect: function() {
+						Edderkopper.resetLocalityValues('#leg');
+					}
+				})
+			}
+		})
+	},
+
+	initLocalities: function() {
+		$.ajax({
+			url: 'ajax/edderkopper/actions.php?action=getLocalities',
+			success: function(response) {
+				var localities = [];
+				response.forEach(function(item) {
+					if (item.Locality && item.Locality.trim().length > 0) localities.push(item.Locality)
+				})
+				$('#locality').typeahead({
+					minLength : 1,
+					showHintOnFocus: true,
+					items : 10,
+					source: localities,
+					afterSelect: function() {
+						Edderkopper.resetLocalityValues('#locality');
+					}
+				})
+			}
+		})
+	},
+
+	initUTM: function() {
+		var utm = [];
+		//ref. js/utm.js
+		for (var u in UTM_LatLng) {
+			utm.push(u)
+		}
+		$('#utm').typeahead({
+			minLength : 1,
+			showHintOnFocus: true,
+			items : 10,
+			source: utm,
+			afterSelect: function() {
+				Edderkopper.resetLocalityValues('#utm');
+			}
+		})
+	},
+	
 	initSearchResult : function() {
 		//var sess_lang=$('[name="sess_lang"]').val();
 		var lang = System.getLang()==2 ? 'lang/dataTables.en' : 'lang/dataTables.da';
