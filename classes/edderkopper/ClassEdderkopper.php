@@ -47,21 +47,12 @@ $(document).ready(function() {
 	Edderkopper.initLocalities();
 	Edderkopper.initLegs();
 	Edderkopper.initUTM();
-
-	$.getJSON("json/leg.json", function(json) {
-		$("#leg").typeahead({
-			source : json.lookup,
-			items : 12
-		});
-	});
-
 	Geo.Habitater.populateSimple("#habitat");
 	
 	$("#habitat").change(function() {
 		var name=$("#habitat option:selected").text();
 		if (name!='') {
-			$("#kommune").prop('selectedIndex', null);
-			$("#region").prop('selectedIndex', null);
+			Edderkopper.resetLocalityValues();
 			Geo.Habitater.showHabitat(name, polygonMap);
 			$("#hidden-habitat").val(name);
 		}

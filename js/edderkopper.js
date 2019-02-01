@@ -56,9 +56,15 @@ var Edderkopper = {
 
 	resetLocalityValues: function(not) {
 		Geo.resetMap();
-		if (not != '#kommune') $("#kommune").prop('selectedIndex', null);
+		if (not != '#kommune') {
+			$("#kommune").prop('selectedIndex', null);
+			$('#hidden-kommune').val('');
+		}
+		if (not != '#habitat') {
+			$("#habitat").prop('selectedIndex', null);
+			$('#hidden-habitat').val('');
+		}
 		if (not != '#region') $("#region").prop('selectedIndex', null);
-		if (not != '#habitet')$("#habitat").prop('selectedIndex', null);
 		if (not != '#utm')$("#utm").val('');
 		if (not != '#locality')$("#locality").val('');
 	},
@@ -68,6 +74,7 @@ var Edderkopper = {
 		$("#kommune").change(function() {
 			var knr=$("#kommune option:selected").val()
 			if (knr!='') {
+				$('#hidden-kommune').val(knr);
 				Edderkopper.resetLocalityValues('#kommune');
 				Geo.showKommune(knr, polygonMap);
 			}
