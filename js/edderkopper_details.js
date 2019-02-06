@@ -43,22 +43,6 @@ var Details = {
 		return 50;
 	},
 
-	isUTM : function() {
-		var rows = $("#result-table tr:gt(0)");
-		var prevutm = null, utm, isutm=true;
-		rows.each(function(index) {
-			utm = $("td:nth-child("+COL_UTM+")", this).text();
-			if (prevutm!=null) {
-				if (prevutm!=utm) {
-					isutm=false;
-					return false;
-				}
-			}
-			prevutm=utm;
-		});
-		return isutm;
-	},	
-
 	showUTMgrid : function() {
 		Geo.showUTM10Grid(Details.map, "#current-utm");
 		$("#btn-utm-grid").val('Skjul UTM-felter');
@@ -71,33 +55,18 @@ var Details = {
 		document.getElementById('btn-utm-grid').onclick=Details.showUTMgrid;
 	},	
 
-	resetMap : function() {
-		for (var i=0;i<Details.polygons.length;i++) {
-			Details.polygons[i].setMap(null);
-		}
-		Details.polygons=[];
-		$("#btn-utm-grid").removeAttr('disabled');
-	},						
+	reset: function() {
+		Details.mapLoaded = false
+	},
 
 	loadMap : function() {
 		Search.wait(true);
 		var lat, long, zoom;
-		var isutm = Details.isUTM();
 
-		if (isutm) {
-			//take the first result as center
-			zoom = 11;
-			var row = $("#result-table tr:gt(0)");
-			var theUTM = $(row).find("td:nth-child("+COL_UTM+")").first().text();
-			var utmcoords = eval(UTM_LatLng[theUTM.toUpperCase()]);
-			lat = utmcoords[1].lat()-0.03;
-			long = utmcoords[1].lng()+0.03;
-		} else {
-			//"standard" center is lat = 56.15; long = 11.65;
-			lat = ($("#lat-cnt").val()!=undefined) ? $("#lat-cnt").val() : 56.15;
-			long = ($("#long-cnt").val()!=undefined) ? $("#long-cnt").val() : 11.65;
-			zoom = (long!=11.65) ? 10 : 7;
-		}
+		//"standard" center is lat = 56.15; long = 11.65;
+		lat = ($("#lat-cnt").val()!=undefined) ? $("#lat-cnt").val() : 56.15;
+		long = ($("#long-cnt").val()!=undefined) ? $("#long-cnt").val() : 11.65;
+		zoom = (long!=11.65) ? 10 : 7;
 	
 		var myLatLng = new google.maps.LatLng(lat, long);
 
@@ -152,24 +121,12 @@ var Details = {
 
 		//fit bounds, but avoid absolute zoom
 		if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-			bounds.extend( new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() + 0.001) );
-			bounds.extend( new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() - 0.001) );
+			bounds.extend( new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() + 0.01) );
+			bounds.extend( new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() - 0.01) );
 		}
 		Details.map.fitBounds(bounds); 
 
-		//place UTM rectangle
-		if (isutm) {
-			var poly = new google.maps.Polygon({
-				paths: utmcoords,
-				strokeColor: "blue",
-				strokeOpacity: 0.50,
-				strokeWeight: 5,
-				fillColor: "transparent"
-			});
-			poly.setMap(Details.map);
-		}
-
-		Details.mapLoaded=true;
+		Details.mapLoaded = true;
 		Search.wait(false);
 	},
 
@@ -183,7 +140,7 @@ var Details = {
 			$("#tabel-cnt").addClass('visuallyhidden');
 			$("#kort-cnt").removeClass('visuallyhidden');
 			$("#kort-cnt").show(); 
-			Details.loadMap();
+			if (!Details.mapLoaded) Details.loadMap();
 		}
 		System.adjustPageHeight();
 	},

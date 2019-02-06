@@ -35,26 +35,24 @@ $(document).ready(function() {
 	Edderkopper.initSearchResult();
 });
 $(document).ready(function() {
-	Geo.Habitater.populateSimple("#vis-habitat");
 
-	$('#kommune option').clone().appendTo('#vis-kommuner');
-	$('#vis-kommuner option').each(function() {
-		if ($(this).text()=='') $(this).remove();
-	});
-
-	$("#vis-kommuner").change(function() {
-		var knr=$("#vis-kommuner option:selected").val()
-		if (knr!='') {
-			Geo.getKommuneGraense(knr, Details.map);
+	var wait = setInterval(function() {
+		if (Details.mapLoaded) {
+			clearInterval(wait);
+			var knr = $('input[name="hidden-kommune"]').val();
+			if (knr) {
+				Geo.showKommune(knr, Details.map, true);
+			}
+			var hname = $('input[name="hidden-habitat"]').val();
+			if (hname) {
+				Geo.Habitater.showHabitat(hname, Details.map, true);
+			}
+			var utm = $('#utm').val();
+			if (utm) {
+				Geo.showUTM10(utm, Details.map, true);
+			}
 		}
-	});	
-
-	$("#vis-habitat").change(function() {
-		var name=$("#vis-habitat option:selected").text();
-		if (name!='') {
-			Geo.Habitater.showHabitat(name, Details.map);
-		}
-	});	
+	}, 500);
 
 	$('.table-details-link').click(function(e) {
 		e.preventDefault();
@@ -110,7 +108,6 @@ function tdLinkClick(field, value) {
 				if ($r!='RE') $where.=' or ';
 			}
 			$where.=') ';
-			//$where.='s.den_danske_roedliste<>"" ';
 		}
 
 		//interval
@@ -145,21 +142,6 @@ function tdLinkClick(field, value) {
 			}
 		}
 
-		//lookup
-		/*
-		if ($this->testParam('form-familie')) {
-			if ($where!='') $where.=' and ';
-			$where.='Family="'.$_GET['form-familie'].'" ';
-		}
-		if ($this->testParam('form-genus')) {
-			if ($where!='') $where.=' and ';
-			$where.='Genus="'.$_GET['form-genus'].'" ';
-		}
-		if ($this->testParam('form-species')) {
-			if ($where!='') $where.=' and ';
-			$where.='Species="'.$_GET['form-species'].'" ';
-		}
-		*/
 		if ($this->testParam('familie')) {
 			if ($where!='') $where.=' and ';
 			$where.='e.Family="'.$_GET['familie'].'" ';
@@ -231,15 +213,14 @@ function tdLinkClick(field, value) {
 		}
 
 		echo '<div style="float:left;clear:left;">';
-		//echo '<input type="button" value="'.trans(ZN_SEARCH_BACK).'" onclick="Edderkopper.back();" title="">';
-		echo '<a class="small" href="#" onclick="Edderkopper.back();" title="Gå tilbage til søøgefunktion">'.trans(ZN_SEARCH_BACK).'</a>';
+		echo '<a class="small edderkopper-back" href="#" onclick="Edderkopper.back();" title="Ret s&oslash;gning eller foretag en ny">'.trans(ZN_SEARCH_BACK).'</a>';
 		echo '</div>';
 
 		echo '<div id="view" style="margin-left:20px;float:left;">';
-		echo $text['show'].' : ';
-		echo '<input type="radio" id="tabel" name="radio" checked="checked" onclick="Details.changeView(1);" style="vertical-align:text-bottom;">';
+		echo $text['show'].': ';
+		echo '<input type="radio" id="tabel" name="radio" title="'.$text['table-title'].'" checked="checked" onclick="Details.changeView(1);" class="edderkopper-show" >';
 		echo '<label for="tabel" title="'.$text['table-title'].'">'.$text['table'].'</label>';		
-		echo '<input type="radio" id="kort" name="radio" onclick="Details.changeView(2);" style="vertical-align:text-bottom;">';
+		echo '<input type="radio" id="kort" name="radio" title ="'.$text['map-title'].'" onclick="Details.changeView(2);" class="edderkopper-show">';
 		echo '<label for="kort" title ="'.$text['map-title'].'" >'.$text['map'].'</label>';
 		echo '</div>';
 	}
@@ -319,13 +300,6 @@ function tdLinkClick(field, value) {
 			echo '<td style="display:none;">'.$row['LNR'].'</td>';
 			*/
 
-			/* 20.11.2013
-			$edit='(&quot;edderkopper&quot;,&quot;LNR&quot;,&quot;'.$row['LNR'].'&quot;)';
-			echo '<td><img src="ico/pencil.png" style="cursor:pointer" title="Rediger fund" onclick="Edderkopper.edit'.$edit.'"></td>';
-			*/
-			$edit='(&quot;edderkopper&quot;,&quot;LNR&quot;,&quot;'.$row['LNR'].'&quot;)';
-			$href='edderkopper-rediger-fund?lnr='.$row['LNR'];
-			//echo '<td><a href="'.$href.'" target=_blank><img src="ico/pencil.png" style="cursor:pointer" title="Rediger fund #'.$row['LNR'].'"></a></td>';
 			echo '</tr>';
 			}
 		}
@@ -337,25 +311,12 @@ function tdLinkClick(field, value) {
 		HTML::divider(3);
 		echo '<div id="map" style="width:685px;height:565px;float:left;clear:none;border:1px solid silver;"></div>';
 		//funktioner
-		echo '<fieldset class="mapview no-system-height" style="height:120px;">';
+		echo '<fieldset class="mapview no-system-height" style="height:40px;">';
 		$functions = $this->getLanguage()==1 ? 'Kortfunktioner' : 'Map functions';
  		echo '<legend style="font-size:14px;line-height:20px;">'.$functions.'</legend>';
-
 		$utm = $this->getLanguage()==1 ? 'Vis UTM-felter' : 'Show UTM Grid';
-		echo '<button style="margin-left:10px;cursor:pointer;" id="btn-utm-grid" onclick="Details.showUTMgrid();">'.$utm.'</button>';
+		echo '<button style="margin-left:10px;margin-top:4px;cursor:pointer;" id="btn-utm-grid" onclick="Details.showUTMgrid();">'.$utm.'</button>';
 		echo '<span style="margin-left:10px;float:none;clear:none;font-size:115%;font-weight:bold;" id="current-utm"></span><br>';
-
-		//echo '<span class="funktioner-caption">Vis kommune(r) :</span>';
-		echo '<br><select style="margin-left:10px;width:160px;" id="vis-kommuner"></option></select><br>';
-
-		//echo '<span class="funktioner-caption">Vis habitatomr&aring;de(r) :</span>';
-		$habitat = $this->getLanguage()==1 ? '[V&aelig;lg habitatomr&aring;de]' : '[Select EU Habitat Site]';
-		echo '<br><select style="margin-left:10px;width:160px;" id="vis-habitat"><option value="">'.$habitat.'</option></select><br>';
-
-		//echo '<button style="margin-left:10px;" onclick="" disabled="disabled">Vis kommunegr&aelig;nser</button><br>';
-		//echo '<button style="margin-left:10px;" onclick="" disabled="disabled">Vis distrikter</button><br>';
-		//echo '<button style="float:right;font-size:10px;" onclick="Details.resetMap();">Nulstil kort</button>';
-	
 		echo '</fieldset>';
 
 		//prikker legend
@@ -370,16 +331,16 @@ function tdLinkClick(field, value) {
 
 ?>
 <table class="farvekoder">
-   <tr><td><img src="ico/Circle_Blue.png" alt=""/></td><td><? echo $f1900;?></td></tr>
+   <tr><td><img src="ico/Circle_Blue.png" alt=""/ style="margin-top:2px;"></td><td><? echo $f1900;?></td></tr>
    <tr><td><img src="ico/Circle_Orange.png" alt=""/></td><td><? echo $f1979;?></td></tr>
    <tr><td><img src="ico/Circle_Yellow.png" alt=""/></td><td><? echo $f2005;?></td></tr>
    <tr><td><img src="ico/Circle_Red.png" alt=""/></td><td><? echo $f2006;?></td></tr>
 </table>
 <?	
 		echo '</fieldset>';
-		echo '<fieldset class="mapview no-system-height" style="clear:none;height:305px;margin-top:30px;">';
+		echo '<fieldset class="mapview no-system-height" style="clear:none;height:355px;margin-top:30px;">';
 		echo '<legend style="font-size:14px;line-height:20px;">Fund</legend>';
-		echo '<div id="map-markers" style="font-size:12px;line-height:16px;height:250px;max-height:290px;overflow-x:hidden;overflow-y:scroll;vertical-align:top;clear:none;float:none;"></div>';
+		echo '<div id="map-markers" style="font-size:12px;line-height:16px;height:320px;max-height:390px;overflow-x:hidden;overflow-y:scroll;vertical-align:top;clear:none;float:none;"></div>';
 		echo '</fieldset>';
 		echo '</div>';		
 	

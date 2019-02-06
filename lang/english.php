@@ -168,7 +168,7 @@ define("LAB_SEARCH_BACK_TO", "Back to search results &#9658;");
 define("LAB_SEARCH_EXACT", "Exact matches");
 define("LAB_SEARCH_FOR", "Search for ");
 define("LAB_SEARCH_NEW", "&gt; New search");
-define("LAB_SEARCH_RESULTS", "Search results");
+define("LAB_SEARCH_RESULTS", "matches");
 define("LAB_SECRET_LOCATION", "Secret location");
 define("LAB_SEX", "Sex");
 define("LAB_SHOW_DETAILS", "Show details");

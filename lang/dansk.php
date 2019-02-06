@@ -168,7 +168,7 @@ define("LAB_SEARCH_BACK_TO", "Tilbage til s&oslash;geresultater &#9658;");
 define("LAB_SEARCH_EXACT", "Eksakt s&oslash;gning");
 define("LAB_SEARCH_FOR", "S&oslash;g p&aring; ");
 define("LAB_SEARCH_NEW", "&gt; Ny s&oslash;gning");
-define("LAB_SEARCH_RESULTS", "S&oslash;geresultater");
+define("LAB_SEARCH_RESULTS", "resultater");
 define("LAB_SECRET_LOCATION", "Hemmelig lokation");
 define("LAB_SEX", "K&oslash;n");
 define("LAB_SHOW_DETAILS", "Vis detaljer");

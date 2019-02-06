@@ -219,8 +219,8 @@ var Geo = {
 		})
 	},
 
-	showKommune : function(knr, map) {
-		Geo.resetMap();
+	showKommune : function(knr, map, noreset) {
+		if (!noreset) Geo.resetMap();
 		for (var k in Geo.kommuner_wgs84.kommuner_WGS84) {
 			if (Geo.kommuner_wgs84.kommuner_WGS84[k].knr == knr) {
 				var borders = Geo.kommuner_wgs84.kommuner_WGS84[k].border;
@@ -287,6 +287,18 @@ var Geo = {
 		for (var i=0;i<Geo.UTM10_Grid.length;i++) {
 			Geo.UTM10_Grid[i].setMap(null);
 		}
+	},
+
+	/* 
+		show a UTM10 region
+	*/
+	showUTM10 : function(utm, map, noreset) {
+		if (!noreset) Geo.resetMap();
+		var utmcoords = eval(UTM_LatLng[utm.toUpperCase()]);
+		var latlngs = utmcoords.map(function(c) {
+			return c.lng()+','+c.lat()
+		})
+		Geo.showPolygon(latlngs, map, true);
 	},
 
 	/*
@@ -423,8 +435,8 @@ var Geo = {
 		/* 
 			show a habitat polygon for <name> on <map>
 		*/
-		showHabitat : function(name, map) {
-			Geo.resetMap();
+		showHabitat : function(name, map, noreset) {
+			if (!noreset) Geo.resetMap();
 			if ((!Geo.Habitater.ready) || (typeof map=='undefined')) return false;
 			var polygons = Geo.Habitater.nameToPolygons(name);
 			for (var i=0;i<polygons.length;i++) {

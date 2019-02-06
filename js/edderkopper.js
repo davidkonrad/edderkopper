@@ -50,6 +50,7 @@ var Edderkopper = {
 	},
 
 	back : function() {
+		Details.reset();
 		Search.back();
 		google.maps.event.trigger(polygonMap, 'resize');
 	},
@@ -134,14 +135,14 @@ var Edderkopper = {
 			showHintOnFocus: true,
 			items : 10,
 			source: utm,
-			afterSelect: function() {
+			afterSelect: function(utm) {
 				Edderkopper.resetLocalityValues('#utm');
+				Geo.showUTM10(utm, polygonMap);
 			}
 		})
 	},
 	
 	initSearchResult : function() {
-		//var sess_lang=$('[name="sess_lang"]').val();
 		var lang = System.getLang()==2 ? 'lang/dataTables.en' : 'lang/dataTables.da';
 		
 		$("#result-table").dataTable({
@@ -154,7 +155,6 @@ var Edderkopper = {
       bAutoWidth: false,
 			asStripClasses:[],
 			bSortClasses: false,
-			//sDom: 'T<"clear">lfrtip',
 			sDom: '<"clear">lfrtip',
 			oLanguage : {
 				sUrl : lang
@@ -220,13 +220,6 @@ var Edderkopper = {
 				}
 				*/
 				
-				//edit
-				/*
-				{"bVisible": ($("#loggedin").val()!=undefined) ? true : false,
-				 "sWidth": "20px"
-				}
-				*/
-
 			]
 		});
 		$(".dataTables_filter").hide();

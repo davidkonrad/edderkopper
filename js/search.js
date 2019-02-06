@@ -79,7 +79,6 @@ var Search = {
 		this.items[searchItem.form_id]=searchItem;
 	},
 
-	
 	setAjaxWheel : function() {
 		$(this.current_search.result_id).append('<img src="img/ajax-loader.gif"/>');
 	},

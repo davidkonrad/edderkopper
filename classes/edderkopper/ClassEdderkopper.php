@@ -32,8 +32,7 @@ class ClassEdderkopper extends ClassBase {
 function showZootopo() {
 	var region = $("#region option:selected").text();
 	if (region) {
-		$("#kommune").prop('selectedIndex', null);
-		$("#habitat").prop('selectedIndex', null);
+		Edderkopper.resetLocalityValues('#region');
 		Geo.Regioner.showRegion(region, polygonMap);
 	}
 }
@@ -80,7 +79,7 @@ $(document).ready(function() {
 	searchItem.mandatory_criterias=false;//true;
 	searchItem.headline_id="#edderkopper-content-headline";
 	searchItem.result_table="#result-table";
-	searchItem.markers=markers; //in edderkopper.js
+	searchItem.markers=markers; //from edderkopper.js
 
 	searchItem.lookupFields = ['familie','genus','species'];
 	searchItem.lookupValues = ['','',''];
@@ -107,6 +106,7 @@ $(document).ready(function() {
 <link rel="stylesheet" href="css/ui.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper_popup.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/edderkopper-radio.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/bootstrap-typeahead.js"></script>
 <link rel="stylesheet" href="css/bootstrap-typeahead.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/edderkopper.js"></script>
