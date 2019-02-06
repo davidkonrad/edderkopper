@@ -95,7 +95,7 @@ class PolygonSearch {
 	}
 
 	private function pointInside($p,&$points) {
-		set_time_limit(60);
+		//set_time_limit(60);
 		$c = 0;
 		$p1 = $points[0];
 		$n = count($points);
