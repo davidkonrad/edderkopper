@@ -242,6 +242,7 @@ var Search = {
 		$(this.current_search.result_id).hide();
 		Search.clearResult();
 		Search.setCaption();
+		System.adjustPageHeight();
 	},
 
 	mandatory : function(form_id) {
