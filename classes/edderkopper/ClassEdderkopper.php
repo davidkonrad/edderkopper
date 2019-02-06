@@ -52,11 +52,22 @@ $(document).ready(function() {
 	$("#habitat").change(function() {
 		var name=$("#habitat option:selected").text();
 		if (name!='') {
-			Edderkopper.resetLocalityValues();
+			Edderkopper.resetLocalityValues('#habitat');
 			Geo.Habitater.showHabitat(name, polygonMap);
 			$("#hidden-habitat").val(name);
 		}
 	});	
+
+	$('form[name="edderkopper"]').on('change keyup select', 'input,select', function() {
+		$('#search-button').prop('disabled', 'disabled')
+		$('form[name="edderkopper"] input:not([type="button"]), form[name="edderkopper"] select').each(function() {
+			if ($(this).val() != '' && $(this).val() != 'on') {
+				$('#search-button').removeProp('disabled')
+				return
+			}
+		})
+	})
+
 });
 $(document).ready(function() {
 	var searchItem = new SearchItem('#edderkopper');
@@ -123,15 +134,15 @@ $(document).ready(function() {
 	public function drawBody() {
 		parent::drawBody();
 ?>
+<? 
+$this->drawSessLang();
+$this->drawLoggedIn();
+?>
 <fieldset style="background-color:white;" id="edderkopper-main">
 <legend id="edderkopper-content-headline"></legend>
 <form name="edderkopper" id="edderkopper" method="post" action="">
 <input type="hidden" name="hidden-kommune" id="hidden-kommune"/>
 <input type="hidden" name="hidden-det" id="hidden-det"/>
-<? 
-$this->drawSessLang();
-$this->drawLoggedIn();
-?>
 <table style="width:420px;float:left;clear:none;" class="unstyled">
 	<tr>
 		<td><label for="taxon" class="unstyled">Taxon</label></td>
@@ -247,43 +258,6 @@ $this->drawLoggedIn();
 <div id="search-result" style="float:left;text-align:left;"></div>
 <div id="edit-record" style="float:left;text-align:left;display:none;"></div>
 </fieldset>
-
-<!--
-<button id="start-convert">Konverter</button>
-<textarea style="width:100%;height:150px;" id="convert-text"></textarea>
-<script>
-$('#start-convert').on('click', function() {
-	$('#convert-text').append('{ "kommuner_WGS84" : ['+"\n");
-	for (var i=0, l=Kommune.kommuner.length; i<l; i++) {
-		//console.log(Kommune.kommuner[i].nr);
-		var polygons = Kommune.polygon(Kommune.kommuner[i].nr);
-		var s = '  { "knr": "'+Kommune.kommuner[i].nr+'",'+"\n";
-		s+= '    "border" : ['+"\n";
-
-		//cleanup empty
-		polygons = polygons.filter(function(p) {
-			return p.length>0
-		})
-
-		for (p in polygons) {
-			var polygon = polygons[p];
-			s+= '     { "coords": "';
-			var latlng = '';
-			for (ll=0;ll<polygon.length;ll++) {
-				if (latlng != '') latlng+='/';
-				latlng+=polygon[ll].lng+','+polygon[ll].lat;
-			}
-			s += latlng+'" }';
-			s += (p<polygons.length-1) ? ','+"\n" : "\n"
-			}
-		s+='  ]},'+"\n";
-		$('#convert-text').append(s);
-	}	
-	$('#convert-text').append(']}');						
-
-})
-</script>
--->
 
 <?
 	}

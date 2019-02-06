@@ -2,13 +2,10 @@
 Namespace with singleton model. 
 "Geo" utilities library. Javascript for dealing with 
 
-	- getlocation
 	- google maps
-	- oiorest.dk 
 	- kommuner
 	- UTM
 	- habitater
-	- handles table geocoding
 	..
 
 Using 
@@ -123,6 +120,7 @@ var Geo = {
 
 		if (map.keyDragZoomEnabled) map.enableKeyDragZoom({
 			visualEnabled: true,
+			visualPositionOffset: new google.maps.Size(10, 0),
 			visualImages: {},
 			visualTips: {
 				off: Geo.zoom_off,
@@ -218,7 +216,6 @@ var Geo = {
 		//get kommune borders
 		$.getJSON('json/kommuner_wgs84.json', function(json) {
 			Geo.kommuner_wgs84 = json;
-			//console.log(Geo.kommuner_wgs84);
 		})
 	},
 
@@ -308,17 +305,6 @@ var Geo = {
 			latlng = new google.maps.LatLng(lat, lng);
 			vertices[index] = latlng;
 			Geo.bounds.extend(latlng); 
-
-/*
-			var marker = new google.maps.Marker({
-				icon : 'none',
-				position: latlng,
-				map: map, //polygonMap,
-				draggable: true,
-      	strokeColor: "transparent",
-		    fillColor: "transparent"
-			});
-*/
 		}
 
 		var graense = new google.maps.Polygon({
@@ -331,7 +317,6 @@ var Geo = {
 
 		//zoom
 		if (zoom) map.fitBounds(Geo.bounds); 
-		//add the polygonborder
 		graense.setMap(map);
 		Geo.polygons.push(graense);
 	},
@@ -342,29 +327,29 @@ var Geo = {
 		Polygon is an array of strings on the form lat,long
 	*/
 	showPolygonSimple : function (polygon, map) {
-	var lat, lng;
-	var coordinates = polygon;
-	var latlng;
-	var vertices = new Array(coordinates.length);
-	for (var index = 0; index < coordinates.length; index++) {
-		ll=coordinates[index].split(',');
-		lat = parseFloat(ll[1]);
-		lng = parseFloat(ll[0]);
-		latlng = new google.maps.LatLng(lat, lng);
-		vertices[index] = latlng;
-	}
+		var lat, lng;
+		var coordinates = polygon;
+		var latlng;
+		var vertices = new Array(coordinates.length);
+		for (var index = 0; index < coordinates.length; index++) {
+			ll=coordinates[index].split(',');
+			lat = parseFloat(ll[1]);
+			lng = parseFloat(ll[0]);
+			latlng = new google.maps.LatLng(lat, lng);
+			vertices[index] = latlng;
+		}
 
-	var poly = new google.maps.Polygon({
-		paths: vertices,
-		strokeOpacity: 0.8,
-		strokeWeight: Geo.strokeWeight,
-		strokeColor: Geo.strokeColor,
-		fillColor: Geo.fillColor 
-	});
+		var poly = new google.maps.Polygon({
+			paths: vertices,
+			strokeOpacity: 0.8,
+			strokeWeight: Geo.strokeWeight,
+			strokeColor: Geo.strokeColor,
+			fillColor: Geo.fillColor 
+		});
 
-	//add the polygonborder
-	poly.setMap(map);
-},
+		//add the polygonborder
+		poly.setMap(map);
+	},
 
 	/****************************************************************************
 		regioner / zootopo.js

@@ -181,7 +181,6 @@ var Search = {
 	},
 
 	performSearch : function(url, item) {
-		//console.log(url);
 		$.ajax({
 			url: url,
 			cache: true,
@@ -202,7 +201,7 @@ var Search = {
 				System.adjustPageHeight();
 
 				//
-				$("html, body").animate({ scrollTop: 0 }, "slow");
+				$("html, body").animate({ scrollTop: 0 }, "fast");
 			}
 		});
 	},

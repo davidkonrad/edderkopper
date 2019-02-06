@@ -4,7 +4,7 @@ var poly;
 var markers = [];
 var path = (typeof google !== 'undefined') ? new google.maps.MVCArray : null;
 //kommune
-var bounds = (typeof google !== 'undefined') ? new google.maps.LatLngBounds() : null;
+//var bounds = (typeof google !== 'undefined') ? new google.maps.LatLngBounds() : null;
 
 function addPoint(event) {
 	poly.setOptions({ strokeColor: '#FFF380', fillColor: '#FFF380'});
@@ -37,12 +37,12 @@ var Edderkopper = {
 
 	initPolygonMap : function() {
 		polygonMap = Geo.googleMap("polygon-map", Geo.DK_Lat, Geo.DK_Long-1.21,  7); //6
+
 		poly = new google.maps.Polygon({
 			strokeWeight: 1,
 			strokeColor: 'transparent',
 			fillColor: 'transparent'
 		});
-	
 		poly.setMap(polygonMap);
 		poly.setPaths(new google.maps.MVCArray([path]));
 
@@ -286,30 +286,6 @@ var Art = {
 	map: null,
 
 	initMap : function() {
-		/*
-		Art.map = new google.maps.Map(document.getElementById("map"), {
-			center: new google.maps.LatLng(56.30, 12),
-			zoom: 6,
-			mapTypeId: google.maps.MapTypeId.TERRAIN,
-			zoomControl: true,
-			streetViewControl: false,
-			zoomControlOptions: {
-				style: google.maps.ZoomControlStyle.SMALL
-			}
-		});
-	
-		Art.map.enableKeyDragZoom({
-			visualEnabled: true,
-			visualPosition: google.maps.ControlPosition.LEFT,
-			visualPositionMargin: new google.maps.Size(35, 0),
-			visualImages: {
-			},
-			visualTips: {
-				off: "Zoom til",
-				on: "Zoom fra"
-			}
-		});
-		*/
 		Art.map = Geo.googleMap('map');
 		Art.map.setZoom(6);
 	},
