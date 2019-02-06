@@ -101,40 +101,14 @@ var Details = {
 	
 		var myLatLng = new google.maps.LatLng(lat, long);
 
-		/*** !!!!!!!!!!!!!!!!!!!!
-		var mapOptions = {
-			zoom: zoom,
-			center: myLatLng,
-			zoomControl: true,
-			streetViewControl: false,
-			zoomControlOptions: {
-				style: google.maps.ZoomControlStyle.SMALL
-			},
-			mapTypeId: google.maps.MapTypeId.TERRAIN
-		}
-		Details.map = new google.maps.Map(document.getElementById("map"), mapOptions);	
-
-
-		Details.map.enableKeyDragZoom({
-			visualEnabled: true,
-			visualPosition: google.maps.ControlPosition.LEFT,
-			visualPositionMargin: new google.maps.Size(35, 0),
-			visualImages: {
-			},
-			visualTips: {
-				off: "Zoom til",
-				on: "Zoom fra"
-			}
-		});
-		!!!!!!!!!!! ----------------*/
-
 		Details.map = Geo.googleMap('map');
 		Details.map.setCenter(myLatLng);
 		Details.map.setZoom(zoom);
 
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		var rows= $("#result-table tr:gt(0)"); // skip the header row
 		var markers = new Array();
+		var bounds = new google.maps.LatLngBounds(); 
+
 		rows.each(function(index) {
 			var details = $("td:nth-child("+COL_DETAILS+")", this);
 			var lat = $(details).find('img').attr('lat');
@@ -153,11 +127,14 @@ var Details = {
 			} else {
 				Details.stack[sindex]=Details.stack[sindex]+Details.getHTML(lnr, art, locality, leg, utm, lat, long);
 			}
-		
+			
+			var latlng = new google.maps.LatLng(lat,long);
+			bounds.extend(latlng); 
+
 			var Marker = new google.maps.Marker({
 				icon : Details.getIcon(date),
 				zIndex: Details.getZIndex(date),
-				position: new google.maps.LatLng(lat,long),
+				position: latlng,
 				map: Details.map
 			});
 
@@ -172,6 +149,13 @@ var Details = {
 				}
 			});
 		});
+
+		//fit bounds, but avoid absolute zoom
+		if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+			bounds.extend( new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() + 0.001) );
+			bounds.extend( new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() - 0.001) );
+		}
+		Details.map.fitBounds(bounds); 
 
 		//place UTM rectangle
 		if (isutm) {
@@ -227,7 +211,6 @@ var Details = {
 	},
 
 	setFundPopupTable : function(y) {
-		//console.log(y);
 		$("#fund-popup").hide();
 		l=70;
 		var t=y-200; //last click event mouse Y
@@ -318,5 +301,4 @@ var Details = {
 	}
 
 };
-
 
