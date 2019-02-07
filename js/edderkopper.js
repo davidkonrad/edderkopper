@@ -3,8 +3,6 @@ var polygonMap;
 var poly;
 var markers = [];
 var path = (typeof google !== 'undefined') ? new google.maps.MVCArray : null;
-//kommune
-//var bounds = (typeof google !== 'undefined') ? new google.maps.LatLngBounds() : null;
 
 function addPoint(event) {
 	poly.setOptions({ strokeColor: '#FFF380', fillColor: '#FFF380'});
@@ -96,7 +94,7 @@ var Edderkopper = {
 					items : 10,
 					source: legs,
 					afterSelect: function() {
-						Edderkopper.resetLocalityValues('#leg');
+						//...
 					}
 				})
 			}
@@ -146,7 +144,6 @@ var Edderkopper = {
 		var lang = System.getLang()==2 ? 'lang/dataTables.en' : 'lang/dataTables.da';
 		
 		$("#result-table").dataTable({
-			//as in SearchBase.php
 			bJQueryUI: true,
       bPaginate: false,  
       bInfo: false,  
@@ -156,6 +153,7 @@ var Edderkopper = {
 			asStripClasses:[],
 			bSortClasses: false,
 			sDom: '<"clear">lfrtip',
+			order: [],
 			oLanguage : {
 				sUrl : lang
 			},

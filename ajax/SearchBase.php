@@ -105,30 +105,17 @@ $(document).ready(function() {
 	private function drawScript() {
 ?>
 <style type="text/css">
-#result-table td {
-	vertical-align: top;
-}
 #result-table td a {
 	text-decoration: underline;
+}
+#result-table td {
+	vertical-align: top;
 }
 .dataTable td {
 	font-size: 12px;
 }
 #result-table th {
 	text-align: left;
-}
-tr.odd {
-	background-color: #dbe5eb; 
-}
-tr.odd td.sorting_1 {
-	background-color: #dbe5eb; 
-}
-tr.even td.sorting_1 {
-	background-color: #ffffff;
-}
-.DataTables_sort_wrapper {
-	font-size: 14px;
-	cursor: pointer;
 }
 </style>
 <?

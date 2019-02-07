@@ -85,4 +85,29 @@ label[for="kort"], label[for="tabel"] {
 	margin-right: 5px;
 }
 
+/* override wrong icon paths */
+table.dataTable thead .sorting {
+	background-image: url(../DataTables-1.10.18/images/sort_both.png);
+}
+table.dataTable thead .sorting_asc {
+	background-image: url(../DataTables-1.10.18/images/sort_asc.png);
+}
+table.dataTable thead .sorting_desc {
+	background-image: url(../DataTables-1.10.18/images/sort_desc.png);
+}
+table.dataTable thead th, table.dataTable thead td {
+	padding-bottom: 2px;
+	margin-top: 20px;
+	padding-left: 4px;
+}
+table.dataTable thead th, table.dataTable thead td {
+	border-bottom: 1px solid #ccc;
+}
+table.dataTable.no-footer {
+	border-bottom: 1px solid #ccc;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+	padding-left: 0px;
+	padding-top: 0px;
+}
 

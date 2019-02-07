@@ -22,20 +22,11 @@ class Search extends SearchBase {
 
 	private function drawScript() {
 ?>
-<style>
-span.funktioner-caption {
-	padding-top: 5px;
-	font-size: 10px;
-	clear: both;
-	float: left;
-}
-</style>
 <script type="text/javascript">
 $(document).ready(function() {
 	Edderkopper.initSearchResult();
 });
 $(document).ready(function() {
-
 	var wait = setInterval(function() {
 		if (Details.mapLoaded) {
 			clearInterval(wait);
@@ -70,7 +61,7 @@ function tdLinkClick(field, value) {
 	$("#edderkopper").find('input[type=text]').val('');
 	$("#edderkopper").find("#"+field).val(value);
 	$('select').prop('selectedIndex',0);
-
+	Details.reset();
 	Search.markers=[]; //??
 	Search.submit("#edderkopper");
 }
@@ -248,7 +239,8 @@ function tdLinkClick(field, value) {
 		echo '<div id="items">';
 		$this->drawButtons();
 		echo '<div id="tabel-cnt">';
-		echo '<table id="result-table">';
+		HTML::divider(1);
+		echo '<table id="result-table" class="display" style="width:100%">';
 		echo '<thead><tr>';
 
 		echo '<th style="width:20px;"></th>'; //icon
@@ -257,11 +249,11 @@ function tdLinkClick(field, value) {
 		echo '<th style="width:150px;">'.trans(LAB_SPECIES).'</th>';
 		echo '<th style="width:80px;">'.trans(LAB_DATE).'</th>';
 		echo '<th style="width:300px;">'.trans(LAB_LOCALITY).'</th>';
-		echo '<th style="width:70px;">UTM</th>';
-		echo '<th style="width:100px;">Leg.</th>';
-		echo '<th style="width:100px;">Det.</th>';
+		echo '<th style="width:50px;">UTM</th>';
+		echo '<th style="width:140px;">Leg.</th>';
+		echo '<th style="width:140px;">Det.</th>';
 		echo '<th style="width:100px;">'.trans(LAB_COLLECTION).'</th>';
-		echo '<th style="width:60px;">R</th>';
+		echo '<th style="width:50px;">R</th>';
 
 		echo '</tr></thead>';
 		echo '<tbody>';
@@ -281,7 +273,7 @@ function tdLinkClick(field, value) {
 			echo '</a>';
 
 			echo '<td>';
-			echo '<img style="cursor:pointer;margin-top:3px;margin-left:3px;" src="ico/info.gif" class="table-details-link" '.$params.' title="'.trans(LAB_SHOW_DETAILS).'">';
+			echo '<img style="cursor:pointer;position:relative;top:5px;" src="ico/info.gif" class="table-details-link" '.$params.' title="'.trans(LAB_SHOW_DETAILS).'">';
 			echo '</td>';
 
 			$this->tdLink('taxon',$row['Name'], true);
@@ -308,7 +300,7 @@ function tdLinkClick(field, value) {
 		echo '</div>';
 
 		echo '<div id="kort-cnt" style="display:none;">';
-		HTML::divider(3);
+		HTML::divider(15);
 		echo '<div id="map" style="width:685px;height:565px;float:left;clear:none;border:1px solid silver;"></div>';
 		//funktioner
 		echo '<fieldset class="mapview no-system-height" style="height:40px;">';
