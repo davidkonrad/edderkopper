@@ -76,6 +76,8 @@ class DetailEdderkopper extends DetailBase {
 <link rel="stylesheet" href="css/edderkopper.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper_popup.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/geo.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js"></script>
 <style type="text/css">
 .img-box {
 	border:1px solid #dadada;
@@ -111,28 +113,6 @@ img.species {
 p {
 	margin-top: 2px;
 	display: inline;
-}
-#popup-image {
-	display: none;
-	position: absolute;
-	margin: 0px;
-	z-index: 500;
-	width: 900px;
-	cursor: pointer;
-	padding: 0px;
-	height: 585px;
-	border: 1px solid #dadada;
-	box-shadow: 3px 3px 3px #888888;
-	box-shadow: 5px 3px 5px #dadada;
-	overflow: hidden;
-}	
-#popup-image img {
-	position: relative;
-	top: 0px;
-	width: 900px;
-	padding: 0px;
-	margin: 0px;
-	border: 0px;
 }
 #map {
 	width:400px;
@@ -355,7 +335,7 @@ p {
 			if (file_exists($filename)) {
 				$caption=$_SESSION[LANGUAGE]==1 ? $row['SubjectDK'] : $row['SubjectUK'];
 				echo '<div class="img-box">';
-				echo '<img title="'.$caption.'" src="'.$filename.'" class="species" onclick="popup(&quot;'.$filename.'&quot;);">';
+				echo '<a data-fancybox="gallery" href="'.$filename.'"><img title="'.$caption.'" src="'.$filename.'" class="species"></a>';
 				echo '<div class="img-caption">';
 				echo $caption;
 				echo '</div>';
@@ -369,8 +349,6 @@ p {
 		$links[1] = 'artsbeskrivelse?taxon='.$this->species;
 		$links[2] = 'species-description?taxon='.$this->species;
 		LANG::flagMenu($links);
-
-		echo '<div id="popup-image" style="display:none;"></div>';
 
 		echo '<fieldset class="details">';
 		echo '<legend class="details">';
@@ -447,11 +425,30 @@ $(document).ready(function() {
 			'legend' : { 'position' : 'none'} ,
 			'backgroundColor' : 'transparent' ,
 			'chartArea' : { left: 40, top: 30, width: "100%", height: "65%"}
-		}
-		);
-
-
+	});
 });
+
+$.fancybox.defaults.i18n.dk = {
+	CLOSE       : 'Luk',
+	NEXT        : 'Næste',
+	PREV        : 'Forrige',
+	ERROR       : 'Billedet kunne ikke vises',
+	PLAY_START  : 'Start slideshow',
+	PLAY_STOP   : 'Stop slideshow',
+	FULL_SCREEN : 'Pantalla completa',
+	THUMBS      : 'Miniaturer',
+	ZOOM        : 'Zoom'
+};
+$(document).ready(function() {
+	$('[data-fancybox="gallery"]').fancybox({
+		buttons: [
+    "zoom",
+    "slideShow",
+    "close"
+	  ],
+	});
+})
+
 //males, females, juveniles
 $(document).ready(function() {
 	function drawCollectionMonths() {
@@ -478,29 +475,17 @@ $(document).ready(function() {
 			vAxis : {
 				format : '####'
 			}
+		};
 
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('collection_months'));
-        chart.draw(data, options);
+    var chart = new google.charts.Bar(document.getElementById('collection_months'));
+	  chart.draw(data, options);
 	}
 	drawCollectionMonths();
 });
 
-function popup(img) {
-	var top = window.pageYOffset || document.documentElement.scrollTop;
-	top = top - 80;
-	var html='<img src="'+img+'" title="<? trans(LAB_CLICK_TO_CLOSE_PICTURE, true);?>">';
-	$("#popup-image").css('top', top+'px');
-	$("#popup-image").html(html);
-	$("#popup-image").show();
-}
-$("#popup-image").click(function() {
-	$("#popup-image").hide();
-});
 </script>
 <?
-		echo '<div style="clear:both;float:left;width:100%;"><hr class="search"></div>';
+		//echo '<div style="clear:both;float:left;width:100%;"><hr class="search"></div>';
 		include('ajax/edderkopper_popup.php');
 	}
 
