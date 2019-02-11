@@ -63,7 +63,6 @@ class TemplateBase extends Db {
 <?
 	}
 
-
 	//get all pages associated with CURRENT_PAGE_ID
 	protected function getRelatedContent($includeSelf=false) {
 		$links=array();
@@ -83,10 +82,7 @@ class TemplateBase extends Db {
 
 			$SQL.='and p.category_id='.$cat.' and '.$visible.' order by weight';
 
-			//mysql_set_charset('Latin1');
-			$this->setLatin1();
 			$result = $this->query($SQL);
-			//$this->debug($result);
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$links[]=$row;
 			}
