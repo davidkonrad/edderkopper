@@ -36,11 +36,9 @@ function showZootopo() {
 	}
 }
 $(document).ready(function() {
-	/*
 	$("#familie").combobox({ source: "ajax/edderkopper_lookup.php" });
 	$("#genus").combobox({ source: "ajax/edderkopper_lookup.php" });
 	$("#species").combobox({ source: "ajax/edderkopper_lookup.php" });
-	*/
 
 	var map = Edderkopper.initPolygonMap();
 	Edderkopper.initKommuner();

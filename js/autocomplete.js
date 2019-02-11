@@ -12,6 +12,7 @@
 				input = $( "<input>" )
 					.appendTo( wrapper )
 					.val( value )
+					.attr('spellcheck', false)
 					.addClass( "ui-combobox-input placeholder" )
 					.autocomplete({
 						delay: 0,
@@ -27,14 +28,11 @@
 							},
 							error :function(jqXHR, textStatus, errorThrown) {
 								alert(+textStatus+' '+errorThrown+' '+jqXHR.responseText);
-								console.log(jqXHR.responseText);
 							},
 							complete :function (jqXHR, textStatus) {
-								//alert('complete');
-								//alert('complete: '+textStatus);
+								//
 							},
 							success: function( data ) {
-								//alert(data);
 								response( $.map( data, function( item ) {
 									return {
 										value: item.value,
@@ -68,7 +66,7 @@
 								// remove invalid value, as it didn't match anything
 								$( this ).val( "" );
 								select.val( "" );
-								input.data( "autocomplete" ).term = "";
+								input.data( "ui-autocomplete" ).term = "";
 								return false;
 							} 
 						}
@@ -81,7 +79,7 @@
 				input.val('');
 			});
 
-			input.data( "autocomplete" )._renderItem = function( ul, item ) {
+			input.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
 				return $( "<li></li>" )
 					.data( "item.autocomplete", item )
 					.append( "<a>" + item.label + "</a>" )
