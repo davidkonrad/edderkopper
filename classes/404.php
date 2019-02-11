@@ -1,6 +1,6 @@
 <?
 
-class Page404 extends TemplateSimple {
+class Page404 extends TemplateEdderkopperGallery /*TemplateSimple*/ {
 	private $error;
 	private $code;
 

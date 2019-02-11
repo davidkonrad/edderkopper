@@ -81,8 +81,9 @@ input.edderkopper-show {
 }
 
 label[for="kort"], label[for="tabel"] {
-	margin-left: 1px;
+	margin-left: 3px;
 	margin-right: 5px;
+	display: inline-block;
 }
 
 /* override wrong icon paths */

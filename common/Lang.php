@@ -3,7 +3,7 @@
 class Lang {
 
 	static public function flagMenu($links = false) {
-		echo '<span id="flag-menu" class="flag-menu-cnt">';
+		echo '<span id="flag-menu" class="flag-menu-cnt" style="display:none;">';
 		if (!$links) {
 			for ($i=1;$i<=2;$i++) {
 				$selected=($_SESSION[LANGUAGE]==$i);

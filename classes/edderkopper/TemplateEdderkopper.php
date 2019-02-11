@@ -2,14 +2,12 @@
 
 error_reporting(E_ALL);
 
-
 class TemplateEdderkopper extends TemplateBase {
 	private $class_;
 	private $info;
 	private $page_id;
 
-	//hack : 
-	//$class can be class OR a page_id, so we can handle static pages
+	//hack : $class can be class OR a page_id, so we can handle static pages
 	public function __construct($class) {
 		parent::__construct($class);
 
@@ -104,7 +102,6 @@ foreach ($links as $link) {
 
 	protected function drawBody() {
 		if (is_object($this->class_)) {
-			//$this->debug($this->class_);
 			$this->class_->drawBody();
 		} else {
 			$this->drawStaticPage($this->page_id);
@@ -120,8 +117,10 @@ foreach ($links as $link) {
 
 	public function drawLexLink() {
 		$page_id = 81; //ClassEdderkopperLex has page_id 81
-		$SQL = 'select * from zn_page_content where page_id='.$page_id.' and lang_id='.$_SESSION['LANG'];
-		$row = $this->getRow($SQL);			
+		$lang_id = isset($_SESSION['LANG']) ? $_SESSION['LANG'] : 1;
+		$SQL = 'select * from zn_page_content where page_id='.$page_id.' and lang_id='.$lang_id;
+		$row = $this->getRow($SQL);		
+		if (!isset($row['semantic_name'])) return;
 
 		echo '<div style="width:400px;text-align:center;height:30px;margin-left:auto;margin-right:auto;">';
 		echo '<a href="'.$row['semantic_name'].'" title="'.$row['anchor_title'].'">'.$row['anchor_caption'].'</a>';
@@ -158,21 +157,6 @@ if ($_SESSION['LANG']==1) {
 <?
 $this->drawLexLink();
 ?>
-<script>
-$(document).ready(function()  {
-	$flagMenu = $("#flag-menu");
-	$logo = $("#top-cnt");
-	if ($flagMenu.length == 0 || $logo.length == 0) return;
-	$flagMenu.css('left', $logo.width()-80);
-	$flagMenu.css('top', $logo.offset().top-50);
-
-	//remove additional flag-menu's added by sub pages
-	var test=$('.flag-menu-cnt');
-	if (test.length>1) for (var i=test.length;i>0;i--) {
-		$(test[i]).remove();
-	}
-});
-</script>
 </body>
 </html>
 <?
@@ -217,10 +201,9 @@ $(document).ready(function()  {
 <title><? echo $this->getPageTitle(); ?></title>
 <meta name="description" content="<? echo $this->getMetaDesc(); ?>" />
 <link rel="shortcut icon" href='img/favicon_nat.ico' />
-<link rel="stylesheet" href="css/zn.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper-template.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/autocomplete.js"></script>
@@ -256,6 +239,7 @@ legend {
 	margin-bottom: 0px;
 }
 body {
+	margin: 0px;
 	line-height: 20px;
 	font-size: 14px;
 }

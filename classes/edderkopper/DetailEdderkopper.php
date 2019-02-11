@@ -57,11 +57,11 @@ class DetailEdderkopper extends DetailBase {
 		parent::extraHead();
 		if ($_SESSION['LANG']==1) {
 ?>
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true&language=da&v=3.33"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;language=da&v=3.33"></script>
 <?
 		} else {
 ?>
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true&language=en&v=3.33"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;language=en&v=3.33"></script>
 <?
 		}
 ?>
@@ -135,7 +135,6 @@ p {
 	position: relative;
 	top:3px;
 }
-/* !!!! */
 .details h3 {
 	float: left;
 	clear: left;
@@ -147,6 +146,9 @@ p {
 	clear: left;
 	display: inline;
 	overflow: hidden;
+}
+.fancybox-is-open .fancybox-bg {
+	opacity: .6;
 }
 </style>
 <?
@@ -439,13 +441,11 @@ $.fancybox.defaults.i18n.dk = {
 	THUMBS      : 'Miniaturer',
 	ZOOM        : 'Zoom'
 };
+$.fancybox.defaults.lang =  "<? echo $_SESSION['LANG']==2 ? 'en' : 'dk'; ?>";
 $(document).ready(function() {
 	$('[data-fancybox="gallery"]').fancybox({
-		buttons: [
-    "zoom",
-    "slideShow",
-    "close"
-	  ],
+		protect: true,
+		buttons: ["zoom","slideShow","close"]
 	});
 })
 

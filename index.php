@@ -2,14 +2,9 @@
 session_start();
 
 //debug
-//error_reporting(E_ALL);
-//ini_set('display_errors', '0'); //1
-
 ini_set('display_errors', '1'); //
 error_reporting(1);
 
-
-//any content derives ultimately from Db
 include_once('common/Db.php');
 
 //language db connection
@@ -34,11 +29,13 @@ include('common/Lang.php');
 include('common/HTML.php');
 include('common/PageLoader.php');
 include('classes/404.php');
-include('classes/StaticPage.php');
-include('classes/CategoryPage.php');
+
+
+//include('classes/StaticPage.php');
+//include('classes/CategoryPage.php');
 
 //frontpage
-include('classes/Sitemap.php');
+//include('classes/Sitemap.php');
 
 function __autoload($class) {
 	//class directories
@@ -59,14 +56,6 @@ function __autoload($class) {
 		} 
 	}
 }
-
-//adm
-include('adm/EditPage.php');
-include('adm/EditUsers.php');
-include('adm/EditTextCodes.php');
-include('adm/EditTranslations.php');
-include('adm/EditCategories.php');
-include('adm/EditSemanticNames.php');
 
 //consts
 define('EDIT_PAGE','editpage');

@@ -1,7 +1,6 @@
 <?
 
 //debug
-//error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 ini_set('display_errors', '1');
 
 class ClassEdderkopper extends ClassBase {
@@ -94,11 +93,11 @@ $(document).ready(function() {
 	public function extraHead() {
 		if ($_SESSION['LANG']==1) {
 ?>
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true&language=da&v=3.33"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;language=da&v=3.33"></script>
 <?
 		} else {
 ?>
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;sensor=true&language=en&v=3.33"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAOj0_u0DRE2dK8X9YptdCXtxt89UCqfoo&amp;language=en&v=3.33"></script>
 <?
 		}
 ?>

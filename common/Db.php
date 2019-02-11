@@ -79,6 +79,7 @@ class Db extends DbProvider {
 	}
 			
 	protected function query($SQL) {
+		if (!isset($this->pdo)) return array('error' => 'Db not initialized.');
 		try {
 			$result = $this->pdo->query($SQL);
 			return $result;
@@ -165,6 +166,7 @@ class Db extends DbProvider {
 	}		
 
 	public function getRow($SQL, $assoc = false) {
+		if (!isset($this->pdo)) return array('error' => 'Db not initialized.');
 		try {
 			$result = $this->query($SQL);
 			if (!$assoc) {

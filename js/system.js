@@ -5,10 +5,9 @@ if (!window.console) console = { log: function(){} };
 var System = {
 
 		init : function() {
-			System.alertIE();
+			//System.alertIE();
 			System.styleElements();
 			System.adjustFlagMenu();
-			System.adjustKolofon();
 		},
 
 		alertIE : function() {
@@ -62,25 +61,17 @@ var System = {
 
 		adjustFlagMenu : function() {
 			$flagMenu = $("#flag-menu");
-			$logo = $("#KUlogo");
- 			if ($flagMenu.length == 0 || $logo.length == 0) return;
-			$flagMenu.css('left', $logo.width()-45);
+			$logo = $("#top-cnt");
+			if ($flagMenu.length == 0 || $logo.length == 0) return;
+			$flagMenu.css('left', $logo.width()-80);
 			$flagMenu.css('top', $logo.offset().top-50);
+			$flagMenu.css('display', 'inline-block');
 
 			//remove additional flag-menu's added by sub pages
-			var test=$('.flag-menu-cnt');
+			var test = $('.flag-menu-cnt');
 			if (test.length>1) for (var i=test.length;i>0;i--) {
 				$(test[i]).remove();
 			}
-		},
-
-		adjustKolofon : function() {
-			var kolofon = $('.kolofon');
-			if (kolofon.length<=0) return;
-			kolofon.css('margin-bottom', '20px');
-			kolofon.prependTo(kolofon.parent());
-			kolofon.find('div').css('display','block');
-			kolofon.find('.fold-arrow').remove();
 		},
 
 		adjustPageHeight : function() {
@@ -97,7 +88,6 @@ var System = {
 			});
 			$("#page-body").css('height', height);
 		}
-	
 
 }
 
@@ -107,9 +97,9 @@ $(document).ready(function() {
 
 //enhance $('button') with a disable function
 jQuery.fn.extend({
-    disable: function(state) {
-        return this.each(function() {
-            this.disabled = state;
-        });
-    }
+	disable: function(state) {
+		return this.each(function() {
+			this.disabled = state;
+		});
+	}
 });

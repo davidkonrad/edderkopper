@@ -50,23 +50,6 @@ class TemplateSimple extends TemplateBase {
 
 	protected function drawRelatedContent() {
 		if (isset($_SESSION[CURRENT_PAGE_ID])) {
-			/*
-			$SQL='select category_id from zn_page where page_id='.$_SESSION[CURRENT_PAGE_ID];
-			$res=$this->getRow($SQL);
-			$cat=$res['category_id'];
-
-			$SQL='select p.page_id, p.kolofon, c.anchor_caption, c.anchor_title, c.semantic_name '.
-				'from zn_page p, zn_page_content c '.
-				'where c.lang_id='.$_SESSION[LANGUAGE].' and c.page_id=p.page_id and p.page_id<>'.$_SESSION[CURRENT_PAGE_ID].' '.
-			 	'and p.category_id='.$cat.' and visible=1 order by weight';
-
-			mysql_set_charset('Latin1');
-			$res=$this->query($SQL);
-			if ($res) {
-				echo '<script type="text/javascript" src="js/fold.js"></script>'."\n";
-			}
-			while ($row=mysql_fetch_array($res)) {
-			*/
 			$content=$this->getRelatedContent();
 			foreach ($content as $row) {
 				$processed=false;
@@ -99,7 +82,6 @@ class TemplateSimple extends TemplateBase {
 				if (($result) && (mysql_num_rows($result)>0)) {
 					$processed=true;
 					$data=mysql_fetch_array($result);
-					//$target=($data['blank']==1) ? ' target=_blank' : '';
 					$target=($data['blank']==1) ? ' class="blank"' : '';
 
 					echo '<fieldset id="f'.$row['page_id'].'" class="fold-box">';
@@ -168,7 +150,6 @@ $(document).ready(function() {
 
 	protected function drawBody() {
 		Lang::flagMenu($this->getLangLinks($this->page_id));
-		//Lang::drawFlagMenu();
 	}
 
 	// override to insert additional lines in the <head>..</head> section
@@ -223,7 +204,6 @@ Tel. +45 35 32 22 22<br/></address>
 <meta name="description" content="<? $this->getMetaDesc(); ?>" />
 <meta name="google-site-verification" content="HSgAR21NPqTsqtGQpqkIIaPtxpQyxbBgooQaANMEw_Q" />
 <link rel="shortcut icon" href='img/favicon_nat.ico' />
-<link rel="stylesheet" href="css/zn.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/template.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css?ver=123" type="text/css" media="screen" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

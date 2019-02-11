@@ -5,8 +5,7 @@ class TemplateEdderkopperGallery extends TemplateEdderkopper { //TemplateBase
 	private $info;
 	private $page_id;
 
-	//hack : 
-	//$class can be class OR a page_id, so we can handle static pages
+	//hack : $class can be class OR a page_id, so we can handle static pages
 	public function __construct($class) {
 		parent::__construct($class);
 
@@ -61,7 +60,6 @@ class TemplateEdderkopperGallery extends TemplateEdderkopper { //TemplateBase
 		echo '<fieldset id="static'.$this->page_id.'">';
 		echo '<legend>'.$this->row['anchor_caption'].'</legend>';
 
-		//mysql_set_charset('utf8');
 		$subject = $_SESSION[LANGUAGE]==1 ? 'SubjectDK' : 'SubjectUK';
 		$SQL='select p.SpeciesID, p.Filename, p.'.$subject.' as subject '.
 				'from edderkopper_photo p, edderkopper_species s '.
@@ -140,6 +138,12 @@ $(document).ready(function() {
 	$('#gallery').carousel({
 		interval : 4000,
 	});
+	$('[data-fancybox="images"]').fancybox({
+		protect: true,
+		fullScreen: {
+			autoStart: false
+		}
+	});
 });
 </script>
 </div> <!-- mainFrame -->
@@ -171,17 +175,7 @@ $this->drawLexLink();
 ?>
 <script>
 $(document).ready(function()  {
-	$flagMenu = $("#flag-menu");
-	$logo = $("#top-cnt");
-	if ($flagMenu.length == 0 || $logo.length == 0) return;
-	$flagMenu.css('left', $logo.width()-80);
-	$flagMenu.css('top', $logo.offset().top-50);
-
-	//remove additional flag-menu's added by sub pages
-	var test=$('.flag-menu-cnt');
-	if (test.length>1) for (var i=test.length;i>0;i--) {
-		$(test[i]).remove();
-	}
+	System.adjustFlagMenu();
 });
 </script>
 </body>
@@ -202,20 +196,16 @@ $(document).ready(function()  {
 <title><? echo $this->getPageTitle(); ?></title>
 <meta name="description" content="<? echo $this->getMetaDesc(); ?>" />
 <link rel="shortcut icon" href='img/favicon_nat.ico' />
-<link rel="stylesheet" href="css/zn.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/edderkopper-template.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/autocomplete.js"></script>
-<script type="text/javascript" src="js/search.js"></script>
-<script type="text/javascript" src="js/date.js"></script>
-<script type="text/javascript" src="js/system.js"></script>
-<script type="text/javascript" src="plugins/chosen/chosen.jquery.js"></script>
-<link rel="stylesheet" href="plugins/chosen/chosen.css" type="text/css" />
 <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.js"></script>
 <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="js/system.js"></script>
 <meta name="google-site-verification" content="KHDDqSOxRL2dc9nV-5cthqyxTSmfdAd0ENFZB56m5zU" />
 <style>
 a {
@@ -224,11 +214,10 @@ a {
 a:hover {
 	color: green;
 }
-
 ol.carousel-indicators {
 	display: none;
 }
-/* override boostrap settings */
+/* override bootstrap settings */
 fieldset {
 	margin: 0px;
 	padding: 16px;
@@ -238,6 +227,9 @@ legend {
 }
 .carousel {
 	margin-bottom: 5px; 
+}
+.fancybox-is-open .fancybox-bg {
+	opacity: .6;
 }
 </style>
 <? $this->extraHead(); ?>

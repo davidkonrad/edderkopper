@@ -3,8 +3,6 @@
 error_reporting(1);
 ini_set('display_errors', '1'); 
 
-//error_reporting(0);
-//error_reporting(E_ALL ^ E_STRICT);
 
 class PageLoader extends Db {
 	//matching page_id found by getPageType, regardless page type or semantic_name load of page
@@ -31,15 +29,7 @@ class PageLoader extends Db {
 
 		//set introduktion-til-danmarks-edderkopper as frontpage, if no page specied
 		if ($semantic=='') {
-			if (Login::isLoggedIn()) {
-				//load admin page
-				Lang::load();
-				$page = new Sitemap();
-				$page->draw();
-				return;
-			} else {
-				$semantic='introduktion-til-danmarks-edderkopper';
-			}
+			$semantic = 'introduktion-til-danmarks-edderkopper';
 		}
 
 		if (($semantic!='') || ($id>0)) {
@@ -131,7 +121,6 @@ class PageLoader extends Db {
 
 	protected function loadPage($semantic, $id) {
 		//process $semantic, 
-		//echo $semantic;
 		$url=parse_url($semantic);
 		//cleanup semantic, params now in $url['query'], if any (!!)
 		if (strpos($semantic, '?')>0) {
