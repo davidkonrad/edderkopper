@@ -86,15 +86,12 @@ var adm = {
 
 	checkCSV : function() {
 		var csv = adm.getCSV(this);
+		$('#messages').dialog('open');
 		$.ajax({
 			url : 'ajax/edderkopper/actions.php?action=check&csv='+csv,
 			success : function(msg) {
-				if (msg == '') {
-					adm.msg('<b>'+csv+' ser ud til at være en gyldig edderkoppe-CSV'+'</b>');
-				} else {
-					adm.msg('<b>Fejl i '+csv+'</b>');
-					adm.msg(msg);
-				}
+				adm.msg('>> Tester <b>'+csv+'</b> ...');
+				adm.msg(msg);
 			}
 		});
 	},
@@ -204,15 +201,6 @@ $(document).ready(function() {
 		}
 		return true;
 	});
-
-	/* ????????????
-	$('body').on('focus', "input.autoselect", function(e) {
-		e.preventDefault()
-		e.stopImmediatePropagation()
-		this.select()
-		return false
-	});
-	*/
 
 	$("#generate-checklist").on('click', function() {			
 		adm.generateChecklist();

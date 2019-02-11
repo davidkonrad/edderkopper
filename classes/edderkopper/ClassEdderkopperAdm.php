@@ -97,7 +97,13 @@ $(document).ready(function() {
 	});
 
 	$("#messages").dialog({
-		width: 500
+		width: 500,
+		position: { my: "left top", at: "left top" },
+		dialogClass: 'fixed-dialog'
+	});
+	$('<button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only" title="Rens"><span class="ui-button-icon ui-icon ui-icon-scissors"></span><span class="ui-button-icon-space"></span>x</button>').insertBefore($('.ui-dialog-titlebar-close'));
+	$('.ui-icon-scissors').on('click', function() {
+		$('#messages').empty();
 	});
 });
 </script>
@@ -131,7 +137,7 @@ $(document).ready(function() {
 			<div id="csv-filelist" style="clear:left;"></div>
 
 <!-- messages window -->
-<div XXid="messages" title="Status på serveren">
+<div id="messages" title="Status på serveren" style="display:none;">
 <?
 $f=$this->getParam('f');
 $m=$this->getParam('m');

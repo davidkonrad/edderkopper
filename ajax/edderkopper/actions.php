@@ -116,6 +116,7 @@ class Insert extends CSV {
 	private function getStr($array, $quotes = false) {
 		$str = '';
 		foreach($array as $value) {
+			/*
 			$value=str_replace(array(
 				"\t",   //tab.
 				"\n",   //new line 
@@ -135,6 +136,13 @@ class Insert extends CSV {
 				$str.='"'.mysql_real_escape_string($value).'"';
 			} else {
 				$str.=str_replace('"', '', $value);
+			}
+			*/
+			if ($str!='') $str.=',';
+			if ($quotes) {
+				$str .= '"'.addslashes($value).'"';
+			} else {
+				$str .= $value;
 			}
 		}
 		return $str;
@@ -162,20 +170,14 @@ class Insert extends CSV {
 					.$fieldNames
 					.' values ('.$values.')';
 
-				echo $SQL;
+				//echo $SQL.'<br><br>';
 				
-				$this->query($SQL);
+				$this->exec($SQL);
 				$count++;
 
-				/*
-				if (mysql_error()!='') {
-					$error = '<span class="msg-error">'.mysql_error().'</span>';
-					break;
-				}
-				*/
-
+				//if ($count>5) return;
 			}
-		    fclose($handle);
+	    fclose($handle);
 			echo $error;
 		}
 	}
@@ -215,9 +217,10 @@ class Check extends CSV {
 					echo '<b>'.$column.'</b> mangler. ';
 				}
 			}
+			if (!$err) echo 'CSV struktur ok!';
 		}
-	    fclose($handle);
-    }
+    fclose($handle);
+	}
 }
 
 /*****************************

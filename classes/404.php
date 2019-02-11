@@ -19,6 +19,3 @@ class Page404 extends TemplateEdderkopperGallery /*TemplateSimple*/ {
 }
 
 ?>
-
-
-

@@ -213,6 +213,7 @@ a {
 }
 a:hover {
 	color: green;
+	text-decoration: none;
 }
 ol.carousel-indicators {
 	display: none;

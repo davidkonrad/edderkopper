@@ -91,3 +91,8 @@ span.cke_skin_kama {
 	padding: 0px !important;
 }
 
+/* #messages dialog */
+.fixed-dialog {
+  position: fixed;
+}
+
