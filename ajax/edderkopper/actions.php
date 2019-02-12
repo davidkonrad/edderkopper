@@ -122,6 +122,8 @@ class Insert extends CSV {
 			if ($this->LatPrecIndex == $count) $value = str_replace(',', '.', $value);
 			if ($this->LongPrecIndex == $count) $value = str_replace(',', '.', $value);
 
+			$value = utf8_encode($value);
+
 			if ($str!='') $str.=',';
 			if ($quotes) {
 				$str .= '"'.addslashes($value).'"';
@@ -140,7 +142,6 @@ class Insert extends CSV {
 			if ($c == 'LatPrec') $this->LatPrecIndex = $count;
 			if ($c == 'LongPrec') $this->LongPrecIndex = $count;
 		}
-		echo 'LAT:'.$this->LatPrecIndex.' LNG:'.$this->LongPrecIndex;
 
 		$error = $this->csv.' er indsat i fund-tabellen ..';
 		if (($handle = fopen(UPLOAD_PATH.$this->csv, "r")) !== false) {
@@ -175,7 +176,6 @@ class Insert extends CSV {
 //delete
 class Delete extends CSV { 
 	public function __construct() {
-
 		parent::__construct();
 		$this->run();
 	}

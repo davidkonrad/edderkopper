@@ -50,6 +50,9 @@ var adm = {
 						success : function(msg) {
 							adm.msg(msg);
 							adm.updateName();
+						},
+						error: function() {
+							console.log(arguments)
 						}
 					});
 				}
