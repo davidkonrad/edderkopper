@@ -1,4 +1,4 @@
-##CSV anbefalinger
+## CSV anbefalinger
 
 * Filen bør pt. være semikolon-separeret, dvs kolonner adskilles med `;`.
 
@@ -11,7 +11,7 @@
 
 
 
-##Indsæt popup billede i tekst
+### Indsæt popup billede i tekst
 
 `<a data-fancybox="images" href=" **URL** "> ** TEKST ** </a>`
 
