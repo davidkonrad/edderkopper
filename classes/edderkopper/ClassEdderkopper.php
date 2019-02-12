@@ -56,14 +56,14 @@ $(document).ready(function() {
 		}
 	});	
 
-	$('form[name="edderkopper"]').on('change keyup select', 'input,select', function() {
-		$('#search-button').prop('disabled', 'disabled')
-		$('form[name="edderkopper"] input:not([type="button"]), form[name="edderkopper"] select').each(function() {
-			if ($(this).val() != '' && $(this).val() != 'on') {
-				$('#search-button').removeProp('disabled')
-				return
-			}
-		})
+	$('#search-button').disable(true);
+
+	$('form[name="edderkopper"]').on('change keyup select keypress', 'input,select', function() {
+		if (Search.formHasInput({ form_id: '#edderkopper' })) {
+			$('#search-button').button('enable')
+		} else {
+			$('#search-button').button('disable')
+		}
 	})
 
 });

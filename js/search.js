@@ -1,3 +1,4 @@
+;'use strict';
 
 function SearchItem(form) {
 	this.caption = '';	//title of the searchclass, ex "Our bad ass collection"
@@ -165,6 +166,27 @@ var Search = {
 		});
 
 		return params;
+	},
+
+	formHasInput: function(item) {
+		var ret;
+		$(item.form_id+ ' input[type=text], input[type=hidden]').each(function() {
+			if (['sess_lang', 'loggedin'].indexOf(this.name)<0) {
+				if (this.value != '')	ret = 'input'
+			}
+		})
+		for (var i=0;i<this.current_search.lookupFields.length;i++) {
+			var field=this.current_search.lookupFields[i];
+			value=(this.current_search.lookupValues[field]!=undefined) ? this.current_search.lookupValues[field] : false;
+			if (value) ret = 'lookup'
+		}
+		$(item.form_id+' select').each(function(i) {
+			if ($(this).val()) ret = 'select'
+		});
+		$(item.form_id+ ' input[type=checkbox]').each(function() {
+			if ($(this).is(':checked')) ret = 'checkbox'
+		});
+		return ret
 	},
 
 	prepareSubmit : function(item) {

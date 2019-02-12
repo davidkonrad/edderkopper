@@ -90,7 +90,7 @@ var Edderkopper = {
 				})
 				$('#leg').typeahead({
 					minLength : 1,
-					showHintOnFocus: true,
+					showHintOnFocus: false,
 					items : 10,
 					source: legs,
 					afterSelect: function() {
@@ -111,7 +111,7 @@ var Edderkopper = {
 				})
 				$('#locality').typeahead({
 					minLength : 1,
-					showHintOnFocus: true,
+					showHintOnFocus: false,
 					items : 10,
 					source: localities,
 					afterSelect: function() {
@@ -130,7 +130,7 @@ var Edderkopper = {
 		}
 		$('#utm').typeahead({
 			minLength : 1,
-			showHintOnFocus: true,
+			showHintOnFocus: false,
 			items : 10,
 			source: utm,
 			afterSelect: function(utm) {
