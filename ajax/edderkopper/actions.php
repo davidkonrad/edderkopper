@@ -115,29 +115,13 @@ class Insert extends CSV {
 	}
 	private function getStr($array, $quotes = false) {
 		$str = '';
+		$count = -1;
 		foreach($array as $value) {
-			/*
-			$value=str_replace(array(
-				"\t",   //tab.
-				"\n",   //new line 
-				"\r",   //return
-				"\0",   //NUL-byte.
-				"\x0B", //vertical tab.
-				"ï",	//lissners mærkelige ï»¿ (BOM)
-				"»",	//lissners mærkelige ï»¿
-				"¿",	//lissners mærkelige ï»¿
-				"\xEF", //BOM #2
-				"\xBB", //BOM #2
-				"\xBF" //BOM #2
-				), '', $value);
+			$count++;
+			
+			if ($this->LatPrecIndex == $count) $value = str_replace(',', '.', $value);
+			if ($this->LongPrecIndex == $count) $value = str_replace(',', '.', $value);
 
-			if ($str!='') $str.=',';
-			if ($quotes) {
-				$str.='"'.mysql_real_escape_string($value).'"';
-			} else {
-				$str.=str_replace('"', '', $value);
-			}
-			*/
 			if ($str!='') $str.=',';
 			if ($quotes) {
 				$str .= '"'.addslashes($value).'"';
@@ -149,6 +133,15 @@ class Insert extends CSV {
 	}
 	private function run() {
 		global $columns;
+
+		$count = -1;
+		foreach($columns as $c) {
+			$count++;
+			if ($c == 'LatPrec') $this->LatPrecIndex = $count;
+			if ($c == 'LongPrec') $this->LongPrecIndex = $count;
+		}
+		echo 'LAT:'.$this->LatPrecIndex.' LNG:'.$this->LongPrecIndex;
+
 		$error = $this->csv.' er indsat i fund-tabellen ..';
 		if (($handle = fopen(UPLOAD_PATH.$this->csv, "r")) !== false) {
 			//read columns / first line
@@ -170,12 +163,8 @@ class Insert extends CSV {
 					.$fieldNames
 					.' values ('.$values.')';
 
-				//echo $SQL.'<br><br>';
-				
 				$this->exec($SQL);
 				$count++;
-
-				//if ($count>5) return;
 			}
 	    fclose($handle);
 			echo $error;
