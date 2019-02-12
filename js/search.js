@@ -146,16 +146,18 @@ var Search = {
 
 		//selects
 		$(item.form_id+' select').each(function(i) {
-			var sel=$(this).val();
-			if (sel!='') {
-				if (params!='') params+='&';
-				params+=$(this).attr('name')+'='+sel;
+			if ($(this).attr('name')) {
+				var sel=$(this).val();
+				if (sel!='') {
+					if (params!='') params+='&';
+					params+=$(this).attr('name')+'='+sel;
+				}
 			}
 		});
 
 		//checkboxes
-		$(item.form_id+ ' input[type=checkbox]').each(function(i) {
-			if ($(this).attr('checked')=='checked') {
+		$(item.form_id+ ' input[type=checkbox]').each(function() {
+			if ($(this).is(':checked')) {
 				if (params!='') params+='&';
 				params+=$(this).attr('name');
 				params+='='+encodeURIComponent($(this).val());

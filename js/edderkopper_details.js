@@ -124,7 +124,10 @@ var Details = {
 			bounds.extend( new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() + 0.01) );
 			bounds.extend( new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() - 0.01) );
 		}
-		Details.map.fitBounds(bounds); 
+
+		setTimeout(function() {
+			Details.map.fitBounds(bounds); 
+		}, 100);
 
 		Details.mapLoaded = true;
 		Search.wait(false);
