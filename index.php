@@ -30,13 +30,6 @@ include('common/HTML.php');
 include('common/PageLoader.php');
 include('classes/404.php');
 
-
-//include('classes/StaticPage.php');
-//include('classes/CategoryPage.php');
-
-//frontpage
-//include('classes/Sitemap.php');
-
 function __autoload($class) {
 	//class directories
 	$class_dir = array(

@@ -15,15 +15,7 @@ class PageLoader extends Db {
 		//DEFAULT_USER = 1
 		$this->user = Login::isLoggedIn();
 
-		if ($ignore) {
-			Lang::load();
-			$page = new Sitemap();
-			$page->draw();
-			return;
-		}
-
 		$semantic = $this->currentSemanticName();
-
 		if ($semantic=='index.php') $semantic='';
 		$id = (isset($_GET['id'])) ? $_GET['id'] : '';
 
@@ -32,12 +24,7 @@ class PageLoader extends Db {
 			$semantic = 'introduktion-til-danmarks-edderkopper';
 		}
 
-		if (($semantic!='') || ($id>0)) {
-			$page = $this->loadPage($semantic, $id);
-		} else {
-			Lang::load(); //??
-			$page = new Sitemap();
-		}
+		$page = $this->loadPage($semantic, $id);
 
 		$_SESSION[CURRENT_PAGE_ID]=$this->page_id;
 
@@ -206,15 +193,6 @@ class PageLoader extends Db {
 				}
 				return new Page404(404, trans(LAB_404));
 				break;
-
-/*
-			case PAGE_STATIC : $template = $this->getCategoryTemplate();
-							if ($template!='TemplateClass') {
-								return new $template($this->page_id);
-							} else {
-								return new StaticPage($this->page_id);
-							}
-*/
 
 			case PAGE_STATIC : 
 				$SQL='select alternative_template from zn_page where page_id='.$this->page_id;
