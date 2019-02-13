@@ -35,11 +35,29 @@ function showZootopo() {
 		Geo.Regioner.showRegion(region, polygonMap);
 	}
 }
+
 $(document).ready(function() {
 	$("#familie").combobox({ source: "ajax/edderkopper_lookup.php" });
 	$("#genus").combobox({ source: "ajax/edderkopper_lookup.php" });
 	$("#species").combobox({ source: "ajax/edderkopper_lookup.php" });
-
+	$(document).on('taxachange', function(e) {
+		function clear(id) {
+			$('#'+id).val('');
+			$('#'+id+'_combobox').val('');
+		}
+		switch (e.originalEvent.detail) {
+			case 'familie': 
+				clear('genus');
+				clear('species');
+				break;
+			case 'genus': 
+				clear('species');
+				break;
+			case 'species': 
+				break;
+		}		
+	});
+	
 	var map = Edderkopper.initPolygonMap();
 	Edderkopper.initKommuner();
 	Edderkopper.initLocalities();

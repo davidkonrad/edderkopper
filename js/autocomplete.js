@@ -13,6 +13,7 @@
 					.appendTo( wrapper )
 					.val( value )
 					.attr('spellcheck', false)
+					.attr('id', self.element[0].id+'_combobox')
 					.addClass( "ui-combobox-input placeholder" )
 					.autocomplete({
 						delay: 0,
@@ -27,10 +28,7 @@
 								lookup: request.term
 							},
 							error :function(jqXHR, textStatus, errorThrown) {
-								alert(+textStatus+' '+errorThrown+' '+jqXHR.responseText);
-							},
-							complete :function (jqXHR, textStatus) {
-								//
+								console.log(arguments)
 							},
 							success: function( data ) {
 								response( $.map( data, function( item ) {
@@ -52,10 +50,10 @@
 						});
 						//broadcast to original input
 						self.element[0].dispatchEvent(new Event('change', { bubbles: true, cancelable: true } ));
+						document.dispatchEvent(new CustomEvent('taxachange', { bubbles: true, cancelable: true, detail: self.element[0].id } ));
 					},
 
 					change: function( event, ui ) {
-						console.log('change');
 						if ( !ui.item ) {
 							var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
 							valid = false;
@@ -117,6 +115,8 @@
 					input.autocomplete("search"," ");
 					input.focus();
 				});
+
+			return this
 		},
 		destroy: function() {
 			this.wrapper.remove();
