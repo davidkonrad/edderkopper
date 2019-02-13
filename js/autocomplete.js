@@ -50,9 +50,12 @@
 						self._trigger( "selected", event, {
 							item: ui.item.label //option
 						});
+						//broadcast to original input
+						self.element[0].dispatchEvent(new Event('change', { bubbles: true, cancelable: true } ));
 					},
 
 					change: function( event, ui ) {
+						console.log('change');
 						if ( !ui.item ) {
 							var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
 							valid = false;
@@ -77,6 +80,10 @@
 			input.click(function() {
 				Search.setLookupValue($(select).attr('id'), '');
 				input.val('');
+			});
+
+			input.blur(function() {
+				self.element[0].dispatchEvent(new Event('change', { bubbles: true, cancelable: true } ));
 			});
 
 			input.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
