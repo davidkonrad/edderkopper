@@ -125,14 +125,21 @@ var adm = {
 	generateChecklist : function() {
 		adm.msgWait();
 		$.ajax({
-			url : 'ajax/edderkopper_checklist.php?action=create',
-			success : function() {
+			url: 'ajax/edderkopper_checklist.php?action=create',
+			timeout: 120000,
+			success: function() {
 				adm.msg('<b>Tjekliste er opdateret!</b>');
-			}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				adm.msg(JSON.stringify(xhr));
+				adm.msg(JSON.stringify(thrownError));
+			}			
 		});
 	},
 
 	msg : function(msg) {
+		$("#messages").dialog('open');
+
 		//remove any images
 		$("#messages").find('img').remove();
 

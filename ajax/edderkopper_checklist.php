@@ -7,7 +7,7 @@ include('../common/Db.php');
 class Checklist extends Db {
 	private $distrikter=array('SJ','EJ','WJ','NWJ','NEJ','F','LFM','SZ','NWZ','NEZ','B');
 	private $pdf='';
-	private $filename = '../edderkopper-upload/checklist/checklist.html';
+	private $filename = '../edderkopper-upload/tjekliste/tjekliste.html';
 
 	public function __construct() {
 		parent::__construct();
@@ -19,10 +19,14 @@ class Checklist extends Db {
 				break;
 			case 'create' :
 				$this->createChecklist();
+				$this->MPDF();
 				break;
+			/*
+			fremover genereres PDF'en een gang 
 			case 'pdf' :
 				$this->MPDF();
 				break;
+			*/
 			default :
 				break;
 		}
@@ -92,28 +96,16 @@ td.name {
 	}	
 		
 	private function MPDF() {
-		include('../MPDF56/mpdf.php');
-		ini_set('memory_limit', '-1');
-		set_time_limit(0);
-
-		//!!!
-		header('Content-type: application/pdf');
-		header('Content-Disposition: inline; filename="checkliste.pdf"');
-		header('Content-Transfer-Encoding: binary');
-		//!!!
-
-		//echo $this->pdf;
-		$stylesheet=file_get_contents('../css/edderkopper_checkliste.css');
-		$mpdf=new mPDF();
-		$this->mpdf->allow_charset_conversion = true; //
+		require_once '../mPDF61/vendor/autoload.php';
+		$stylesheet = file_get_contents('../css/edderkopper_checkliste.css');
+		$mpdf = new mPDF();
+		$mpdf->allow_charset_conversion = true; //
 		$mpdf->debug = false; //
-		$mpdf->WriteHTML($stylesheet,1);
+		$mpdf->WriteHTML($stylesheet, 1);
 
-		$html=file_get_contents($this->filename);
-		//$mpdf->WriteHTML($this->pdf);
+		$html = file_get_contents($this->filename);
 		$mpdf->WriteHTML($html);
-		$mpdf->Output('checkliste.pdf','D');
-
+		$mpdf->Output('../edderkopper-upload/tjekliste/tjekliste.pdf','F');
 	}
 
 	private function cleanPDF() {
@@ -137,11 +129,10 @@ td.name {
 	}
 
 	private function makeList() {
-		$SQL='select distinct Family from edderkopper order by Family';
-		mysql_set_charset('utf8');
-		$result=$this->query($SQL);
+		$SQL = 'select distinct Family from edderkopper order by Family';
+		$result = $this->query($SQL);
 		$divider = false;
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$this->makeFamilyList($row['Family'], $divider);
 			$divider = true;
 		}
@@ -149,8 +140,8 @@ td.name {
 
 	private function makeFamilyList($family, $divider) {
 		$SQL='select distinct Name from edderkopper where Family="'.$family.'" order by Name';
-		$result=$this->query($SQL);
-		$count=mysql_num_rows($result);
+		$result = $this->query($SQL);
+		$count = $result->rowCount();
 
 		//create space before new family section	
 		if ($divider) {	
@@ -166,7 +157,7 @@ td.name {
 
 		$this->pdf.= '</tr>';
 
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$this->makeSpeciesList($row['Name']);
 		}
 	}
@@ -180,7 +171,7 @@ td.name {
 		
 	private function getNewest($dataset) {
 		$year=0;
-		while ($row = mysql_fetch_array($dataset)) {
+		while ($row = $dataset->fetch(PDO::FETCH_ASSOC)) {
 			//if ($year<$row['Year_first']) $year=$row['Year_first'];
 			if ($year<$row['Year_last']) $year=$row['Year_last'];
 		}
@@ -189,20 +180,18 @@ td.name {
 
 	private function makeSpeciesList($name) {
 		$this->pdf.= '<tr>';
-		//$this->pdf.= '<td><em>'.$name.'</em></td>';
 		$html='';
 		$recent=0;
 		foreach ($this->distrikter as $distrikt) {
-			//$SQL='select Year_first from edderkopper where Name="'.$name.'" and Region="'.$distrikt.'"';
 			$SQL='select Year_last from edderkopper where Name="'.$name.'" and Region="'.$distrikt.'"';
-			$dataset=$this->query($SQL);
-			$newest=$this->getNewest($dataset);
+			$dataset = $this->query($SQL);
+			$newest = $this->getNewest($dataset);
 			if ($newest>$recent) $recent=$newest;
 
 			$html.='<td class="border">'.$this->getIcon($newest).'</td>';
 		}
 		$this->pdf.= '<td class="name"><em>'.$name.'</em>';
-		if ($recent<1989) $this->pdf.= '&nbsp;&#1645;';
+		if ($recent<1989) $this->pdf.= '&nbsp;*'; //&#1645;
 		$this->pdf.= $html;
 		$this->pdf.= '</tr>'; 
 	}
