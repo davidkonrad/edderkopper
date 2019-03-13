@@ -24,6 +24,7 @@ class ClassEdderkopperAdm extends ClassBase {
 <script type="text/javascript" src="js/edderkopper_adm.family.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.fund.js"></script>
 <script type="text/javascript" src="js/edderkopper_adm.tekster.js"></script>
+<script type="text/javascript" src="js/edderkopper_adm.photo.js"></script>
 <script type="text/javascript" src="plugins/tabber/tabber.js"></script>
 <link rel="stylesheet" href="plugins/tabber/example.css" type="text/css" media="screen" />
 <script type="text/javascript">
@@ -45,16 +46,19 @@ $('body').on('click', '.tabbernav li', function(e) {
 	var tabName = e.currentTarget.innerText;
 	switch (tabName) {
 		case 'Specie':
-			$('#lookup-species').focus();
+			$('#lookup-species').focus()
 			break;
 		case 'Genus':
-			$('#lookup-genus').focus();
+			$('#lookup-genus').focus()
 			break;
 		case 'Family':
-			$('#lookup-family').focus();
+			$('#lookup-family').focus()
 			break;
 		case 'Fund':
-			$('#fund-lnr').focus();
+			$('#fund-lnr').focus()
+			break;
+		case 'Billeder':
+			$('.dataTables_filter input').focus()
 			break;
 		default:
 			break;
@@ -96,6 +100,7 @@ $(document).ready(function() {
 		}
 	});
 
+/*
 	$("#messages").dialog({
 		width: 500,
 		position: { my: "left top", at: "left top" },
@@ -105,6 +110,8 @@ $(document).ready(function() {
 	$('.ui-icon-scissors').on('click', function() {
 		$('#messages').empty();
 	});
+*/
+
 });
 </script>
 
@@ -120,7 +127,6 @@ $(document).ready(function() {
 	<div class="tabbertab">
 		<h2>Upload mv.</h2>
 		<p>
-			<br>
 			<button id="download">Download aktuel fund-database som CSV</button>
 <? HTML::divider(10);?>
 
@@ -156,12 +162,19 @@ if ($f && $m) {
 	<div class="tabbertab">
 		<h2>Tjekliste</h2>
 		<p>
-<button id="generate-checklist">Generér tjekliste</button>
-<a style="margin-left:20px;" href="Tjekliste-over-Danmarks-edderkopper">&#9658;&nbsp;Se tjekliste</a>
-<hr class="search">
-<button id="update-name">Opdatér &lt;name&gt; på fund</button>
+			<button id="generate-checklist">Generér tjekliste</button>
+			<a style="margin-left:20px;" href="Tjekliste-over-Danmarks-edderkopper">&#9658;&nbsp;Se tjekliste</a>
+			<hr class="search">
+			<button id="update-name">Opdatér &lt;name&gt; på fund</button>
 		</p>
 	</div>	
+
+	<div class="tabbertab">
+		<h2>Billeder</h2>
+		<p>
+			<table id="photo" class="display" style="width:100%"></table>
+		</p>
+	</div>
 
 	<div class="tabbertab">
 		<h2>Sidetekster</h2>
