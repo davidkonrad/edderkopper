@@ -130,6 +130,15 @@ table.dataTable.no-footer {
 
 table.dataTable thead .sorting_asc {
 	background-image: url(../DataTables-1.10.18/images/sort_asc.png);
+	background-position: 97% 60%;
+}
+table.dataTable thead .sorting_desc {
+	background-image: url(../DataTables-1.10.18/images/sort_desc.png);
+	background-position: 97% 60%;
+}
+table.dataTable thead .sorting {
+	background-image: url(../DataTables-1.10.18/images/sort_both.png);
+	background-position: 97% 60%;
 }
 
 
